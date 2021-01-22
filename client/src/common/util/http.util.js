@@ -3,7 +3,7 @@ import store from '@/store';
 import lodash from 'lodash';
 
 export const http = axios.create({
-  timeout: 120000,
+  timeout: 160000,
   baseURL: 'http://localhost:8081'
 });
 http.interceptors.request.use(
