@@ -1,0 +1,19 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialet: org.hibernate.dialect.MySQL55Dialect
+    open-in-view: false
+    database-platform: org.hibernate.dialect.MySQL55Dialect
+    generate-ddl: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/appoint?serverTimezone=Asia/Shanghai
+    username: root
+    password: 88888888
+    driver-class-name: org.mariadb.jdbc.Driver
+server:
+  port: 8081
