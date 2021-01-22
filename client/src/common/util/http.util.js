@@ -4,7 +4,7 @@ import lodash from 'lodash';
 
 export const http = axios.create({
   timeout: 120000,
-  baseURL: 'http://localhost:8082'
+  baseURL: 'http://localhost:8081'
 });
 http.interceptors.request.use(
   (config) => {
