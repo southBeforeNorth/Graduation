@@ -30,8 +30,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry){
         List<String> excludePath = new ArrayList<>();
         excludePath.add("/user/login");
-        excludePath.add("/user/createUser");
-
+        excludePath.add("/user/create");
+        excludePath.add("/user/nameList");
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(excludePath);

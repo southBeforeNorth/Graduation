@@ -1,14 +1,6 @@
 <template>
   <div>
-    <div class="register-top">
-      <img src="../../../../static/register1.svg"
-           class="log-top" style="color: #FFFFFF"  alt="log"/>
-      <img src="../../../../static/register2.svg"
-           style="margin: 0 10%"
-           class="log-top" alt="log"/>
-      <img src="../../../../static/register3.svg"
-           class="log-top" alt="log"/>
-    </div>
+    <TopPicture/>
     <div>
       <a-divider style="font-size: 38px">{{ $t('register.warningText.top') }}</a-divider>
     </div>
@@ -71,9 +63,6 @@
             :label="$t('register.label.sex')"
             prop="sex"
           >
-            <a-row span="24">
-              <a-col span="14">
-                <a-row>
             <a-radio-group
               v-model="form.sex">
               <a-radio value="男" >
@@ -85,24 +74,29 @@
                 {{ $t('register.label.girl') }}
               </a-radio>
             </a-radio-group>
-                </a-row>
-                <a-row style="margin-top: 10px">
-                  <a-button type="primary" @click="submitForm()" >
-                    {{ $t('register.warningText.submit') }}
-                  </a-button>
-                  <a-button style="margin-left: 10px" @click="resetForm()">
-                    {{ $t('register.warningText.reset') }}
-                  </a-button>
-                </a-row>
-              </a-col>
-              <a-col span ="10">
-                <Verify
-                  @success="validateSuccess"
-                  @error="validateError"
-                  :type="1"
-                  :codeLength="4"
-                  v-if="isShowValidatePicture"/>
-              </a-col>
+          </a-form-model-item>
+          <a-form-model-item
+            label=" "
+            :colon="false"
+          >
+            <a-row>
+              <a-col span="8">
+              <a-button type="primary" @click="submitForm()" >
+                {{ $t('register.warningText.submit') }}
+              </a-button>
+              <a-button style="margin-left: 10px" @click="resetForm()">
+                {{ $t('register.warningText.reset') }}
+              </a-button>
+            </a-col>
+            <a-col span ="16">
+              <Verify
+                style="margin-left:130px"
+                @success="validateSuccess"
+                @error="validateError"
+                :type="1"
+                :codeLength="4"
+                v-if="isShowValidatePicture"/>
+            </a-col>
             </a-row>
           </a-form-model-item>
         </a-form-model>
@@ -115,13 +109,15 @@
 import moment from 'moment';
 import Verify from 'vue2-verify';
 import userService from '@/service/user';
+import TopPicture from '@/components/topPicture/TopPicture.vue';
 import rules from './register.rules';
 
 export default {
   name: 'Register',
   mixins: [rules],
   components: {
-    Verify
+    Verify,
+    TopPicture
   },
   data() {
     return {
@@ -168,8 +164,13 @@ export default {
         user.sex = this.form.sex;
         userService.createUser(user).then((n) => {
           if (n.success) {
-            console.log(n);
+            this.$message.success(this.$t('register.warningText.success'));
+            this.$router.push({
+              path: '/login'
+            });
+            return;
           }
+            this.$message.error(this.$t('register.warningText.error'));
         });
       });
     },
@@ -188,15 +189,6 @@ export default {
 </script>
 
 <style scoped>
-  .register-top{
-    text-align: center;
-    height: 100px;
-    width: 100%;
-    background: #00A1D8;
-  }
-  .log-top{
-    width: 10%; height: 100%;
-  }
   /deep/ .ant-input {
     height: 40px;
   }

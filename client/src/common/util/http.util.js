@@ -1,5 +1,6 @@
 import axios from 'axios';
 import store from '@/store';
+import router from '@/router';
 import lodash from 'lodash';
 
 export const http = axios.create({
@@ -17,6 +18,15 @@ http.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+http.interceptors.response.use((res) => {
+  if (res.data.errorCode === '410') {
+    router.push({
+      path: '/login'
+    });
+  }
+  return res;
+},
+(error) => Promise.reject(error));
 export const get = async (url, params) => http.get(url, {
   params: {
     ...params

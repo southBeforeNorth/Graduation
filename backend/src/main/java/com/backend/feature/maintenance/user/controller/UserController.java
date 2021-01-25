@@ -31,16 +31,14 @@ public class UserController {
         throw new UserException(UserException.USER_NO_EXIST);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public CommonDTO<UserDTO> createUser(@RequestBody UserDTO userDTO) {
        return CommonDTOAssembler.convertTODTO(userService.create(userDTO));
     }
 
     @PostMapping("/login")
     public CommonDTO<String> login(@RequestBody UserDTO userDTO){
-        User user = new User();
-        user.setName(userDTO.getName());
-        return CommonDTOAssembler.convertTODTO(TokenUtil.sign(user));
+        return CommonDTOAssembler.convertTODTO(userService.login(userDTO));
     }
 
     @GetMapping("/nameList")

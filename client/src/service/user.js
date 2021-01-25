@@ -8,7 +8,7 @@ const getUserById = async () => {
   return result.data;
 };
 const createUser = async (params) => {
-  const result = await post(contextPath, params);
+  const result = await post(`${contextPath}/create`, params);
   return result.data;
 };
 const login = async (params) => {

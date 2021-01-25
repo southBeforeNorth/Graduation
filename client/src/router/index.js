@@ -17,12 +17,19 @@ const routes = [
     path: '/dictionary',
     component: () => import('@/views/maintenance/dictionary/Dictionary.vue'),
     meta: {
-      requireAuth: false
+      requireAuth: true
     }
   },
   {
     path: '/register',
     component: () => import('@/views/feture/register/Register.vue'),
+    meta: {
+      requireAuth: false
+    }
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/feture/login/Login.vue'),
     meta: {
       requireAuth: false
     }
@@ -39,6 +46,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
     const token = localStorage.getItem('token');
     if (lodash.isEmpty(token)) {
+      localStorage.setItem('preRoute', to.fullPath);
       next('/login');
     } else {
       next();

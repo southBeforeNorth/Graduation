@@ -1,7 +1,28 @@
 export default {
+  login: {
+    warningText: {
+      top: '登录',
+      success: '登录成功',
+      error: '用户名或密码错误，请重新输入'
+    },
+    label: {
+      name: '昵称',
+      password: '密码'
+    },
+    placeHolder: {
+      name: '请输入昵称',
+      password: '密码'
+    },
+    button: {
+      login: '点击登录',
+      register: '点击注册'
+    }
+  },
   register: {
     warningText: {
       top: '注册',
+      success: '注册成功，请登录',
+      error: '注册失败',
       submit: '点击注册',
       reset: '重置',
       validate: '请输入验证码',

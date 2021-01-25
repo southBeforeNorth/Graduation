@@ -20,6 +20,7 @@ public class TokenUtil {
             // json web token
             token = JWT.create()
                     .withIssuer("auth0")
+                    .withClaim("Id", user.getId())
                     .withClaim("userName", user.getName())
                     .withExpiresAt(expireAt)
                     .sign(Algorithm.HMAC256(TOKENSECRET));

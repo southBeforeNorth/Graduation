@@ -15,7 +15,6 @@ public class TokenInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handle) throws IOException {
-        System.out.println("进入拦截器");
         if(StringUtils.equals("OPTIONS", request.getMethod())){
             return true;
         }
