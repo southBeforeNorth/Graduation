@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="root">
+    <div class="header-wrapper">
     <span class="System">{{ $t('dictionary.name') }}</span>
     <a-button
       name="addButton"
@@ -8,7 +9,9 @@
     >
       <a-icon type="plus" />{{ $t('dictionary.addButton') }}
     </a-button>
+    </div>
     <a-divider dashed />
+    <div class="table-wrapper">
     <a-table
       :pagination="false"
       :data-source="dataSource"
@@ -144,6 +147,7 @@
         </template>
       </a-table>
     </a-table>
+    </div>
   </div>
 </template>
 
@@ -543,6 +547,19 @@ export default {
     background: #0053C5;
     box-shadow: 0px 4px 8px rgba(0, 83, 197, 0.15);
     border-radius: 4px;
+  }
+  .header-wrapper {
+    background: #D1E3FC;
+    padding: 20px;
+  }
+  .root {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .table-wrapper {
+    margin: 20px;
+    padding: 15px;
+    background: white;
   }
   .editable-row-operations a {
     margin-right: 8px;

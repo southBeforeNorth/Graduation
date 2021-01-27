@@ -79,7 +79,7 @@ export default {
         {
           title: this.$t('dictionaryOptions.sequence'),
           dataIndex: 'sequence',
-          width: '8%',
+          width: '10%',
           scopedSlots: { customRender: 'sequence' },
           sorter: (a, b) => a.sequence - b.sequence
         },
@@ -92,7 +92,7 @@ export default {
         {
           title: this.$t('common.action'),
           dataIndex: 'action',
-          width: '12%',
+          width: '10%',
           scopedSlots: { customRender: 'action' }
         }
       ];

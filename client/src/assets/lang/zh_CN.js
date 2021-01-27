@@ -1,4 +1,11 @@
 export default {
+  menu: {
+    label: {
+      manage: '维护',
+      dictionary: '字典',
+      user: '用户'
+    }
+  },
   login: {
     warningText: {
       top: '登录',

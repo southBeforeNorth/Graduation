@@ -7,18 +7,27 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/user',
-    component: () => import('@/views/maintenance/user/User.vue'),
+    path: '/manage',
+    component: () => import('@/components/layout/ManageLayout.vue'),
     meta: {
       requireAuth: false
-    }
-  },
-  {
-    path: '/dictionary',
-    component: () => import('@/views/maintenance/dictionary/Dictionary.vue'),
-    meta: {
-      requireAuth: true
-    }
+    },
+    children: [
+      {
+        path: 'user',
+        component: () => import('@/views/maintenance/user/User.vue'),
+        meta: {
+          requireAuth: false
+        }
+      },
+      {
+        path: 'dictionary',
+        component: () => import('@/views/maintenance/dictionary/Dictionary.vue'),
+        meta: {
+          requireAuth: true
+        }
+      }
+    ]
   },
   {
     path: '/register',
@@ -45,8 +54,8 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
     const token = localStorage.getItem('token');
+    localStorage.setItem('preRoute', to.fullPath);
     if (lodash.isEmpty(token)) {
-      localStorage.setItem('preRoute', to.fullPath);
       next('/login');
     } else {
       next();

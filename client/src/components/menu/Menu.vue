@@ -1,0 +1,110 @@
+<template>
+  <div
+    class="menu-wrapper"
+  >
+    <a-menu
+      class="menu"
+      mode="inline"
+      :open-keys="openKeys"
+      @openChange="onOpenChange"
+    >
+      <a-sub-menu key="sub1">
+        <span slot="title"><a-icon type="mail" /><span>Navigation One</span></span>
+        <a-menu-item key="1">
+          Option 1
+        </a-menu-item>
+        <a-menu-item key="2">
+          Option 2
+        </a-menu-item>
+        <a-menu-item key="3">
+          Option 3
+        </a-menu-item>
+        <a-menu-item key="4">
+          Option 4
+        </a-menu-item>
+      </a-sub-menu>
+      <a-sub-menu key="sub2">
+        <span slot="title"><a-icon type="appstore" /><span>Navigation Two</span></span>
+        <a-menu-item key="5">
+          Option 5
+        </a-menu-item>
+        <a-menu-item key="6">
+          Option 6
+        </a-menu-item>
+        <a-sub-menu key="sub3" title="Submenu">
+          <a-menu-item key="7">
+            Option 7
+          </a-menu-item>
+          <a-menu-item key="8">
+            Option 8
+          </a-menu-item>
+        </a-sub-menu>
+      </a-sub-menu>
+      <a-sub-menu key="sub4">
+        <span slot="title">
+          <a-icon type="setting" />
+          <span>{{this.$t('menu.label.manage')}}</span>
+        </span>
+        <template v-for="item in manageOption">
+        <a-menu-item :key="item.key">
+          <router-link
+            :to="item.value"
+            tag="a"
+          >
+            {{ $t('menu.label.' + item.key) }}
+          </router-link>
+        </a-menu-item>
+        </template>
+      </a-sub-menu>
+    </a-menu>
+  </div>
+</template>
+
+<script>
+import dictionaryService from '@/service/dictionary';
+import lodash from 'lodash';
+
+export default {
+  name: 'Menu',
+  data() {
+    return {
+      rootSubmenuKeys: ['sub1', 'sub2', 'sub4'],
+      openKeys: [],
+      manageOption: []
+    };
+  },
+  mounted() {
+    this.getMenuOptions();
+  },
+  methods: {
+    getMenuOptions() {
+      dictionaryService.getMultipleDictionaries(['维护']).then((n) => {
+        const manage = n.data.find((taget) => taget.name === '维护');
+        this.manageOption = lodash.cloneDeep(manage.dictionaryOptions);
+        console.log(this.manageOption);
+      });
+    },
+    onOpenChange(openKeys) {
+      const latestOpenKey = openKeys.find((key) => this.openKeys.indexOf(key) === -1);
+      if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+        this.openKeys = openKeys;
+      } else {
+        this.openKeys = latestOpenKey ? [latestOpenKey] : [];
+      }
+    }
+  }
+};
+</script>
+
+<style scoped>
+  .menu-wrapper {
+    max-width: 256px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 32px;
+  }
+  .menu {
+    border: 1px solid #eee;
+    color: #00A1D8;
+  }
+</style>
