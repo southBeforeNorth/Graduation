@@ -1,5 +1,6 @@
 import axios from 'axios';
 import store from '@/store';
+// eslint-disable-next-line import/no-cycle
 import router from '@/router';
 import lodash from 'lodash';
 
@@ -21,7 +22,7 @@ http.interceptors.request.use(
 http.interceptors.response.use((res) => {
   if (res.data.errorCode === '410') {
     router.push({
-      path: '/login'
+      path: '/feature/login'
     });
   }
   return res;

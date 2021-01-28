@@ -59,6 +59,11 @@
               style="width: 100%;"
             />
           </a-form-model-item>
+          <a-row>
+            <a-col
+              span="9"
+              :push="5"
+            >
           <a-form-model-item
             :label="$t('register.label.sex')"
             prop="sex"
@@ -79,16 +84,17 @@
             label=" "
             :colon="false"
           >
-            <a-row>
-              <a-col span="8">
               <a-button type="primary" @click="submitForm()" >
                 {{ $t('register.warningText.submit') }}
               </a-button>
               <a-button style="margin-left: 10px" @click="resetForm()">
                 {{ $t('register.warningText.reset') }}
               </a-button>
+          </a-form-model-item>
             </a-col>
-            <a-col span ="16">
+            <a-col span="8"
+                   :push="2"
+            >
               <Verify
                 style="margin-left:130px"
                 @success="validateSuccess"
@@ -97,8 +103,7 @@
                 :codeLength="4"
                 v-if="isShowValidatePicture"/>
             </a-col>
-            </a-row>
-          </a-form-model-item>
+          </a-row>
         </a-form-model>
       </template>
     </div>
@@ -170,7 +175,7 @@ export default {
             });
             return;
           }
-            this.$message.error(this.$t('register.warningText.error'));
+          this.$message.error(this.$t('register.warningText.error'));
         });
       });
     },

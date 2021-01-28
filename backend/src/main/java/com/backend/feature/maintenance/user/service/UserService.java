@@ -8,9 +8,14 @@ import com.backend.feature.maintenance.user.repository.UserRepository;
 import com.backend.util.token.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -42,5 +47,24 @@ public class UserService {
         } else {
             return TokenUtil.sign(user.get());
         }
+    }
+
+    public UserDTO getUserById(){
+        String userId = this.getUserId();
+        Optional<User> user = userRepository.findById(userId);
+        if(!user.isPresent()) {
+            throw new UserException(UserException.USER_NO_EXIST);
+        } else {
+            return UserDTOAssembler.convertToDTO(user.get());
+        }
+    }
+
+    private String getUserId(){
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (Objects.isNull(requestAttributes)) {
+            return null;
+        }
+        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+        return request.getAttribute("userId").toString();
     }
 }

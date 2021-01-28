@@ -2,6 +2,35 @@
 <a-layout>
   <a-layout-header>
     <div class="header-bar">
+      <template v-if="!isLogin">
+      <router-link
+        :to="{path: '/feature/login'}"
+        tag="a"
+      >
+        <span
+          class="login"
+          style="margin-right:20px"
+        > {{ $t('globalHeader.login') }}
+        </span>
+      </router-link>
+      <span style="color: white">|</span>
+      <router-link
+        :to="{path: '/feature/register'}"
+        tag="a"
+      >
+        <span
+          class="register"
+          style="margin-right:30px; margin-left: 20px"
+        > {{ $t('globalHeader.register') }}
+        </span>
+      </router-link>
+      </template>
+      <template v-if="isLogin">
+        <span
+          style="color: white"
+        >{{ $t('globalHeader.welcome')}}{{ userName }}
+        </span>
+      </template>
       <a-dropdown
         class="swapLanguage"
       >
@@ -31,6 +60,12 @@ export default {
   computed: {
     lang() {
       return this.$i18n.locale === 'en_US' ? 'English' : '简体中文';
+    },
+    isLogin() {
+      return this.$store.state.user.isLogin;
+    },
+    userName() {
+      return this.$store.state.user.name;
     }
   },
   methods: {
@@ -75,5 +110,22 @@ export default {
     position: absolute;
     top: -0.2px;
     right: 40px;
+  }
+  .login {
+    font-family: SourceHanSansCN-Medium;
+    margin-right: 12px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    color: #FFFFFF;
+  }
+  .register {
+    font-family: SourceHanSansCN-Medium;
+    margin-right: 12px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 32px;
+    color: #FFFFFF;
   }
 </style>

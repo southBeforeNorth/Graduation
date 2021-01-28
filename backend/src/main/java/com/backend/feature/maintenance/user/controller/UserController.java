@@ -2,18 +2,12 @@ package com.backend.feature.maintenance.user.controller;
 
 import com.backend.comment.assembler.CommonDTOAssembler;
 import com.backend.comment.dto.CommonDTO;
-import com.backend.feature.maintenance.user.assembler.UserDTOAssembler;
 import com.backend.feature.maintenance.user.dto.UserDTO;
-import com.backend.feature.maintenance.user.entity.User;
 import com.backend.feature.maintenance.user.exception.UserException;
 import com.backend.feature.maintenance.user.service.UserService;
-import com.backend.util.token.TokenUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -44,5 +38,10 @@ public class UserController {
     @GetMapping("/nameList")
     public CommonDTO<List<String>> getUserNameList() {
         return CommonDTOAssembler.convertTODTO(userService.getUserNameList());
+    }
+
+    @GetMapping("/userId")
+    public CommonDTO<UserDTO> getUserById(){
+        return CommonDTOAssembler.convertTODTO(userService.getUserById());
     }
 }

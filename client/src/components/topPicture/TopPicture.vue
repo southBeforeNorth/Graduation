@@ -21,7 +21,7 @@ export default {
     text-align: center;
     height: 100px;
     width: 100%;
-    background: #00A1D8;
+    background: #D1E3FC;
   }
   .log-top{
     width: 10%; height: 100%;

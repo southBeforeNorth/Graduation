@@ -9,6 +9,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class TokenInterceptor implements HandlerInterceptor {
@@ -19,9 +21,10 @@ public class TokenInterceptor implements HandlerInterceptor {
             return true;
         }
         String token = request.getHeader("Authorization");
-        String userName = TokenUtil.verify(token);
-        if (StringUtils.isNoneEmpty(userName)) {
-            request.setAttribute("userName", userName);
+        Map<String, String> result = TokenUtil.verify(token);
+        if (StringUtils.isNoneEmpty(result.get("userName")) && StringUtils.isNoneEmpty(result.get("userId"))) {
+            request.setAttribute("userName", result.get("userName"));
+            request.setAttribute("userId", result.get("userId"));
             return true;
         }
         response.setCharacterEncoding("UTF-8");

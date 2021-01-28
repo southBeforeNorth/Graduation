@@ -1,6 +1,8 @@
 import Vue from 'vue';
+// eslint-disable-next-line import/no-cycle
+import userService from '@/service/user';
 import lodash from 'lodash';
-
+import store from '@/store';
 import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
@@ -30,18 +32,27 @@ const routes = [
     ]
   },
   {
-    path: '/register',
-    component: () => import('@/views/feture/register/Register.vue'),
+    path: '/feature',
+    component: () => import('@/components/layout/FeatureLayout.vue'),
     meta: {
       requireAuth: false
-    }
-  },
-  {
-    path: '/login',
-    component: () => import('@/views/feture/login/Login.vue'),
-    meta: {
-      requireAuth: false
-    }
+    },
+    children: [
+      {
+        path: 'register',
+        component: () => import('@/views/feture/register/Register.vue'),
+        meta: {
+          requireAuth: false
+        }
+      },
+      {
+        path: 'login',
+        component: () => import('@/views/feture/login/Login.vue'),
+        meta: {
+          requireAuth: false
+        }
+      }
+    ]
   }
 ];
 
@@ -56,8 +67,15 @@ router.beforeEach((to, from, next) => {
     const token = localStorage.getItem('token');
     localStorage.setItem('preRoute', to.fullPath);
     if (lodash.isEmpty(token)) {
-      next('/login');
+      next('feature/login');
     } else {
+      if (!store.state.user.isLogin) {
+        userService.getUserById().then((n) => {
+          if (n.success) {
+            console.log(n.data);
+          }
+        });
+      }
       next();
     }
   } else {

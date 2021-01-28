@@ -1,4 +1,9 @@
 export default {
+  globalHeader: {
+    login: '登录',
+    register: '注册',
+    welcome: '欢迎，'
+  },
   menu: {
     label: {
       manage: '维护',

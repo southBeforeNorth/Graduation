@@ -1,10 +1,9 @@
-import {
-  get, post
-} from '@/common/util/http.util';
+// eslint-disable-next-line import/no-cycle
+import { get, post } from '@/common/util/http.util';
 
 const contextPath = '/user';
 const getUserById = async () => {
-  const result = await get(`${contextPath}`);
+  const result = await get(`${contextPath}/userId`);
   return result.data;
 };
 const createUser = async (params) => {

@@ -8,6 +8,8 @@ import com.backend.feature.maintenance.user.entity.User;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TokenUtil {
     private static final long EXPIRETIME = 60*60*1000;
@@ -20,7 +22,7 @@ public class TokenUtil {
             // json web token
             token = JWT.create()
                     .withIssuer("auth0")
-                    .withClaim("Id", user.getId())
+                    .withClaim("userId", user.getId())
                     .withClaim("userName", user.getName())
                     .withExpiresAt(expireAt)
                     .sign(Algorithm.HMAC256(TOKENSECRET));
@@ -30,14 +32,17 @@ public class TokenUtil {
         return token;
     }
 
-    public static String verify(String token){
+    public static Map<String,String> verify(String token){
         if(StringUtils.isEmpty(token)){
             return null;
         }
         try{
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(TOKENSECRET)).withIssuer("auth0").build();
             DecodedJWT decodedJWT = verifier.verify(token);
-            return decodedJWT.getClaim("userName").asString();
+            Map<String, String> result = new HashMap<>();
+            result.put("userName", decodedJWT.getClaim("userName").asString());
+            result.put("userId", decodedJWT.getClaim("userId").asString());
+            return result;
         }catch (Exception e){
             return null;
         }
