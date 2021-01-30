@@ -1,4 +1,12 @@
 export default {
+  home: {
+    navigation: {
+      home: '首页',
+      space: '场地预约',
+      merchant: '商家入驻',
+      loge: '场地预约'
+    }
+  },
   globalHeader: {
     login: '登录',
     register: '注册',

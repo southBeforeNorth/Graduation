@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Component
 public class TokenInterceptor implements HandlerInterceptor {
@@ -22,7 +23,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         }
         String token = request.getHeader("Authorization");
         Map<String, String> result = TokenUtil.verify(token);
-        if (StringUtils.isNoneEmpty(result.get("userName")) && StringUtils.isNoneEmpty(result.get("userId"))) {
+        if (Objects.nonNull(result)) {
             request.setAttribute("userName", result.get("userName"));
             request.setAttribute("userId", result.get("userId"));
             return true;

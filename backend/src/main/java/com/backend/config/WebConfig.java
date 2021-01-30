@@ -32,6 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
         excludePath.add("/user/login");
         excludePath.add("/user/create");
         excludePath.add("/user/nameList");
+        excludePath.add("/dictionary/{dictionaryName}");
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(excludePath);

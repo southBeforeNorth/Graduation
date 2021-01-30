@@ -94,7 +94,13 @@ export default {
       userService.login(this.form).then((n) => {
         if (n.success) {
           this.$message.success(this.$t('login.warningText.success'));
+          userService.getUserById().then((user) => {
+            if (n.success) {
+              this.$store.commit('SET_IS_NAME', user.data.name);
+            }
+          });
           this.$store.commit('SET_TOKEN', n.data);
+          this.$store.commit('SET_IS_LOGIN', true);
           const curr = localStorage.getItem('preRoute');
           if (lodash.isEmpty(curr)) {
             console.log(curr);

@@ -27,5 +27,5 @@ module.exports = {
     "consistent-return": 0,
     "no-plusplus": 0,
     "prefer-destructuring": 0
-  },
+  }
 };

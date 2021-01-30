@@ -35,10 +35,9 @@ const getDictionaryOptionListByGroupID = async (dictionaryName) => {
   return result.data;
 };
 
-const getDictionaryOption = async (dictionary) => {
-  const getDictionaryOptionListUrl = `/dictionary/${dictionary.dictionaryName}`;
-  const result = await get(getDictionaryOptionListUrl);
-  return result.data.find((n) => n.key === dictionary.dictionaryOptionKey);
+const getDictionaryOption = async (dictionaryName) => {
+  const result = await get(`/dictionary/${dictionaryName}`);
+  return result.data;
 };
 
 const getMultipleDictionaries = async (dictionaryNames) => {

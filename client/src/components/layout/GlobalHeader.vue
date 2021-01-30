@@ -1,6 +1,16 @@
 <template>
 <a-layout>
   <a-layout-header>
+    <div class="logo">
+      <router-link
+        :to="{ path: '/feature/home' }"
+      >
+        <img src="../../../static/log.svg"  alt="logo" class="logo-icon"/>
+        <span style="color: white; font-family: 华光行草_CNKI">
+          {{ $t('home.navigation.loge') }}
+        </span>
+      </router-link>
+    </div>
     <div class="header-bar">
       <template v-if="!isLogin">
       <router-link
@@ -79,6 +89,20 @@ export default {
 </script>
 
 <style scoped>
+  .logo {
+    display: inline;
+    font-size: 30px;
+    padding:0 10px;
+    position:relative;
+    top:-1.5px;
+  }
+
+  .logo-icon {
+    margin-left: 5%;
+    height: 100%;
+    width: 6%;
+    position: relative;
+  }
   .ant-layout-header{
     width: 100%;
     height: 64px;
@@ -90,7 +114,6 @@ export default {
     position: fixed;
   }
   .swapLanguage {
-    font-family: SourceHanSansCN-Medium;
     width: 120px;
     height: 32px;
     color: #FFFFFF;
@@ -112,7 +135,6 @@ export default {
     right: 40px;
   }
   .login {
-    font-family: SourceHanSansCN-Medium;
     margin-right: 12px;
     font-style: normal;
     font-weight: 500;
@@ -120,7 +142,6 @@ export default {
     color: #FFFFFF;
   }
   .register {
-    font-family: SourceHanSansCN-Medium;
     margin-right: 12px;
     font-style: normal;
     font-weight: 500;
