@@ -3,13 +3,10 @@
   <Loading/>
   <a-layout>
       <GlobalHeader/>
-    <a-layout style="padding: 64px 0 0 0" >
-      <a-layout-content>
+      <a-layout-content style="padding: 64px 0 0 0">
         <router-view/>
       </a-layout-content>
-    </a-layout>
-    <a-layout>
-    </a-layout>
+      <GlobalFoot/>
   </a-layout>
 
 </div>
@@ -18,12 +15,14 @@
 <script>
 import Loading from '../loading/Loading.vue';
 import GlobalHeader from './GlobalHeader.vue';
+import GlobalFoot from './GlobalFoot.vue';
 
 export default {
   name: 'FeatureLayout',
   components: {
     Loading,
-    GlobalHeader
+    GlobalHeader,
+    GlobalFoot
   }
 
 };

@@ -1,6 +1,11 @@
 <template >
 <div style="padding: 10px 0 0 0">
-<Navigation/>
+  <a-layout>
+    <Navigation/>
+  </a-layout>
+  <a-layout-content>
+    <router-view/>
+  </a-layout-content>
 </div>
 </template>
 

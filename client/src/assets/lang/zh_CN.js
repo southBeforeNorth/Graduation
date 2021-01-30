@@ -1,10 +1,20 @@
 export default {
+  foot: {
+    messageOne: '联系我们：13421704215',
+    messageTwo: '地址：广东省珠海市唐家湾镇北京理工大学珠海学院',
+    messageTree: '上班时间：周一至周六 10:00-20:00'
+  },
   home: {
     navigation: {
       home: '首页',
       space: '场地预约',
       merchant: '商家入驻',
       loge: '场地预约'
+    },
+    body: {
+      search: '请输入场馆关键词',
+      searchButton: '立即搜索',
+      searchText: '立即运动，秀出你的活力'
     }
   },
   globalHeader: {
@@ -35,7 +45,7 @@ export default {
     },
     button: {
       login: '点击登录',
-      register: '点击注册'
+      register: '免费注册'
     }
   },
   register: {

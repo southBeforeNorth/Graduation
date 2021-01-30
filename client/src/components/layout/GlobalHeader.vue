@@ -3,7 +3,7 @@
   <a-layout-header>
     <div class="logo">
       <router-link
-        :to="{ path: '/feature/home' }"
+        :to="{ path: '/feature/home/homeBody' }"
       >
         <img src="../../../static/log.svg"  alt="logo" class="logo-icon"/>
         <span style="color: white; font-family: 华光行草_CNKI">

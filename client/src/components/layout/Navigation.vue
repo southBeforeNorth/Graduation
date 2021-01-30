@@ -3,8 +3,13 @@
     <a-menu v-model="current" mode="horizontal">
       <template v-for="(target, index) in navigationList">
       <a-menu-item :key="index" :style="computeStyle(index)">
-        <a-icon :type="target.value" />
-        {{ $t('home.navigation.'+target.key)}}
+        <router-link
+          :to="target.description"
+          tag="a"
+        >
+          <a-icon :type="target.value" />
+          {{ $t('home.navigation.'+target.key)}}
+        </router-link>
       </a-menu-item>
       </template>
     </a-menu>

@@ -41,8 +41,18 @@ const routes = [
         component: () => import('@/views/feture/home/Home.vue'),
         meta: {
           requireAuth: false
-        }
+        },
+        children: [
+          {
+            path: 'homeBody',
+            component: () => import('@/views/feture/home/HomeBody.vue'),
+            meta: {
+              requireAuth: false
+            }
+          }
+        ]
       },
+
       {
         path: 'register',
         component: () => import('@/views/feture/register/Register.vue'),
