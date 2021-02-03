@@ -23,14 +23,14 @@ public class Merchant extends UUIDPersistence {
     @Column(name="PASSWORD", length = 16)
     private String password;
 
-    @Column(name = "CONTACT_PERSON", length =32)
-    private String ContactPerson;
+    @Column(name="PHONE", length = 20)
+    private String phone;
 
-    @Column(name = "CITY")
-    private String city;
+    @Column(name = "CONTACT_PERSON", length =32)
+    private String contactPerson;
 
     @Column(name = "DETAILED_ADDRESS")
-    private String DetailedAddress;
+    private String detailedAddress;
 
     @Column(name = "STATUS")
     private boolean active = false;

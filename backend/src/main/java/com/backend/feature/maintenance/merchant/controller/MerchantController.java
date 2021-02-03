@@ -18,7 +18,7 @@ public class MerchantController {
     private MerchantService merchantService;
 
     @PostMapping("/create")
-    public CommonDTO<MerchantDTO> createUser(@RequestBody MerchantDTO merchantDTO) {
+    public CommonDTO<MerchantDTO> createMerchant(@RequestBody MerchantDTO merchantDTO) {
         return CommonDTOAssembler.convertTODTO(merchantService.create(merchantDTO));
     }
 

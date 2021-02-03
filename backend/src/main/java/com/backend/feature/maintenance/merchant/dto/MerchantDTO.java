@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class MerchantDTO {
     private String merchantName;
+    private String phone;
     private String password;
-    private String ContactPerson;
-    private String city;
-    private String DetailedAddress;
+    private String contactPerson;
+    private String detailedAddress;
     private boolean active;
 }

@@ -36,10 +36,35 @@
       </router-link>
       </template>
       <template v-if="isLogin">
-        <span
-          style="color: white"
-        >{{ $t('globalHeader.welcome')}}{{ userName }}
-        </span>
+        <a-dropdown style="margin-right: 20px">
+          <a class="ant-dropdown-link" @click="e => e.preventDefault()">
+            <span
+              style="color: white;"
+            >
+              {{ $t('globalHeader.welcome')}}{{ userName }}
+            </span>
+            <a-icon type="down" />
+          </a>
+          <a-menu
+            slot="overlay"
+            @click="signOut"
+          >
+            <a-menu-item>
+              {{$t('globalHeader.signOut')}}
+            </a-menu-item>
+          </a-menu>
+        </a-dropdown>
+        <span style="color: white">|</span>
+        <router-link
+          :to="{path: '/manage/dictionary'}"
+          tag="a"
+        >
+          <span
+            class="register"
+            style="margin-right:30px; margin-left: 20px;"
+          > {{ $t('globalHeader.manageCenter') }}
+          </span>
+        </router-link>
       </template>
       <a-dropdown
         class="swapLanguage"
@@ -83,6 +108,14 @@ export default {
       const lang = e.key;
       localStorage.setItem('lang', lang);
       this.$i18n.locale = lang;
+    },
+    signOut() {
+      this.$store.commit('SET_IS_LOGIN', false);
+      this.$store.commit('SET_IS_NAME', '');
+      this.$store.commit('SET_TOKEN', '');
+      this.$router.push({
+        path: '/feature/login'
+      });
     }
   }
 };
@@ -102,6 +135,9 @@ export default {
     height: 100%;
     width: 6%;
     position: relative;
+  }
+  /deep/ .anticon.anticon-down{
+    color: white;
   }
   .ant-layout-header{
     width: 100%;

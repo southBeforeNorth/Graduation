@@ -49,6 +49,13 @@ const routes = [
             meta: {
               requireAuth: false
             }
+          },
+          {
+            path: 'merchantRegister',
+            component: () => import('@/views/feture/merchant/Register.vue'),
+            meta: {
+              requireAuth: false
+            }
           }
         ]
       },
@@ -78,15 +85,14 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (from.fullPath === '/feature/home') {
-    localStorage.setItem('preRoute', from.fullPath);
+  if (to.fullPath !== '/feature/login' && to.fullPath !== '/feature/register') {
+    localStorage.setItem('preRoute', to.fullPath);
   }
   const token = localStorage.getItem('token');
   if (lodash.isEmpty(token)) {
     store.commit('SET_IS_LOGIN', false);
     store.commit('SET_IS_NAME', '');
     if (to.meta.requireAuth) {
-      localStorage.setItem('preRoute', to.fullPath);
       next('feature/login');
     }
   }

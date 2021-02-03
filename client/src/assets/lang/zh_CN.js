@@ -1,4 +1,43 @@
 export default {
+  merchant: {
+    register: {
+      label: {
+        topText: '申请加入场馆',
+        merchantName: '场馆名称',
+        contactPerson: '联系人',
+        phone: '手机号码',
+        city: '城市地区',
+        detailedAddress: '详细地址',
+        password: '密码',
+        rePassword: '重复密码',
+        submit: '立即提交',
+        success: '提交成功',
+        successContent: '三个工作日内工作人员将与您联系',
+        error: '提交失败',
+        validateSuccess: '验证码正确'
+      },
+      placeHolder: {
+        merchantName: '请输入您场馆的名称',
+        contactPerson: '请输入责联系人的名称',
+        phone: '请输入负责联系人的联系号码',
+        city: '请选择您场馆所在城市地区',
+        detailedAddress: '请输入您场馆所在详细地址',
+        password: '请新输入一个登录密码',
+        rePassword: '请重复输入密码确认'
+      },
+      validate: {
+        merchantName: '您场馆的名字不能为空',
+        merchantNameMin: '场馆名字过短',
+        merchantNameMax: '场馆名字过长',
+        reName: '此场馆名称已存在，如有问题请联系工作人员',
+        contactPerson: '负责联系人不能为空',
+        phone: '联系号码不能为空',
+        phoneFormat: '联系号码格式不正确，请注意修改',
+        city: '请选择您场馆所在城市地区',
+        detailedAddress: '请输入您场馆的详细地址'
+      }
+    }
+  },
   foot: {
     messageOne: '联系我们：13421704215',
     messageTwo: '地址：广东省珠海市唐家湾镇北京理工大学珠海学院',
@@ -19,8 +58,10 @@ export default {
   },
   globalHeader: {
     login: '登录',
+    signOut: '退出登录',
     register: '注册',
-    welcome: '欢迎，'
+    welcome: '欢迎，',
+    manageCenter: '管理中心'
   },
   menu: {
     label: {
