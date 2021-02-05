@@ -14,8 +14,8 @@ const routes = [
     },
     children: [
       {
-        path: 'user',
-        component: () => import('@/views/maintenance/user/User.vue'),
+        path: 'merchantManage',
+        component: () => import('@/views/maintenance/merchantManage/MerchantManage.vue'),
         meta: {
           requireAuth: false
         }

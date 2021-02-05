@@ -2,10 +2,13 @@ package com.backend.feature.maintenance.merchant.controller;
 
 import com.backend.comment.assembler.CommonDTOAssembler;
 import com.backend.comment.dto.CommonDTO;
+import com.backend.comment.dto.PageableDTO;
+import com.backend.comment.util.PageableUtils;
 import com.backend.feature.maintenance.merchant.dto.MerchantDTO;
 import com.backend.feature.maintenance.merchant.service.MerchantService;
 import com.backend.feature.maintenance.user.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,9 +20,36 @@ public class MerchantController {
     @Autowired
     private MerchantService merchantService;
 
+    @GetMapping("/page")
+    public CommonDTO<PageableDTO<MerchantDTO>> getMerchantListByPage(
+            @RequestParam int page,
+            @RequestParam int pageSize,
+            @RequestParam int start,
+            @RequestParam(required = false) String merchantName,
+            @RequestParam(required = false) String contactPerson,
+            @RequestParam(required = false) Boolean active
+    ){
+        PageRequest pageRequest = PageableUtils.getPageable(page, pageSize, start);
+        return merchantService.getMerchantListByPage(pageRequest, merchantName, contactPerson, active);
+
+    }
     @PostMapping("/create")
     public CommonDTO<MerchantDTO> createMerchant(@RequestBody MerchantDTO merchantDTO) {
         return CommonDTOAssembler.convertTODTO(merchantService.create(merchantDTO));
+    }
+    @PostMapping("/createByManager")
+    public CommonDTO<MerchantDTO> creatMerchantByManager(@RequestBody MerchantDTO merchantDTO) {
+        return CommonDTOAssembler.convertTODTO(merchantService.create(merchantDTO));
+    }
+
+    @PutMapping("/update/{id}")
+    public CommonDTO<MerchantDTO> updateMerchant(@PathVariable String id, @RequestBody MerchantDTO merchantDTO) {
+        return CommonDTOAssembler.convertTODTO(merchantService.updateMerchant(id, merchantDTO));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public CommonDTO<MerchantDTO> delete(@PathVariable String id) {
+        return CommonDTOAssembler.convertTODTO(merchantService.deleteMerchantById(id));
     }
 
     @GetMapping("/nameList")

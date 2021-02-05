@@ -57,6 +57,7 @@
         prop="city"
       >
         <a-cascader :options="cities"
+                    :value="this.form.city"
                     :placeholder="$t('merchant.register.placeHolder.city')"
                     @change="onChange" />
 
@@ -153,7 +154,7 @@ export default {
         merchantName: null,
         contactPerson: null,
         phone: null,
-        city: null,
+        city: [],
         detailedAddress: null,
         password: null,
         rePassword: null
@@ -185,7 +186,8 @@ export default {
           phone: this.form.phone,
           password: this.form.password.trim(),
           contactPerson: this.form.contactPerson.trim(),
-          detailedAddress: this.form.city + this.form.detailedAddress.trim()
+          area: this.form.city.join('/'),
+          detailedAddress: this.form.detailedAddress.trim()
         };
         merchantService.createMerchant(merchant).then((n) => {
           if (n.success) {
@@ -208,10 +210,10 @@ export default {
       return moment().diff(current) < 0;
     },
     onChange(value) {
-      this.form.city = '';
+      this.form.city = [];
       value.forEach((item) => {
         // eslint-disable-next-line operator-assignment
-        this.form.city = this.form.city + item;
+        this.form.city.push(item);
       });
     },
     resetForm() {

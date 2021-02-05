@@ -29,6 +29,9 @@ public class Merchant extends UUIDPersistence {
     @Column(name = "CONTACT_PERSON", length =32)
     private String contactPerson;
 
+    @Column(name = "AREA")
+    private String area;
+
     @Column(name = "DETAILED_ADDRESS")
     private String detailedAddress;
 

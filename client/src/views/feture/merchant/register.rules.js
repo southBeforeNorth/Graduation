@@ -1,3 +1,5 @@
+import lodash from 'lodash';
+
 export default {
   computed: {
     rules() {
@@ -75,7 +77,12 @@ export default {
       callback();
     },
     validateName(rule, values, callback) {
-      this.merchantNameList.forEach((n) => {
+      let cache = lodash.cloneDeep(this.merchantNameList);
+      if (!lodash.isEmpty(this.selectedMerchantInfo)) {
+        cache = cache
+          .filter((n) => n !== this.selectedMerchantInfo.merchantName);
+      }
+      cache.forEach((n) => {
         if (n.toLocaleUpperCase() === values.toLocaleUpperCase()) {
           callback(this.$t('merchant.register.validate.reName'));
         }

@@ -40,6 +40,22 @@
           </a-menu-item>
         </a-sub-menu>
       </a-sub-menu>
+      <a-sub-menu key="sub5">
+        <span slot="title">
+          <a-icon type="user" />
+          <span>{{this.$t('menu.label.userManage')}}</span>
+        </span>
+        <template v-for="item in manageUserOption">
+          <a-menu-item :key="item.key">
+            <router-link
+              :to="item.value"
+              tag="a"
+            >
+              {{ $t('menu.label.' + item.key) }}
+            </router-link>
+          </a-menu-item>
+        </template>
+      </a-sub-menu>
       <a-sub-menu key="sub4">
         <span slot="title">
           <a-icon type="setting" />
@@ -70,7 +86,8 @@ export default {
     return {
       rootSubmenuKeys: ['sub1', 'sub2', 'sub4'],
       openKeys: [],
-      manageOption: []
+      manageOption: [],
+      manageUserOption: []
     };
   },
   mounted() {
@@ -78,8 +95,10 @@ export default {
   },
   methods: {
     getMenuOptions() {
-      dictionaryService.getMultipleDictionaries(['维护']).then((n) => {
+      dictionaryService.getMultipleDictionaries(['维护', '用户管理']).then((n) => {
         const manage = n.data.find((taget) => taget.name === '维护');
+        const manageUser = n.data.find((taget) => taget.name === '用户管理');
+        this.manageUserOption = lodash.cloneDeep(manageUser.dictionaryOptions);
         this.manageOption = lodash.cloneDeep(manage.dictionaryOptions);
         console.log(this.manageOption);
       });

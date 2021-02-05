@@ -1,5 +1,17 @@
 export default {
   merchant: {
+    manage: {
+      name: '商家用户管理',
+      addButton: '新建用户',
+      merchantName: '用户名',
+      contactPerson: '联系人',
+      phone: '联系号码',
+      active: '状态',
+      lastModifiedBy: '修改人',
+      lastModifiedTime: '修改时间',
+      allMerchant: '全部用户',
+      apply: '正在申请用户'
+    },
     register: {
       label: {
         topText: '申请加入场馆',
@@ -8,13 +20,21 @@ export default {
         phone: '手机号码',
         city: '城市地区',
         detailedAddress: '详细地址',
+        active: '激活',
         password: '密码',
         rePassword: '重复密码',
         submit: '立即提交',
+        update: '立即修改',
         success: '提交成功',
-        successContent: '三个工作日内工作人员将与您联系',
+        successContent: '三个工作日内工作人员将与您联系并确认',
         error: '提交失败',
-        validateSuccess: '验证码正确'
+        validateSuccess: '验证码正确',
+        addSuccess: '添加成功',
+        updateSuccess: '修改成功',
+        updateError: '修改失败',
+        add: '添加',
+        view: '查看',
+        edit: '编辑'
       },
       placeHolder: {
         merchantName: '请输入您场馆的名称',
@@ -29,7 +49,7 @@ export default {
         merchantName: '您场馆的名字不能为空',
         merchantNameMin: '场馆名字过短',
         merchantNameMax: '场馆名字过长',
-        reName: '此场馆名称已存在，如有问题请联系工作人员',
+        reName: '此场馆名称已存在，请重新输入',
         contactPerson: '负责联系人不能为空',
         phone: '联系号码不能为空',
         phoneFormat: '联系号码格式不正确，请注意修改',
@@ -66,8 +86,9 @@ export default {
   menu: {
     label: {
       manage: '维护',
+      userManage: '用户管理',
       dictionary: '字典',
-      user: '用户'
+      merchantMenu: '商家'
     }
   },
   login: {
