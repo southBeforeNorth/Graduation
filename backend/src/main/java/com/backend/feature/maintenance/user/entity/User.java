@@ -29,4 +29,7 @@ public class User extends UUIDPersistence {
 
     @Column(name = "BIRTH_DAY")
     private Date birthDay;
+
+    @Column(name = "TYPE")
+    private String type = "user";
 }

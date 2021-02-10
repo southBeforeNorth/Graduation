@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface MerchantRepository extends JpaRepository<Merchant, String>, JpaSpecificationExecutor<Merchant> {
     Optional<Merchant> getByMerchantName(String merchantName);
+    Optional<Merchant> getByMerchantNameAndPassword(String merchantName, String password);
 }

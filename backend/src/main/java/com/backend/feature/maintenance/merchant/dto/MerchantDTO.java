@@ -14,6 +14,7 @@ public class MerchantDTO {
     private String area;
     private String detailedAddress;
     private boolean active;
+    private String type;
     private String createdBy;
     private Date createdTime;
     private String lastModifiedBy;

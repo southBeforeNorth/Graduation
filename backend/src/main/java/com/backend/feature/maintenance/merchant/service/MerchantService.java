@@ -8,13 +8,22 @@ import com.backend.feature.maintenance.merchant.dto.MerchantDTO;
 import com.backend.feature.maintenance.merchant.entity.Merchant;
 import com.backend.feature.maintenance.merchant.exception.MerchantException;
 import com.backend.feature.maintenance.merchant.repository.MerchantRepository;
+import com.backend.feature.maintenance.user.dto.UserDTO;
+import com.backend.feature.maintenance.user.entity.User;
+import com.backend.feature.maintenance.user.exception.UserException;
+import com.backend.util.token.TokenUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
 import javax.persistence.criteria.Predicate;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -73,6 +82,33 @@ public class MerchantService {
 
         return PageableDTOAssembler.convertToDTO(merchantDTOList, (int) merchantPage.getTotalElements(),merchantPage.getTotalPages());
 
+    }
+
+    public String login(MerchantDTO merchantDTO) {
+        Optional<Merchant> merchant = merchantRepository.getByMerchantNameAndPassword(merchantDTO.getMerchantName(), merchantDTO.getPassword());
+        if (merchant.isPresent() && merchant.get().isActive()) {
+            return TokenUtil.sign(merchant.get().getId(), merchant.get().getMerchantName());
+        } else {
+            throw new MerchantException(MerchantException.MERCHANT_NO_EXIST);
+        }
+    }
+    public MerchantDTO getMerchantById(){
+        String merchantId = this.getMerchantId();
+        Optional<Merchant> Merchant = merchantRepository.findById(merchantId);
+        if(!Merchant.isPresent()) {
+            throw new MerchantException(MerchantException.MERCHANT_NO_EXIST);
+        } else {
+            return MerchantDTOAssembler.convertToDTO(Merchant.get());
+        }
+    }
+
+    private String getMerchantId(){
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (Objects.isNull(requestAttributes)) {
+            return null;
+        }
+        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+        return request.getAttribute("id").toString();
     }
 
     private Specification<Merchant> getMerchantSpecification(String merchantName, String contactPerson, Boolean active) {

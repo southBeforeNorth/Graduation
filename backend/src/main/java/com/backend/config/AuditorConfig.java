@@ -28,7 +28,7 @@ public class AuditorConfig {
         }
 
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-        return Optional.ofNullable(request.getAttribute("userName"))
+        return Optional.ofNullable(request.getAttribute("name"))
                 .map(String::valueOf);
 
     }

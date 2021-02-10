@@ -15,15 +15,15 @@ public class TokenUtil {
     private static final long EXPIRETIME = 60*60*1000;
     private static final String TOKENSECRET="JKKLJOoasdlfj";
 
-    public static String sign(User user){
+    public static String sign(String id, String name){
         String token = null;
         try {
             Date expireAt = new Date(System.currentTimeMillis()+EXPIRETIME);
             // json web token
             token = JWT.create()
                     .withIssuer("auth0")
-                    .withClaim("userId", user.getId())
-                    .withClaim("userName", user.getName())
+                    .withClaim("id", id)
+                    .withClaim("name", name)
                     .withExpiresAt(expireAt)
                     .sign(Algorithm.HMAC256(TOKENSECRET));
         } catch (Exception e){
@@ -40,8 +40,8 @@ public class TokenUtil {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(TOKENSECRET)).withIssuer("auth0").build();
             DecodedJWT decodedJWT = verifier.verify(token);
             Map<String, String> result = new HashMap<>();
-            result.put("userName", decodedJWT.getClaim("userName").asString());
-            result.put("userId", decodedJWT.getClaim("userId").asString());
+            result.put("name", decodedJWT.getClaim("name").asString());
+            result.put("id", decodedJWT.getClaim("id").asString());
             return result;
         }catch (Exception e){
             return null;

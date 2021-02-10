@@ -5,7 +5,7 @@ export default {
         name: [
           {
             required: true,
-            message: this.$t('register.validate.name')
+            message: this.computeValidate()
           }
         ],
         password: [
@@ -15,6 +15,21 @@ export default {
           }
         ]
       };
+    }
+
+  },
+  methods: {
+    computeValidate() {
+      if (this.type === 'user') {
+        return this.$t('login.validate.userName');
+      }
+      if (this.type === 'merchant') {
+        return this.$t('login.validate.merchantName');
+      }
+      if (this.type === 'manage') {
+        return this.$t('login.validate.manageName');
+      }
+      return 'null';
     }
   }
 };

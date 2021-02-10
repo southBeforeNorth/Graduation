@@ -98,11 +98,22 @@ export default {
       error: '用户名或密码错误，请重新输入'
     },
     label: {
-      name: '昵称',
+      user: '我是普通用户',
+      merchant: '我是商家',
+      userName: '用户昵称',
+      merchantName: '商家用户名',
+      manageName: '管理员用户名',
       password: '密码'
     },
+    validate: {
+      userName: '请输入用户昵称',
+      merchantName: '请输入商家用户名',
+      manageName: '请输入管理员用户名',
+    },
     placeHolder: {
-      name: '请输入昵称',
+      userName: '请输入用户昵称',
+      merchantName: '请输入商家用户名',
+      manageName: '请输入管理员用户名',
       password: '密码'
     },
     button: {

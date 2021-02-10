@@ -37,6 +37,11 @@ const updateMerchant = async (id, params) => {
   return result.data;
 };
 
+const getMerchantById = async () => {
+  const result = await get(`${contextPath}/merchantId`);
+  return result.data;
+};
+
 export default {
   createMerchant,
   login,
@@ -44,5 +49,6 @@ export default {
   getMerchantByPage,
   createMerchantByManager,
   deleteMerchant,
-  updateMerchant
+  updateMerchant,
+  getMerchantById
 };

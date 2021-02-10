@@ -41,11 +41,12 @@ public class UserService {
     }
 
     public String login(UserDTO userDTO) {
-        Optional<User> user = userRepository.findByNameAndPassword(userDTO.getName(), userDTO.getPassword());
+        Optional<User> user = userRepository
+                .findByNameAndPasswordAndType(userDTO.getName(), userDTO.getPassword(), userDTO.getType());
         if (!user.isPresent()) {
             throw new UserException(UserException.USER_NO_EXIST);
         } else {
-            return TokenUtil.sign(user.get());
+            return TokenUtil.sign(user.get().getId(), user.get().getName());
         }
     }
 
@@ -65,6 +66,6 @@ public class UserService {
             return null;
         }
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-        return request.getAttribute("userId").toString();
+        return request.getAttribute("id").toString();
     }
 }

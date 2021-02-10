@@ -32,6 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
         excludePath.add("/user/login");
         excludePath.add("/user/create");
         excludePath.add("/user/nameList");
+        excludePath.add("/merchant/login");
         excludePath.add("/merchant/create");
         excludePath.add("/merchant/nameList");
         excludePath.add("/dictionary/{dictionaryName}");

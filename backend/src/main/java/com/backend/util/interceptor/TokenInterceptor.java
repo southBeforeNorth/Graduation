@@ -24,8 +24,8 @@ public class TokenInterceptor implements HandlerInterceptor {
         String token = request.getHeader("Authorization");
         Map<String, String> result = TokenUtil.verify(token);
         if (Objects.nonNull(result)) {
-            request.setAttribute("userName", result.get("userName"));
-            request.setAttribute("userId", result.get("userId"));
+            request.setAttribute("name", result.get("name"));
+            request.setAttribute("id", result.get("id"));
             return true;
         }
         response.setCharacterEncoding("UTF-8");

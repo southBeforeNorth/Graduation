@@ -42,6 +42,11 @@ public class MerchantController {
         return CommonDTOAssembler.convertTODTO(merchantService.create(merchantDTO));
     }
 
+    @PostMapping("/login")
+    public CommonDTO<String> login(@RequestBody MerchantDTO merchantDTO){
+        return CommonDTOAssembler.convertTODTO(merchantService.login(merchantDTO));
+    }
+
     @PutMapping("/update/{id}")
     public CommonDTO<MerchantDTO> updateMerchant(@PathVariable String id, @RequestBody MerchantDTO merchantDTO) {
         return CommonDTOAssembler.convertTODTO(merchantService.updateMerchant(id, merchantDTO));
@@ -55,5 +60,10 @@ public class MerchantController {
     @GetMapping("/nameList")
     public CommonDTO<List<String>> getMerchantNameList() {
         return CommonDTOAssembler.convertTODTO(merchantService.getMerchantNameList());
+    }
+
+    @GetMapping("/merchantId")
+    public CommonDTO<MerchantDTO> getMerchantId(){
+        return CommonDTOAssembler.convertTODTO(merchantService.getMerchantById());
     }
 }

@@ -10,6 +10,7 @@ public class UserDTO {
     private String name;
     private String password;
     private Date birthDay;
+    private String type;
     private String sex;
     private String createdBy;
     private Date createdTime;

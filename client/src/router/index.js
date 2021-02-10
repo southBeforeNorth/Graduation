@@ -73,6 +73,13 @@ const routes = [
         meta: {
           requireAuth: false
         }
+      },
+      {
+        path: 'manage-login',
+        component: () => import('@/views/feture/login/Login.vue'),
+        meta: {
+          requireAuth: false
+        }
       }
     ]
   }

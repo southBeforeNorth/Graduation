@@ -37,4 +37,7 @@ public class Merchant extends UUIDPersistence {
 
     @Column(name = "STATUS")
     private boolean active = false;
+
+    @Column(name = "TYPE")
+    private String type = "merchant";
 }
