@@ -7,6 +7,7 @@ import com.backend.feature.maintenance.dictionary.entity.DictionaryOption;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,6 +22,7 @@ public class DictionaryDTOAssembler {
         if (Objects.nonNull(dictionary.getDictionaryOptions())) {
             List<DictionaryOptionDTO> dictionaryOptions = new ArrayList<>();
             dictionary.getDictionaryOptions().forEach((value) -> dictionaryOptions.add(DictionaryOptionAssembler.convertDTO(value)));
+            dictionaryOptions.sort(Comparator.comparing(DictionaryOptionDTO::getSequence));
             dictionaryDTO.setDictionaryOptions(dictionaryOptions);
         }
         return dictionaryDTO;

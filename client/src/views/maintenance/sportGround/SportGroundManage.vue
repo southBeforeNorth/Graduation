@@ -1,13 +1,13 @@
 <template>
   <div class="root">
     <div class="header-wrapper">
-      <span class="System">{{ $t('merchant.manage.name') }}</span>
+      <span class="System">{{ $t('sportGround.manage.name') }}</span>
       <a-button
         name="addButton"
         class="editable-add-btn"
         @click="addMerchant"
       >
-        <a-icon type="plus" />{{ $t('merchant.manage.addButton') }}
+        <a-icon type="plus" />{{ $t('sportGround.manage.addButton') }}
       </a-button>
     </div>
     <div class="form-with-table-wrapper">
@@ -25,28 +25,14 @@
               span="5"
             >
               <a-form-model-item
-                :label="this.$t('merchant.manage.merchantName')"
+                :label="this.$t('sportGround.model.label.name')"
               >
                 <a-input
-                v-model="form.merchantName"
+                v-model="form.name"
                 :allow-clear="true"
-                @keyup.enter="searchMerchant"
+                @keyup.enter="searchSportGround"
               />
 
-              </a-form-model-item>
-            </a-col>
-            <a-col
-              span="5"
-              offset="1"
-            >
-              <a-form-model-item
-                :label="this.$t('merchant.manage.contactPerson')"
-              >
-                <a-input
-                  v-model="form.contactPerson"
-                  :allow-clear="true"
-                  @keyup.enter="searchMerchant"
-                />
               </a-form-model-item>
             </a-col>
             <a-col
@@ -57,7 +43,7 @@
                 <a-button
                   type="primary"
                   class="search-btn"
-                  @click="searchMerchant"
+                  @click="searchSportGround"
                 >
                   {{ $t('common.button.search') }}
                 </a-button>
@@ -74,28 +60,15 @@
       </div>
     </div>
     <div class="table-wrapper">
-      <a-menu
-        v-model="current"
-        @click="changeStatus"
-        mode="horizontal">
-        <a-menu-item key="allMerchant">
-          <a-icon type="team" />
-          {{this.$t('merchant.manage.allMerchant')}}
-        </a-menu-item>
-        <a-menu-item key="apply">
-          <a-icon type="user-add" />
-          {{this.$t('merchant.manage.apply')}}
-        </a-menu-item>
-      </a-menu>
       <a-table
         :pagination="pagination"
-        :data-source="merchantDataSource"
+        :data-source="sportGroundDataSource"
         :columns="columns"
-        :row-key="record => record.merchantName"
+        :row-key="record => record.id"
         size="middle"
       >
         <template
-          v-for="col in merchantColumns"
+          v-for="col in sportGroundColumns"
           :slot="col"
           slot-scope="text, record"
         >
@@ -104,12 +77,6 @@
         >
           {{ text | dateTime }}
         </template>
-          <template  v-else-if=" col === 'active' ">
-            <a-switch
-              :key="col"
-              :disabled="true"
-              v-model="record.active" />
-          </template>
           <template v-else>
             {{ text }}
           </template>
@@ -120,13 +87,13 @@
         >
           <div class="editable-row-operations">
               <span>
-                <a @click="displayMerchant(record)">{{ $t('common.view') }}</a>
-                <a @click="editMerchant(record)">{{ $t('common.button.edit') }}</a>
+                <a @click="displaySportGround(record)">{{ $t('common.view') }}</a>
+                <a @click="editSportGround(record)">{{ $t('common.button.edit') }}</a>
                 <a-popconfirm
                   :title="$t('common.warningText.delete')"
                   :ok-text="$t('common.button.ok')"
                   :cancel-text="$t('common.button.cancel')"
-                  @confirm="deleteMerchant(record)"
+                  @confirm="deleteSportGround(record)"
                 >
                   <a
                     href="javascript:"
@@ -137,35 +104,35 @@
         </template>
       </a-table>
     </div>
-    <merchant-model
+  <sport-ground-model
       :visible.sync="modelVisible"
       @onClose="closeModel"
       :editable="editable"
-      :selected-merchant-info.sync="selectedMerchantInfo"
+      :selected-sport-ground-info.sync="selectedSportGroundInfo"
     />
   </div>
 </template>
 
 <script>
 import merchantService from '@/service/merchant';
-import merchantManageConfig from './merchantManage.config';
-import MerchantModel from './MerchantModel.vue';
+import SportGroundModel from '@/views/maintenance/sportGround/SportGroundModel.vue';
+import sportGroundManageConfig from '@/views/maintenance/sportGround/sportGroundManage.config';
+import sportGroundService from '@/service/sportGround';
 
 export default {
-  name: 'MerchantManage',
+  name: 'SportGroundManage',
   components: {
-    MerchantModel
+    SportGroundModel
   },
-  mixins: [merchantManageConfig],
+  mixins: [sportGroundManageConfig],
   data() {
     return {
       modelVisible: false,
       current: ['allMerchant'],
       form: {
-        merchantName: null,
-        contactPerson: null
+        name: null
       },
-      merchantDataSource: [],
+      sportGroundDataSource: [],
       pagination: {
         size: 'normal',
         current: 1,
@@ -177,61 +144,51 @@ export default {
         pageSizeOptions: ['5', '10', '20', '40']
       },
       active: null,
-      selectedMerchantInfo: null,
+      selectedSportGroundInfo: null,
       editable: false
     };
   },
   mounted() {
-    this.getMerchantByPage(0, this.pagination.pageSize, 0);
+    this.getSportGroundById(0, this.pagination.pageSize, 0);
   },
   methods: {
-    editMerchant(record) {
-      this.selectedMerchantInfo = record;
+    editSportGround(record) {
+      this.selectedSportGroundInfo = record;
       this.editable = true;
       this.modelVisible = true;
     },
-    displayMerchant(record) {
-      this.selectedMerchantInfo = record;
+    displaySportGround(record) {
+      this.selectedSportGroundInfo = record;
       this.editable = false;
       this.modelVisible = true;
     },
-    deleteMerchant(record) {
-      merchantService.deleteMerchant(record.id)
+    deleteSportGround(record) {
+      sportGroundService.deleteSportGround(record.id)
         .then((n) => {
           if (n.success) {
             this.$message.success(this.$t('common.successText.delete'));
-            this.getMerchantByPage(0, this.pagination.pageSize, 0);
+            this.getSportGroundById(0, this.pagination.pageSize, 0);
           }
         });
     },
     closeModel() {
-      this.selectedMerchantInfo = null;
-      this.getMerchantByPage(0, this.pagination.pageSize, 0);
+      this.selectedSportGroundInfo = null;
+      this.getSportGroundById(0, this.pagination.pageSize, 0);
     },
     addMerchant() {
       this.modelVisible = true;
       this.editable = true;
-      this.selectedMerchantInfo = null;
+      this.selectedSportGroundInfo = null;
     },
-    searchMerchant() {
-      this.getMerchantByPage(0, this.pagination.pageSize, 0)
+    searchSportGround() {
+      this.getSportGroundById(0, this.pagination.pageSize, 0)
         .then(() => {
           this.pagination.current = 1;
         });
     },
     handleReset() {
-      this.form.merchantName = '';
-      this.form.contactPerson = '';
-      this.searchMerchant();
-    },
-    changeStatus(target) {
-      if (target.key === 'allMerchant') {
-        this.active = null;
-      }
-      if (target.key === 'apply') {
-        this.active = false;
-      }
-      this.getMerchantByPage(0, this.pagination.pageSize, 0);
+      this.form.name = '';
+      this.searchSportGround();
     },
     onShowSizeChange(page, pageSize) {
       this.pageChange(1, pageSize);
@@ -239,21 +196,18 @@ export default {
       this.pagination.pageSize = pageSize;
     },
     pageChange(page, pageSize) {
-      this.getMerchantByPage(page - 1, pageSize, 0);
+      this.getSportGroundById(page - 1, pageSize, 0);
     },
-    getMerchantByPage(page, pageSize, start) {
-      const merchantName = this.form.merchantName;
-      const contactPerson = this.form.contactPerson;
-      const active = this.active;
+    getSportGroundById(page, pageSize, start) {
+      const name = this.form.name;
       const params = {
-        page, pageSize, start, merchantName, contactPerson, active
+        page, pageSize, start, name
       };
-      return merchantService.getMerchantByPage(params).then((n) => {
+      return sportGroundService.getSportGroundsById(params).then((res) => {
         this.pagination.current = page + 1;
-        this.pagination.total = n.data.totalElements;
-        const data = n.data.content;
-        this.merchantDataSource.splice(0, this.merchantDataSource.length);
-        this.merchantDataSource.push(...data);
+        this.pagination.total = res.data.totalElements;
+        this.sportGroundDataSource.splice(0, this.sportGroundDataSource.length);
+        this.sportGroundDataSource.push(...res.data.content);
       });
     }
   }

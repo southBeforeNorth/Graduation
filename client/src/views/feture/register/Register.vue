@@ -161,7 +161,8 @@ export default {
           name: null,
           password: null,
           birthDay: null,
-          sex: null
+          sex: null,
+          type: 'user'
         };
         user.name = this.form.name;
         user.password = this.form.password;
@@ -171,7 +172,7 @@ export default {
           if (n.success) {
             this.$message.success(this.$t('register.warningText.success'));
             this.$router.push({
-              path: '/login'
+              path: '/feature/login'
             });
             return;
           }

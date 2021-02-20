@@ -1,4 +1,57 @@
 export default {
+  sportGround: {
+    manage: {
+      name: '场地管理',
+      addButton: '添加场地'
+    },
+    model: {
+      placeholder: {
+        phone: '请输入联系号码',
+        name: '请输入场地名称',
+        type: '请选择场地类型',
+        weeks: '请选择场地开场日期',
+        time: '请选择场地开场时间',
+        city: '请选择场地所在城市',
+        detailedAddress: '请输入场地所在详细地址',
+      },
+      label: {
+        operation: '操作',
+        phone: '联系号码',
+        name: '场地名称',
+        type: '场地类型',
+        weeks: '可选日期',
+        time: '可预订时间',
+        area: '场地划分',
+        areaName: '时间/场地编号',
+        price: '场地费用',
+        priceValue: '元/每小时',
+        add: '添加场地编号'
+      },
+      table: {
+        am1: '07:00',
+        am2: '08:00',
+        am3: '09:00',
+        am4: '10:00',
+        am5: '11:00',
+        pm1: '12:00',
+        pm2: '13:00',
+      },
+      validate: {
+        name: '您场地的名称不能为空',
+        maxName: '您场地的名称过长',
+        minName: '您场地的名称过短',
+        type: '请选择您场地的类型',
+        phone: '请输入场地联系号码',
+        city: '请选择场地所在城市',
+        detailedAddress: '请输入场地所在详细地址',
+        price: '请输入场地费用',
+        submitSuccess: '提交成功',
+        submitError: '提交失败',
+        updateSuccess: '修改成功',
+        updateError: '修改失败'
+      }
+    }
+  },
   merchant: {
     manage: {
       name: '商家用户管理',
@@ -81,14 +134,18 @@ export default {
     signOut: '退出登录',
     register: '注册',
     welcome: '欢迎，',
-    manageCenter: '管理中心'
+    manageCenter: '管理中心',
+    userCenter: '用户中心',
+    merchantCenter: '商家中心'
   },
   menu: {
     label: {
       manage: '维护',
       userManage: '用户管理',
       dictionary: '字典',
-      merchantMenu: '商家'
+      merchantMenu: '商家',
+      sportGroundManage: '场地管理',
+      sportGround: '场地'
     }
   },
   login: {
@@ -160,6 +217,10 @@ export default {
     }
   },
   common: {
+    label: {
+      lastModifiedBy: '修改人',
+      lastModifiedTime: '修改时间'
+    },
     action: '操作',
     view: '查看',
     confirmTitle: '提示',

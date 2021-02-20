@@ -53,55 +53,43 @@ const city = [
 
     children: [
 
-      {
-        value: '天津',
+      { value: '和平区', label: '和平区' },
 
-        label: '天津',
+      { value: '河东区', label: '河东区' },
 
-        children: [
+      { value: '河西区', label: '河西区' },
 
-          { value: '和平区', label: '和平区' },
+      { value: '南开区', label: '南开区' },
 
-          { value: '河东区', label: '河东区' },
+      { value: '河北区', label: '河北区' },
 
-          { value: '河西区', label: '河西区' },
+      { value: '红桥区', label: '红桥区' },
 
-          { value: '南开区', label: '南开区' },
+      { value: '塘沽区', label: '塘沽区' },
 
-          { value: '河北区', label: '河北区' },
+      { value: '汉沽区', label: '汉沽区' },
 
-          { value: '红桥区', label: '红桥区' },
+      { value: '大港区', label: '大港区' },
 
-          { value: '塘沽区', label: '塘沽区' },
+      { value: '东丽区', label: '东丽区' },
 
-          { value: '汉沽区', label: '汉沽区' },
+      { value: '西青区', label: '西青区' },
 
-          { value: '大港区', label: '大港区' },
+      { value: '津南区', label: '津南区' },
 
-          { value: '东丽区', label: '东丽区' },
+      { value: '北辰区', label: '北辰区' },
 
-          { value: '西青区', label: '西青区' },
+      { value: '武清区', label: '武清区' },
 
-          { value: '津南区', label: '津南区' },
+      { value: '宝坻区', label: '宝坻区' },
 
-          { value: '北辰区', label: '北辰区' },
+      { value: '宁河县', label: '宁河县' },
 
-          { value: '武清区', label: '武清区' },
+      { value: '静海县', label: '静海县' },
 
-          { value: '宝坻区', label: '宝坻区' },
-
-          { value: '宁河县', label: '宁河县' },
-
-          { value: '静海县', label: '静海县' },
-
-          { value: '蓟县', label: '蓟县' }
-
-        ]
-
-      }
+      { value: '蓟县', label: '蓟县' }
 
     ]
-
   },
 
   {
@@ -2315,57 +2303,45 @@ const city = [
 
     children: [
 
-      {
-        value: '上海',
+      { value: '黄浦区', label: '黄浦区' },
 
-        label: '上海',
+      { value: '卢湾区', label: '卢湾区' },
 
-        children: [
+      { value: '徐汇区', label: '徐汇区' },
 
-          { value: '黄浦区', label: '黄浦区' },
+      { value: '长宁区', label: '长宁区' },
 
-          { value: '卢湾区', label: '卢湾区' },
+      { value: '静安区', label: '静安区' },
 
-          { value: '徐汇区', label: '徐汇区' },
+      { value: '普陀区', label: '普陀区' },
 
-          { value: '长宁区', label: '长宁区' },
+      { value: '闸北区', label: '闸北区' },
 
-          { value: '静安区', label: '静安区' },
+      { value: '虹口区', label: '虹口区' },
 
-          { value: '普陀区', label: '普陀区' },
+      { value: '杨浦区', label: '杨浦区' },
 
-          { value: '闸北区', label: '闸北区' },
+      { value: '闵行区', label: '闵行区' },
 
-          { value: '虹口区', label: '虹口区' },
+      { value: '宝山区', label: '宝山区' },
 
-          { value: '杨浦区', label: '杨浦区' },
+      { value: '嘉定区', label: '嘉定区' },
 
-          { value: '闵行区', label: '闵行区' },
+      { value: '浦东新区', label: '浦东新区' },
 
-          { value: '宝山区', label: '宝山区' },
+      { value: '金山区', label: '金山区' },
 
-          { value: '嘉定区', label: '嘉定区' },
+      { value: '松江区', label: '松江区' },
 
-          { value: '浦东新区', label: '浦东新区' },
+      { value: '青浦区', label: '青浦区' },
 
-          { value: '金山区', label: '金山区' },
+      { value: '南汇区', label: '南汇区' },
 
-          { value: '松江区', label: '松江区' },
+      { value: '奉贤区', label: '奉贤区' },
 
-          { value: '青浦区', label: '青浦区' },
-
-          { value: '南汇区', label: '南汇区' },
-
-          { value: '奉贤区', label: '奉贤区' },
-
-          { value: '崇明县', label: '崇明县' }
-
-        ]
-
-      }
+      { value: '崇明县', label: '崇明县' }
 
     ]
-
   },
 
   {

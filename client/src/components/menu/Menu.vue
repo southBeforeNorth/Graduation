@@ -24,21 +24,19 @@
         </a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="sub2">
-        <span slot="title"><a-icon type="appstore" /><span>Navigation Two</span></span>
-        <a-menu-item key="5">
-          Option 5
-        </a-menu-item>
-        <a-menu-item key="6">
-          Option 6
-        </a-menu-item>
-        <a-sub-menu key="sub3" title="Submenu">
-          <a-menu-item key="7">
-            Option 7
+        <span slot="title"><a-icon type="appstore" />
+          <span>{{this.$t('menu.label.sportGroundManage')}}</span>
+        </span>
+        <template v-for="item in manageSportGroundOption">
+          <a-menu-item :key="item.key">
+            <router-link
+              :to="item.value"
+              tag="a"
+            >
+              {{ $t('menu.label.' + item.key) }}
+            </router-link>
           </a-menu-item>
-          <a-menu-item key="8">
-            Option 8
-          </a-menu-item>
-        </a-sub-menu>
+        </template>
       </a-sub-menu>
       <a-sub-menu key="sub5">
         <span slot="title">
@@ -87,7 +85,8 @@ export default {
       rootSubmenuKeys: ['sub1', 'sub2', 'sub4'],
       openKeys: [],
       manageOption: [],
-      manageUserOption: []
+      manageUserOption: [],
+      manageSportGroundOption: []
     };
   },
   mounted() {
@@ -95,12 +94,15 @@ export default {
   },
   methods: {
     getMenuOptions() {
-      dictionaryService.getMultipleDictionaries(['维护', '用户管理']).then((n) => {
+      dictionaryService.getMultipleDictionaries(['维护', '用户管理', '场地管理']).then((n) => {
         const manage = n.data.find((taget) => taget.name === '维护');
         const manageUser = n.data.find((taget) => taget.name === '用户管理');
+        const manageSportGround = n.data.find((target) => target.name === '场地管理');
+        if (!lodash.isEmpty(manageSportGround.dictionaryOptions)) {
+          this.manageSportGroundOption = lodash.cloneDeep(manageSportGround.dictionaryOptions);
+        }
         this.manageUserOption = lodash.cloneDeep(manageUser.dictionaryOptions);
         this.manageOption = lodash.cloneDeep(manage.dictionaryOptions);
-        console.log(this.manageOption);
       });
     },
     onOpenChange(openKeys) {

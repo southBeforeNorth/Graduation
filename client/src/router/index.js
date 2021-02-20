@@ -17,12 +17,19 @@ const routes = [
         path: 'merchantManage',
         component: () => import('@/views/maintenance/merchantManage/MerchantManage.vue'),
         meta: {
-          requireAuth: false
+          requireAuth: true
         }
       },
       {
         path: 'dictionary',
         component: () => import('@/views/maintenance/dictionary/Dictionary.vue'),
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
+        path: 'sportGroundManage',
+        component: () => import('@/views/maintenance/sportGround/SportGroundManage.vue'),
         meta: {
           requireAuth: true
         }

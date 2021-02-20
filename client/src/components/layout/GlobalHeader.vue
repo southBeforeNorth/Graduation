@@ -56,6 +56,7 @@
         </a-dropdown>
         <span style="color: white">|</span>
         <router-link
+          v-if="userType === 'manage'"
           :to="{path: '/manage/dictionary'}"
           tag="a"
         >
@@ -63,6 +64,28 @@
             class="register"
             style="margin-right:30px; margin-left: 20px;"
           > {{ $t('globalHeader.manageCenter') }}
+          </span>
+        </router-link>
+        <router-link
+          v-if="userType === 'user'"
+          :to="{path: '/manage/dictionary'}"
+          tag="a"
+        >
+          <span
+            class="register"
+            style="margin-right:30px; margin-left: 20px;"
+          > {{ $t('globalHeader.userCenter') }}
+          </span>
+        </router-link>
+        <router-link
+          v-if="userType === 'merchant'"
+          :to="{path: '/manage/dictionary'}"
+          tag="a"
+        >
+          <span
+            class="register"
+            style="margin-right:30px; margin-left: 20px;"
+          > {{ $t('globalHeader.merchantCenter') }}
           </span>
         </router-link>
       </template>
@@ -101,6 +124,9 @@ export default {
     },
     userName() {
       return this.$store.state.user.name;
+    },
+    userType() {
+      return this.$store.state.user.type;
     }
   },
   methods: {
