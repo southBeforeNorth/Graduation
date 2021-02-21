@@ -51,6 +51,13 @@ const routes = [
         },
         children: [
           {
+            path: 'reservation',
+            component: () => import('@/views/feture/reservation/Reservation.vue'),
+            meta: {
+              requireAuth: false
+            }
+          },
+          {
             path: 'homeBody',
             component: () => import('@/views/feture/home/HomeBody.vue'),
             meta: {

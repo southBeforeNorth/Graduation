@@ -2,7 +2,10 @@
   <div>
     <a-menu v-model="current" mode="horizontal">
       <template v-for="(target, index) in navigationList">
-      <a-menu-item :key="index" :style="computeStyle(index)">
+      <a-menu-item
+        v-if="target.key !== 'space' || isReservation"
+        :key="index"
+        :style="computeStyle(index)">
         <router-link
           :to="target.description"
           tag="a"
@@ -27,10 +30,22 @@ export default {
       navigationList: []
     };
   },
+  computed: {
+    isReservation() {
+      const name = this.$route.fullPath.split('/');
+      return name[name.length - 1] === 'reservation';
+    }
+  },
   mounted() {
     this.getAllNavigations();
   },
   methods: {
+    setCurrent() {
+      const name = this.$route.fullPath.split('/');
+      const target = this.navigationList.find((n) => n.description.includes(name[name.length - 1]));
+      this.current = [];
+      this.current.push(target.sequence);
+    },
     computeStyle(index) {
       if (index === 0) {
         return 'margin-left: 10%';
@@ -40,6 +55,7 @@ export default {
       dictionaryService.getDictionaryOption('导航栏').then((n) => {
         if (n.success) {
           this.navigationList = n.data;
+          this.setCurrent();
         }
       });
     }

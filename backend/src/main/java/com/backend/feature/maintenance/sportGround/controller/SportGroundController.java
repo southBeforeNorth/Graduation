@@ -36,6 +36,18 @@ public class SportGroundController {
         return sportGroundService.getSportGroundListById(pageRequest, name, city);
     }
 
+    @GetMapping("/page")
+    public CommonDTO<PageableDTO<SportGroundDTO>> getSportGroundList(
+            @RequestParam int page,
+            @RequestParam int pageSize,
+            @RequestParam int start,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String city
+    ) {
+        PageRequest pageRequest = PageableUtils.getPageable(page, pageSize, start);
+        return sportGroundService.getSportGroundList(pageRequest, name, city);
+    }
+
     @DeleteMapping("/delete/{id}")
     public CommonDTO<SportGroundDTO> delete(@PathVariable String id) {
         return CommonDTOAssembler.convertTODTO(sportGroundService.delete(id));

@@ -1,4 +1,11 @@
 export default {
+  homeBodyList: {
+    label: {
+      address: '地址：',
+      price: '运动价：',
+      priceTime: '元/小时'
+    }
+  },
   sportGround: {
     manage: {
       name: '场地管理',
@@ -25,7 +32,8 @@ export default {
         areaName: '时间/场地编号',
         price: '场地费用',
         priceValue: '元/每小时',
-        add: '添加场地编号'
+        add: '添加场地编号',
+        picture: '图片描述'
       },
       table: {
         am1: '07:00',

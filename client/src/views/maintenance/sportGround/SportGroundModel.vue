@@ -186,6 +186,30 @@
             >{{ this.$t('sportGround.model.label.add') }}</span>
           </a>
         </a-form-model-item>
+        <a-form-model-item
+          :wrapper-col="{span: 14}"
+          :label="$t('sportGround.model.label.picture')"
+          prop=""
+        >
+          <a-upload
+            list-type="picture-card"
+            :file-list="fileList"
+            :disabled="!editable"
+            @preview="handlePreview"
+            :before-upload="beforeUpload"
+            @change="handleChangePicture"
+          >
+            <div v-if="fileList.length < 4">
+              <a-icon type="plus" />
+              <div class="ant-upload-text">
+                Upload
+              </div>
+            </div>
+          </a-upload>
+          <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">
+            <img alt="example" style="width: 100%" :src="previewImage" />
+          </a-modal>
+        </a-form-model-item>
         <a-row
           v-if="editable"
         >
@@ -219,13 +243,13 @@
 </template>
 
 <script>
-import merchantService from '@/service/merchant';
 import city from '@/views/feture/merchant/city.values';
 import rules from '@/views/maintenance/sportGround/sportGroundModel.rules';
 import lodash from 'lodash';
 import dictionaryService from '@/service/dictionary';
 import moment from 'moment';
 import sportGroundService from '@/service/sportGround';
+import sportGroundPictureService from '@/service/sportGroundPicture';
 import EditableCell from './EditableCell.vue';
 
 export default {
@@ -250,6 +274,9 @@ export default {
   },
   data() {
     return {
+      previewVisible: false,
+      previewImage: '',
+      fileList: [],
       moment,
       weekList: [],
       timeList: [],
@@ -333,6 +360,17 @@ export default {
         this.sportGroundForm.weeks = newInfo.weeks.split(';');
         this.sportGroundForm.time = newInfo.timeArea.split(';');
         this.area = newInfo.areas;
+        const base64 = 'data:image/png;base64,';
+        this.fileList = newInfo.pictures.map(
+          (f) => ({
+            uid: f.id,
+            id: f.id,
+            name: f.fileName,
+            status: 'done',
+            originFileObj: this.base64ToFile(base64 + f.fileContent, f.fileName),
+            thumbUrl: base64 + f.fileContent
+          })
+        );
       } else {
         this.id = null;
         this.resetForm();
@@ -344,6 +382,74 @@ export default {
     this.getDictionary();
   },
   methods: {
+    beforeUpload(file) {
+      const allowType = 'gif;jpg;jpeg;tif;bmp;png';
+      const isAllowType = allowType.includes(file.name.substr(file.name.lastIndexOf('.') + 1, file.name.length));
+      if (!isAllowType) {
+        this.$message.warning(this.$t('格式不正确'));
+      }
+      const isLt5M = file.size / 1024 / 1024 < 5;
+      if (!isLt5M) {
+        this.$message.warning(this.$t('图片大小应该小于5M'));
+      }
+      if (isAllowType && isLt5M) {
+        // eslint-disable-next-line no-param-reassign
+        file.status = 'done';
+      } else {
+        // eslint-disable-next-line no-param-reassign
+        file.status = 'error';
+      }
+      return false;
+    },
+    base64ToFile(urlData, fileName) {
+      const arr = urlData.split(',');
+      const mime = arr[0].match(/:(.*?);/)[1];
+      const bytes = atob(arr[1]); // 解码base64
+      let n = bytes.length;
+      const ia = new Uint8Array(n);
+      while (n--) {
+        ia[n] = bytes.charCodeAt(n);
+      }
+      return new File([ia], fileName, { type: mime });
+    },
+    getBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+      });
+    },
+    handleCancel() {
+      this.previewVisible = false;
+    },
+    async handlePreview(file) {
+      if (!file.url && !file.preview) {
+        // eslint-disable-next-line no-param-reassign
+        file.preview = await this.getBase64(file.originFileObj);
+      }
+      this.previewImage = file.thumbUrl || file.preview;
+      this.previewVisible = true;
+    },
+    handleChangePicture({ fileList }) {
+      this.fileList = fileList;
+      console.log(this.fileList);
+    },
+    uploadFile() {
+      console.log(this.fileList);
+      const files = this.fileList.filter((o) => o.status !== 'error')
+        .map((n) => n.originFileObj);
+      const formData = new FormData();
+      if (files.length > 0) {
+        files.forEach((n) => {
+          formData.append('files', n);
+        });
+      } else {
+        formData.append('files', files[0]);
+      }
+      console.log(formData);
+      return sportGroundPictureService.uploadSportGroundPicture(formData);
+    },
     resetForm() {
       this.sportGroundForm.name = null;
       this.sportGroundForm.type = null;
@@ -354,6 +460,7 @@ export default {
       this.sportGroundForm.weeks = lodash.cloneDeep(this.weekList);
       this.sportGroundForm.time = [];
       this.area = [];
+      this.fileList = [];
     },
     handleChange(selectedItems) {
       this.sportGroundForm.time = selectedItems;
@@ -422,50 +529,60 @@ export default {
     updateForm() {
       const that = this;
       this.$refs.sportGroundForm.validate().then(() => {
-        const sportGround = {
-          name: this.sportGroundForm.name,
-          type: this.sportGroundForm.type,
-          phone: this.sportGroundForm.phone,
-          city: this.sportGroundForm.city.join('/'),
-          detailedAddress: this.sportGroundForm.detailedAddress,
-          weeks: this.sportGroundForm.weeks.join(';'),
-          price: this.sportGroundForm.price,
-          timeArea: this.sportGroundForm.time.join(';'),
-          areas: this.area
-        };
-        sportGroundService.updateSportGround(this.id, sportGround).then((res) => {
+        this.uploadFile().then((res) => {
           if (res.success) {
-            that.visibleScoped = false;
-            that.$emit('onClose');
-            that.$message.success(this.$t('sportGround.model.validate.updateSuccess'));
-            return;
+            const sportGround = {
+              name: that.sportGroundForm.name,
+              type: that.sportGroundForm.type,
+              phone: that.sportGroundForm.phone,
+              city: that.sportGroundForm.city.join('/'),
+              detailedAddress: that.sportGroundForm.detailedAddress,
+              weeks: that.sportGroundForm.weeks.join(';'),
+              price: that.sportGroundForm.price,
+              timeArea: that.sportGroundForm.time.join(';'),
+              areas: that.area,
+              pictures: res.data.filter((n) => n.id !== undefined).map((f) => ({ id: f.id }))
+            };
+            sportGroundService.updateSportGround(that.id, sportGround).then((n) => {
+              if (n.success) {
+                that.visibleScoped = false;
+                that.$emit('onClose');
+                that.$message.success(this.$t('sportGround.model.validate.updateSuccess'));
+                return;
+              }
+              that.$message.error(this.$t('sportGround.model.validate.updateError'));
+            });
           }
-          that.$message.error(this.$t('sportGround.model.validate.updateError'));
         });
       });
     },
     submitForm() {
       const that = this;
       this.$refs.sportGroundForm.validate().then(() => {
-        const sportGround = {
-          name: this.sportGroundForm.name,
-          type: this.sportGroundForm.type,
-          phone: this.sportGroundForm.phone,
-          city: this.sportGroundForm.city.join('/'),
-          detailedAddress: this.sportGroundForm.detailedAddress,
-          weeks: this.sportGroundForm.weeks.join(';'),
-          price: this.sportGroundForm.price,
-          timeArea: this.sportGroundForm.time.join(';'),
-          areas: this.area
-        };
-        sportGroundService.createSportGround(sportGround).then((res) => {
+        this.uploadFile().then((res) => {
           if (res.success) {
-            that.visibleScoped = false;
-            that.$emit('onClose');
-            that.$message.success(this.$t('sportGround.model.validate.submitSuccess'));
-            return;
+            const sportGround = {
+              name: that.sportGroundForm.name,
+              type: that.sportGroundForm.type,
+              phone: that.sportGroundForm.phone,
+              city: that.sportGroundForm.city.join('/'),
+              detailedAddress: that.sportGroundForm.detailedAddress,
+              weeks: that.sportGroundForm.weeks.join(';'),
+              price: that.sportGroundForm.price,
+              timeArea: that.sportGroundForm.time.join(';'),
+              areas: that.area,
+              pictures: res.data.filter((n) => n.id !== undefined).map((f) => ({ id: f.id }))
+            };
+            sportGroundService.createSportGround(sportGround).then((n) => {
+              if (n.success) {
+                that.visibleScoped = false;
+                that.$emit('onClose');
+                that.$message.success(this.$t('sportGround.model.validate.submitSuccess'));
+                return;
+              }
+              that.$message.error(this.$t('sportGround.model.validate.submitError'));
+            });
           }
-          that.$message.error(this.$t('sportGround.model.validate.submitError'));
         });
       });
     },
@@ -486,5 +603,16 @@ export default {
   }
   /deep/ .ant-input {
     height: 40px;
+  }
+  .upload-list-inline >>> .ant-upload-list-item {
+    float: left;
+    width: 200px;
+    margin-right: 8px;
+  }
+  .upload-list-inline >>> .ant-upload-animate-enter {
+    animation-name: uploadAnimateInlineIn;
+  }
+  .upload-list-inline >>> .ant-upload-animate-leave {
+    animation-name: uploadAnimateInlineOut;
   }
 </style>

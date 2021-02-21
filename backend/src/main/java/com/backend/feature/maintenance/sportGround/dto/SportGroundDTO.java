@@ -22,4 +22,5 @@ public class SportGroundDTO {
     private Date createdTime;
     private String lastModifiedBy;
     private Date lastModifiedTime;
+    private List<PictureDTO> pictures = new ArrayList<>();
 }

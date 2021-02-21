@@ -46,4 +46,8 @@ public class SportGround extends UUIDPersistence {
     @ManyToOne
     @JoinColumn(name = "MERCHANT_ID")
     private Merchant merchant;
+
+    @OneToMany(cascade = { CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.DETACH}, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "SPORT_GROUND_ID", referencedColumnName = "ID")
+    private List<Picture> pictures = new ArrayList<>();
 }

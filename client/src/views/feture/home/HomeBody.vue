@@ -14,30 +14,31 @@
     </div>
     <div style="text-align: center">
       <a >
-        <img src="../../../../static/homeBody5.jpg"  alt="" style="margin: auto"/>
+        <img src="../../../../static/homeBody3.jpg"  alt="" style="margin: auto"/>
       </a>
     </div>
     <div><h3>3</h3></div>
     <div><h3>4</h3></div>
   </a-carousel>
 </div>
-    <a-divider style="color: #0191C7;font-size: 40px; font-family: 华光胖头鱼_CNKI">
+    <div style="text-align: center; margin-top: 30px">
+      <span style="color: #0191C7;font-size: 40px; margin: auto; font-family: 华光胖头鱼_CNKI">
       {{ $t('home.body.searchText') }}
-    </a-divider>
-  <div style="text-align: center">
-      <a-input-search
-        :placeholder="$t('home.body.search')"
-        :enter-button="$t('home.body.searchButton')"
-        size="large"
-        @search="onSearch"
-      />
-  </div>
+    </span>
+    </div>
+
+    <HomeBodyList/>
   </div>
 </template>
 
 <script>
+import HomeBodyList from '@/components/layout/HomeBodyList.vue';
+
 export default {
-  name: 'HomeBody'
+  name: 'HomeBody',
+  components: {
+    HomeBodyList
+  }
 };
 </script>
 
@@ -57,7 +58,7 @@ export default {
   }
   .ant-carousel >>> .slick-slide {
     text-align: center;
-    height: 250px;
+    height: 350px;
     line-height: 250px;
     background: #364d79;
     overflow: hidden;

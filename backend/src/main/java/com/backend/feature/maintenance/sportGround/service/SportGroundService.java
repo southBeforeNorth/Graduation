@@ -10,6 +10,7 @@ import com.backend.feature.maintenance.sportGround.assembler.SportGroundDTOAssem
 import com.backend.feature.maintenance.sportGround.dto.SportGroundDTO;
 import com.backend.feature.maintenance.sportGround.entity.SportGround;
 import com.backend.feature.maintenance.sportGround.exception.SportGroundException;
+import com.backend.feature.maintenance.sportGround.repository.PictureRepository;
 import com.backend.feature.maintenance.sportGround.repository.SportGroundRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,8 @@ public class SportGroundService {
     private SportGroundRepository sportGroundRepository;
     @Autowired
     private MerchantRepository merchantRepository;
+    @Autowired
+    private PictureRepository pictureRepository;
 
     public SportGroundDTO create(SportGroundDTO sportGroundDTO) {
         SportGround sportGround = SportGroundDTOAssembler.convertToEntity(sportGroundDTO);
@@ -52,6 +55,7 @@ public class SportGroundService {
     public SportGroundDTO update(String id, SportGroundDTO sportGroundDTO) {
         SportGround sportGround = sportGroundRepository.findById(id)
                 .orElseThrow(() -> new SportGroundException(SportGroundException.SPORT_GROUND_NO_EXIST));
+        pictureRepository.deleteAll(sportGround.getPictures());
         SportGround saveSportGround = SportGroundDTOAssembler.convertToEntity(sportGroundDTO);
         saveSportGround.setId(id);
         saveSportGround.setMerchant(sportGround.getMerchant());
@@ -64,15 +68,27 @@ public class SportGroundService {
             String name,
             String city) {
         Specification<SportGround> specification = getSportGroundSpecification(name, city, UserUtils.getUserId());
+        return this.getSportGroundPage(specification, pageRequest);
+    }
+
+    public CommonDTO<PageableDTO<SportGroundDTO>> getSportGroundList(
+            PageRequest pageRequest,
+            String name,
+            String city) {
+        Specification<SportGround> specification = getSportGroundSpecification(name, city, null);
+        return this.getSportGroundPage(specification, pageRequest);
+    }
+
+    private CommonDTO<PageableDTO<SportGroundDTO>> getSportGroundPage(
+            Specification<SportGround> specification,
+            PageRequest pageRequest) {
         Page<SportGround> sportGroundPage = sportGroundRepository.findAll(specification, pageRequest);
         List<SportGroundDTO> merchantDTOList = sportGroundPage.getContent()
                 .stream()
                 .map(SportGroundDTOAssembler::convertToDTO)
                 .sorted(Comparator.comparing(SportGroundDTO::getName, Comparator.nullsFirst(Comparator.naturalOrder())))
                 .collect(Collectors.toList());
-
         return PageableDTOAssembler.convertToDTO(merchantDTOList, (int) sportGroundPage.getTotalElements(), sportGroundPage.getTotalPages());
-
     }
 
     private Specification<SportGround> getSportGroundSpecification(String name, String city, String id) {

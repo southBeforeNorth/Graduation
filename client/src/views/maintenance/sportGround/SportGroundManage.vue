@@ -114,7 +114,6 @@
 </template>
 
 <script>
-import merchantService from '@/service/merchant';
 import SportGroundModel from '@/views/maintenance/sportGround/SportGroundModel.vue';
 import sportGroundManageConfig from '@/views/maintenance/sportGround/sportGroundManage.config';
 import sportGroundService from '@/service/sportGround';

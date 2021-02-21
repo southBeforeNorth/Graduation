@@ -53,3 +53,12 @@ export const put = async (url, data) => http.request({
   method: 'PUT',
   data
 });
+
+export const upload = async (url, params) => http.request({
+  url,
+  method: 'POST',
+  data: params,
+  headers: {
+    'Content-Type': 'multipart/form-data'
+  }
+});
