@@ -154,6 +154,7 @@
           :label="$t('sportGround.model.label.area')"
         >
           <a-table
+            :scroll="{ x: 1350 }"
             :pagination="false"
             :data-source="area"
             :row-key="record => record.sequence"
@@ -483,14 +484,12 @@ export default {
     },
     changePrice(value) {
       this.sportGroundForm.price = value;
-      console.log(this.sportGroundForm.price);
     },
     onCellChange(col, key, value) {
       const target = this.area.find((item) => item.sequence === key);
       if (target) {
         target[col] = value;
       }
-      console.log(this.area);
     },
     onDelete(key) {
       this.area = lodash.cloneDeep(this.area.filter((n) => n.sequence !== key));

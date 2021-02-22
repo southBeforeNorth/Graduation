@@ -40,4 +40,32 @@ public class Area extends UUIDPersistence {
 
     @Column(name = "PM2")
     private String pm2;
+
+    @Column(name = "PM3")
+    private String pm3;
+
+    @Column(name = "PM4")
+    private String pm4;
+
+    @Column(name = "PM5")
+    private String pm5;
+
+    @Column(name = "PM6")
+    private String pm6;
+
+    @Column(name = "PM7")
+    private String pm7;
+
+    @Column(name = "PM8")
+    private String pm8;
+
+    @Column(name = "PM9")
+    private String pm9;
+
+    @Column(name = "PM10")
+    private String pm10;
+
+    @Column(name = "PM11")
+    private String pm11;
+
 }

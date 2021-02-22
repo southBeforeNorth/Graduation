@@ -102,6 +102,8 @@ export default {
       sportGroundService.getSportGroundList(params).then((res) => {
         if (res.success) {
           this.setData(res.data.content);
+          this.pagination.current = page + 1;
+          this.pagination.total = res.data.totalElements;
         }
       });
     },

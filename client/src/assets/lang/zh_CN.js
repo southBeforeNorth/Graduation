@@ -1,4 +1,16 @@
 export default {
+  sportGroundDetail: {
+    label: {
+      phone: '场地电话：',
+      address: '场地地址：',
+      price: '运动价格：',
+      priceTime: '元/小时',
+      isActive: '可预订:',
+      noSelected: '不可预订:',
+      selected: '当前选定:'
+    }
+
+  },
   homeBodyList: {
     label: {
       address: '地址：',
@@ -45,6 +57,15 @@ export default {
         am5: '11:00',
         pm1: '12:00',
         pm2: '13:00',
+        pm3: '14:00',
+        pm4: '15:00',
+        pm5: '16:00',
+        pm6: '17:00',
+        pm7: '18:00',
+        pm8: '19:00',
+        pm9: '20:00',
+        pm10: '21:00',
+        pm11: '22:00'
       },
       validate: {
         name: '您场地的名称不能为空',
