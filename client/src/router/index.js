@@ -51,6 +51,7 @@ const routes = [
         },
         children: [
           {
+            name: 'reservation',
             path: 'reservation',
             component: () => import('@/views/feture/reservation/Reservation.vue'),
             meta: {

@@ -17,6 +17,7 @@ public class SportGroundDTO {
     private String weeks;
     private String price;
     private String timeArea;
+    private String description;
     private List<AreaDTO> areas = new ArrayList<>();
     private String createdBy;
     private Date createdTime;

@@ -14,6 +14,11 @@ const getSportGroundsById = async (params) => {
   return result.data;
 };
 
+const getSportGroundById = async (id) => {
+  const result = await get(`${contextPath}/get/${id}`);
+  return result.data;
+};
+
 const getSportGroundList = async (params) => {
   const result = await get(`${contextPath}/page`, params);
   return result.data;
@@ -34,5 +39,6 @@ export default {
   getSportGroundsById,
   deleteSportGround,
   updateSportGround,
-  getSportGroundList
+  getSportGroundList,
+  getSportGroundById
 };

@@ -35,10 +35,12 @@
       />
       <a-list-item-meta
         :description="$t('homeBodyList.label.address')+item.address">
-        <a slot="title" :href="item.href"  target="_blank">
-          <span style="font-weight: bolder; font-size: x-large">
-            {{ item.title }}
-          </span>
+        <a
+          slot="title"
+          style="font-weight: bolder; font-size: x-large"
+          @click="toDetailPage(item.href, item.id)"
+        >
+          {{ item.title }}
         </a>
       </a-list-item-meta>
      {{$t('homeBodyList.label.price')+item.content+$t('homeBodyList.label.priceTime')}}
@@ -73,6 +75,11 @@ export default {
     this.initData(0, this.pagination.pageSize, 0);
   },
   methods: {
+    toDetailPage(routName, detailId) {
+      this.$store.commit('SET_SPORT_GROUND_ID', detailId);
+      const route = this.$router.resolve({ name: routName });
+      window.open(route.href, '_blank');
+    },
     pageChange(page, pageSize) {
       this.initData(page - 1, pageSize, 0);
     },
@@ -90,7 +97,7 @@ export default {
     initData(page, pageSize, start) {
       const name = this.name;
       const params = {
-        page, pageSize, start, name
+        page, pageSize, start, name, city: name
       };
       sportGroundService.getSportGroundList(params).then((res) => {
         if (res.success) {
@@ -104,6 +111,7 @@ export default {
       data.forEach((n) => {
         this.listData.push({
           href: 'reservation',
+          id: n.id,
           title: n.name,
           extra: base64 + n.pictures[0].fileContent,
           address: n.city.split('/').join('') + n.detailedAddress,

@@ -87,8 +87,22 @@
           <a-textarea
             v-model="sportGroundForm.detailedAddress"
             :disabled="!editable"
-            :auto-size="{ minRows: 3, maxRows: 5 }"
+            :auto-size="{ minRows: 2, maxRows: 5 }"
             :placeholder="$t('sportGround.model.placeholder.detailedAddress')"
+          >
+
+          </a-textarea>
+        </a-form-model-item>
+        <a-form-model-item
+          :wrapper-col="{span: 14}"
+          :label="$t('sportGround.model.label.description')"
+          prop="description"
+        >
+          <a-textarea
+            v-model="sportGroundForm.description"
+            :disabled="!editable"
+            :auto-size="{ minRows: 4, maxRows: 5 }"
+            :placeholder="$t('sportGround.model.placeholder.description')"
           >
 
           </a-textarea>
@@ -289,7 +303,8 @@ export default {
         city: [],
         detailedAddress: null,
         weeks: [],
-        time: []
+        time: [],
+        description: null
       },
       typeList: [],
       //
@@ -360,6 +375,7 @@ export default {
         this.sportGroundForm.weeks = newInfo.weeks.split(';');
         this.sportGroundForm.time = newInfo.timeArea.split(';');
         this.area = newInfo.areas;
+        this.sportGroundForm.description = newInfo.description;
         const base64 = 'data:image/png;base64,';
         this.fileList = newInfo.pictures.map(
           (f) => ({
@@ -433,7 +449,6 @@ export default {
     },
     handleChangePicture({ fileList }) {
       this.fileList = fileList;
-      console.log(this.fileList);
     },
     uploadFile() {
       console.log(this.fileList);
@@ -461,6 +476,7 @@ export default {
       this.sportGroundForm.time = [];
       this.area = [];
       this.fileList = [];
+      this.sportGroundForm.description = null;
     },
     handleChange(selectedItems) {
       this.sportGroundForm.time = selectedItems;
@@ -541,6 +557,7 @@ export default {
               price: that.sportGroundForm.price,
               timeArea: that.sportGroundForm.time.join(';'),
               areas: that.area,
+              description: that.sportGroundForm.description,
               pictures: res.data.filter((n) => n.id !== undefined).map((f) => ({ id: f.id }))
             };
             sportGroundService.updateSportGround(that.id, sportGround).then((n) => {
@@ -571,6 +588,7 @@ export default {
               price: that.sportGroundForm.price,
               timeArea: that.sportGroundForm.time.join(';'),
               areas: that.area,
+              description: that.sportGroundForm.description,
               pictures: res.data.filter((n) => n.id !== undefined).map((f) => ({ id: f.id }))
             };
             sportGroundService.createSportGround(sportGround).then((n) => {

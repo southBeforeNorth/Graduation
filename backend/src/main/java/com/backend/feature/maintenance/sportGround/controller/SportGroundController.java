@@ -53,6 +53,11 @@ public class SportGroundController {
         return CommonDTOAssembler.convertTODTO(sportGroundService.delete(id));
     }
 
+    @GetMapping("/get/{id}")
+    public CommonDTO<SportGroundDTO> getById(@PathVariable String id) {
+        return CommonDTOAssembler.convertTODTO(sportGroundService.getById(id));
+    }
+
     @PutMapping("/update/{id}")
     public CommonDTO<SportGroundDTO> update(@PathVariable String id, @RequestBody SportGroundDTO sportGroundDTO) {
         return CommonDTOAssembler.convertTODTO(sportGroundService.update(id, sportGroundDTO));

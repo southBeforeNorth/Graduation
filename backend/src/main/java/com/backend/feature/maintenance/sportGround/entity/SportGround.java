@@ -36,6 +36,9 @@ public class SportGround extends UUIDPersistence {
     @Column(name = "PRICE")
     private String price;
 
+    @Column(name = "DESCRIPTION")
+    private String description;
+
     @Column(name = "TIME_AREA")
     private String timeArea;
 

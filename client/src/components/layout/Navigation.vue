@@ -3,9 +3,9 @@
     <a-menu v-model="current" mode="horizontal">
       <template v-for="(target, index) in navigationList">
       <a-menu-item
-        v-if="target.key !== 'space' || isReservation"
+        v-if="target.key !== 'space' && !isReservation"
         :key="index"
-        :style="computeStyle(index)">
+        :style="computeStyle(index, target.key)">
         <router-link
           :to="target.description"
           tag="a"
@@ -14,6 +14,18 @@
           {{ $t('home.navigation.'+target.key)}}
         </router-link>
       </a-menu-item>
+        <a-menu-item
+          v-if="target.key === 'space' && isReservation"
+          :key="index"
+          style="margin-left: 10%">
+          <router-link
+            :to="target.description"
+            tag="a"
+          >
+            <a-icon :type="target.value" />
+            {{ $t('home.navigation.'+target.key)}}
+          </router-link>
+        </a-menu-item>
       </template>
     </a-menu>
   </div>

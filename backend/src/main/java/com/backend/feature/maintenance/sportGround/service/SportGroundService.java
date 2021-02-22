@@ -63,6 +63,12 @@ public class SportGroundService {
         return SportGroundDTOAssembler.convertToDTO(updateSportGround);
     }
 
+    public SportGroundDTO getById(String id) {
+        SportGround sportGround = sportGroundRepository.findById(id)
+                .orElseThrow(() -> new SportGroundException(SportGroundException.SPORT_GROUND_NO_EXIST));
+        return SportGroundDTOAssembler.convertToDTO(sportGround);
+    }
+
     public CommonDTO<PageableDTO<SportGroundDTO>> getSportGroundListById(
             PageRequest pageRequest,
             String name,
@@ -93,22 +99,44 @@ public class SportGroundService {
 
     private Specification<SportGround> getSportGroundSpecification(String name, String city, String id) {
         return (root, query, cb) -> {
+            List<Predicate> predicateOr = new ArrayList<>();
             List<Predicate> predicateList = new ArrayList<>();
+            Predicate conditionPre;
+
             if (StringUtils.isNotEmpty(name)) {
-                predicateList.add(cb.like(root.get("name"), "%" + name + "%"));
+                predicateOr.add(cb.like(root.get("name"), "%" + name + "%"));
             }
             if (StringUtils.isNotEmpty(city)) {
-                predicateList.add(cb.like(root.get("city"), "%" + city + "%"));
+                predicateOr.add(cb.like(root.get("city"), "%" + city + "%"));
             }
+
+            Predicate[] or = new Predicate[predicateOr.size()];
 
             if (Objects.nonNull(id)) {
                 Join<SportGround, Merchant> merchantJoin
                         = root.join(root.getModel().getSingularAttribute("merchant", Merchant.class), JoinType.LEFT);
                 predicateList.add(cb.equal(merchantJoin.get("id"), id));
+
+                Predicate[] and = new Predicate[predicateList.size()];
+
+                conditionPre = query.where(
+                        cb.and(predicateOr.toArray(or)),
+                        cb.and(predicateList.toArray(and)))
+                        .getRestriction();
+
             }
-            Predicate[] predicates = new Predicate[predicateList.size()];
-            query.where(cb.and(predicateList.toArray(predicates)));
-            return query.getRestriction();
+
+            else if(StringUtils.isNotEmpty(name) && StringUtils.isNotEmpty(city)) {
+                conditionPre = query.where(
+                        cb.or(predicateOr.toArray(or)))
+                        .getRestriction();
+            }
+            else {
+                conditionPre = query.where(
+                        cb.and(predicateOr.toArray(or)))
+                        .getRestriction();
+            }
+            return conditionPre;
         };
     }
 }

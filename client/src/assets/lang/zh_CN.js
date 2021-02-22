@@ -20,6 +20,7 @@ export default {
         time: '请选择场地开场时间',
         city: '请选择场地所在城市',
         detailedAddress: '请输入场地所在详细地址',
+        description: '请输入场馆简介信息'
       },
       label: {
         operation: '操作',
@@ -33,7 +34,8 @@ export default {
         price: '场地费用',
         priceValue: '元/每小时',
         add: '添加场地编号',
-        picture: '图片描述'
+        picture: '图片描述',
+        description: '场馆简介'
       },
       table: {
         am1: '07:00',
