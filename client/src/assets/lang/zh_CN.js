@@ -7,7 +7,10 @@ export default {
       priceTime: '元/小时',
       isActive: '可预订:',
       noSelected: '不可预订:',
-      selected: '当前选定:'
+      selected: '当前选定:',
+      type: '项目：',
+      date: '日期：',
+      maxLength: '您选择的场次太多，请分两次下单结算！'
     }
 
   },

@@ -78,6 +78,7 @@ export default {
     toDetailPage(routName, detailId) {
       this.$store.commit('SET_SPORT_GROUND_ID', detailId);
       const route = this.$router.resolve({ name: routName });
+      this.$store.commit('SET_TAB_ACTIVE_KEY', 'key_0');
       window.open(route.href, '_blank');
     },
     pageChange(page, pageSize) {

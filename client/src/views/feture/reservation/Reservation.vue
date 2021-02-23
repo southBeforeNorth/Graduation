@@ -41,16 +41,17 @@
       <a-row>
         <a-col span="14" push="2">
       <a-tabs
-        default-active-key="1"
+        v-model="tabActiveKey"
         :tab-position="mode"
         style=" overflow-x: auto"
         @prevClick="callback"
         @nextClick="callback"
+        @change="changeTab"
       >
-        <template v-for="item in dateList">
+        <template v-for="(item, index) in dateList">
           <a-tab-pane
             v-if="item.isActive"
-            :key="item.week"
+            :key="'key_'+index"
             :tab="item.week+' '+item.dateFormat">
             <a-table
               :scroll="{ x: tableLength }"
@@ -58,7 +59,6 @@
               :data-source="areaList"
               :row-key="record => record.sequence"
               :columns="columns"
-              bordered
             >
               <template
                 v-for="(col, index) in columns"
@@ -66,11 +66,11 @@
                 slot-scope="text, record"
               >
                 <a-button
-                  @click="changeButton($event ,col, record)"
+                  @click="changeButton($event ,col, record, text)"
                   v-if="col.dataIndex !=='areaName'"
                   :key="index"
                 >
-                  {{text}}
+                  {{'￥'+text}}
                 </a-button>
                 <template
                   v-else
@@ -117,6 +117,17 @@
             </a-col>
           </a-row>
           <a-divider/>
+          <a-row>
+            <span style="font-size: 16px">
+              {{ this.$t('sportGroundDetail.label.type')}}
+              {{type}}</span>
+          </a-row>
+          <a-row>
+            <span style="font-size: 16px">
+              {{ this.$t('sportGroundDetail.label.date')}}
+              {{date.format}}
+            </span>
+          </a-row>
         </a-col>
       </a-row>
     </div>
@@ -133,6 +144,7 @@ export default {
   name: 'Reservation',
   data() {
     return {
+      selectedAreaList: [],
       tableLength: 0,
       tableCol: [],
       areaList: [],
@@ -143,13 +155,32 @@ export default {
       phone: null,
       price: null,
       address: null,
-      picture: null
+      picture: null,
+      type: null
     };
   },
   mounted() {
     this.initData();
   },
   computed: {
+    date: {
+      get() {
+        const diff = this.tabActiveKey.split('_')[1];
+        const target = moment().add(diff, 'd').valueOf();
+        return {
+          value: target,
+          format: `${moment(target).format('YYYY年MM月DD日')}(${this.setWeek(moment(target).valueOf()) })`
+        };
+      }
+    },
+    tabActiveKey: {
+      get() {
+        return this.$store.state.globalArea.tabActiveKey;
+      },
+      set(newValue) {
+        this.$store.commit('SET_TAB_ACTIVE_KEY', newValue);
+      }
+    },
     columns() {
       const col = [];
       col.push(
@@ -176,17 +207,29 @@ export default {
     }
   },
   methods: {
-    changeButton(event, col, record) {
+    changeButton(event, col, record, value) {
+      const target = {
+        areaName: record.areaName,
+        date: this.date.value,
+        time: col.dataIndex,
+        price: value
+      };
       if (lodash.isEmpty(event.srcElement.style.background)) {
         // eslint-disable-next-line no-param-reassign
         event.srcElement.style.background = '#1890f0';
+        if (this.selectedAreaList.length >= 4) {
+          this.$message.warning(this.$t('sportGroundDetail.label.maxLength'));
+          // eslint-disable-next-line no-param-reassign
+          event.srcElement.style.background = '';
+          return;
+        }
+        this.selectedAreaList.push(target);
       } else {
+        this.selectedAreaList = this.selectedAreaList
+          .filter((n) => n.areaName !== record.areaName || n.time !== col.dataIndex);
         // eslint-disable-next-line no-param-reassign
         event.srcElement.style.background = '';
       }
-      console.log(event);
-      console.log(col);
-      console.log(record);
     },
     setWeek(date) {
       const week = moment(date).day();
@@ -216,7 +259,7 @@ export default {
         const isActive = !lodash.isEmpty(weeks.find((n) => n === week));
         const temp = {
           week,
-          date: target,
+          date: target.valueOf(),
           isActive,
           dateFormat: target.format('MM/DD')
         };
@@ -235,14 +278,22 @@ export default {
         }
       });
     },
-    callback(val) {
+    changeTab(value) {
+      const target = moment().add(value.split('_')[1], 'd').valueOf();
+      this.selectedAreaList = [];
+      this.date.value = target;
+      this.date.format = `${moment(target).format('YYYY年MM月DD日')}(${this.setWeek(moment(target)) })`;
+      this.$store.commit('SET_TAB_ACTIVE_KEY', value);
+      window.location.reload();
+    },
+    callback() {
     },
     initData() {
       const base64 = 'data:image/png;base64,';
       const id = this.$store.state.globalArea.sportGroundId;
       sportGroundService.getSportGroundById(id).then((res) => {
-        console.log(res);
         if (res.success) {
+          this.type = res.data.type;
           this.name = res.data.name;
           this.phone = res.data.phone;
           this.price = res.data.price;
@@ -251,7 +302,6 @@ export default {
           const weeks = res.data.weeks.split(';');
           this.areaList = res.data.areas;
           this.tableCol = res.data.timeArea.split(';');
-          console.log(this.areaList);
           this.getDictionary(weeks);
         }
       });
