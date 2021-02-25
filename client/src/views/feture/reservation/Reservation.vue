@@ -66,6 +66,7 @@
                 slot-scope="text, record"
               >
                 <a-button
+                  :disabled="isAllowSelect(col, record)"
                   @click="changeButton($event ,col, record, text)"
                   v-if="col.dataIndex !=='areaName'"
                   :key="index"
@@ -128,6 +129,50 @@
               {{date.format}}
             </span>
           </a-row>
+          <a-row>
+              <span style="font-size: 16px">
+              {{ this.$t('sportGroundDetail.label.selectedArea')}}
+            </span>
+          </a-row>
+          <a-row>
+            <template v-if="selectedAreaList.length === 0">
+              <div class="selectRes">
+                {{this.$t('sportGroundDetail.label.selectedTip')}}
+              </div>
+            </template>
+            <template v-for="(item, index) in selectedAreaList">
+              <div class="selectRes" :key="index">
+                {{item.areaName}}
+                {{$t(`sportGroundDetail.label.${item.time}`)}}
+                {{item.price +'元'}}
+              </div>
+            </template>
+          </a-row>
+          <a-row style="margin-top: 10px">
+            {{$t('sportGroundDetail.label.areaNumber') }}
+            <span style="font-size: 18px; color: #1890f0">
+              {{selectedAreaList.length}}
+            </span>
+            {{$t('sportGroundDetail.label.areaNumber1') }}
+          </a-row>
+          <a-row style="margin-top: 10px;font-size:24px">
+            {{$t('sportGroundDetail.label.totalPrice') }}
+            <span style="color: #1890f0">
+              {{totalPrice+ '元'}}
+            </span>
+          </a-row>
+          <a-row>
+            <a-col push="6">
+            <a-button
+              @click="submit"
+              :disabled="isAllowClickButton"
+              size="large"
+              type="primary"
+              style="margin-top: 20px">
+              {{$t('sportGroundDetail.label.button') }}
+            </a-button>
+            </a-col>
+          </a-row>
         </a-col>
       </a-row>
     </div>
@@ -139,11 +184,13 @@ import sportGroundService from '@/service/sportGround';
 import dictionaryService from '@/service/dictionary';
 import lodash from 'lodash';
 import moment from 'moment';
+import orderInfoService from '@/service/orderInfo';
 
 export default {
   name: 'Reservation',
   data() {
     return {
+      historyOrder: [],
       selectedAreaList: [],
       tableLength: 0,
       tableCol: [],
@@ -156,13 +203,26 @@ export default {
       price: null,
       address: null,
       picture: null,
-      type: null
+      type: null,
+      merchant: null,
+      id: null
     };
   },
   mounted() {
     this.initData();
   },
   computed: {
+    isAllowClickButton() {
+      return !this.selectedAreaList.length > 0;
+    },
+    totalPrice() {
+      let total = 0;
+      this.selectedAreaList.forEach((n) => {
+        // eslint-disable-next-line radix
+        total += Number.parseInt(n.price);
+      });
+      return total;
+    },
     date: {
       get() {
         const diff = this.tabActiveKey.split('_')[1];
@@ -181,6 +241,9 @@ export default {
         this.$store.commit('SET_TAB_ACTIVE_KEY', newValue);
       }
     },
+    isLogin() {
+      return this.$store.state.user.isLogin;
+    },
     columns() {
       const col = [];
       col.push(
@@ -195,18 +258,71 @@ export default {
       this.tableLength += 150;
       this.tableCol.forEach((item) => {
         const temp = {
-          title: this.$t(`sportGround.model.table.${item}`),
+          title: this.$t(`sportGroundDetail.label.${item}`),
           dataIndex: item,
-          width: 100,
+          width: 107,
           scopedSlots: { customRender: item }
         };
-        this.tableLength += 100;
+        this.tableLength += 107;
         col.push(temp);
       });
       return col;
     }
   },
   methods: {
+    isAllowSelect(col, record) {
+      let res = false;
+      this.historyOrder.forEach((n) => {
+        n.orderDetails.forEach((target) => {
+          if (target.areaName === record.areaName && target.time === col.dataIndex) {
+            res = true;
+          }
+        });
+      });
+      return res;
+    },
+    submit() {
+      const that = this;
+      if (!this.isLogin) {
+        this.$confirm({
+          title: this.$t('sportGroundDetail.label.noLogin'),
+          onOk() {
+            that.$router.push({ path: '/feature/login' });
+          }
+        });
+        return;
+      }
+      const target = {
+        userName: this.$store.state.user.name,
+        merchantId: this.merchant.id,
+        merchantName: this.merchant.merchantName,
+        sportGroundName: this.name,
+        sportGroundId: this.id,
+        totalPrice: this.totalPrice,
+        status: 'new',
+        orderDate: this.date.value,
+        orderDetails: this.selectedAreaList
+      };
+      this.$confirm({
+        title: that.$t('sportGroundDetail.label.orderConfirm'),
+        okText: that.$t('sportGroundDetail.label.confirmOk'),
+        cancelText: that.$t('sportGroundDetail.label.confirmCancel'),
+        onOk() {
+          orderInfoService.createOrder(target).then((res) => {
+            if (res.success) {
+              that.$success({
+                title: that.$t('sportGroundDetail.label.orderSuccess'),
+                okText: that.$t('sportGroundDetail.label.orderOk'),
+                onOk() {
+                  that.$router.go(0);
+                }
+              });
+            }
+          });
+        },
+        onCancel() {}
+      });
+    },
     changeButton(event, col, record, value) {
       const target = {
         areaName: record.areaName,
@@ -293,6 +409,7 @@ export default {
       const id = this.$store.state.globalArea.sportGroundId;
       sportGroundService.getSportGroundById(id).then((res) => {
         if (res.success) {
+          this.id = res.data.id;
           this.type = res.data.type;
           this.name = res.data.name;
           this.phone = res.data.phone;
@@ -305,6 +422,17 @@ export default {
           this.getDictionary(weeks);
         }
       });
+      sportGroundService.getMerchantById(id).then((res) => {
+        if (res.success) {
+          this.merchant = res.data;
+        }
+      });
+      orderInfoService.getOrderInfoBySportGroundId(id, { date: this.date.value })
+        .then((res) => {
+          if (res.success) {
+            this.historyOrder = res.data;
+          }
+        });
     }
   }
 };
@@ -319,6 +447,16 @@ export default {
   }
   /deep/ .ant-descriptions-item-label {
     font-size: 14px;
+  }
+
+  .selectRes {
+    color: #1890f0;
+    text-align: center;
+    border:2px solid #1890f0;
+    width: 300px;
+    margin-top: 8px;
+    height: 30px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
   }
 
 </style>

@@ -171,7 +171,7 @@ export default {
     background: linear-gradient(90deg, #0181C9 0%, #0191C7 35.94%, #00B9D7 66.15%, #00B0D7 98.96%);
     -moz-box-shadow:0 4px 4px 0 rgba(0,0,0,0.3);
     -webkit-box-shadow:0 4px 4px 0 rgba(0,0,0,0.3);
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
     z-index: 1;
     position: fixed;
   }

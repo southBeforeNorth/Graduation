@@ -1,5 +1,6 @@
 package com.backend.feature.maintenance.sportGround.dto;
 
+import com.backend.feature.maintenance.merchant.entity.Merchant;
 import lombok.Data;
 
 import java.util.ArrayList;

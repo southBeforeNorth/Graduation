@@ -4,6 +4,8 @@ import com.backend.comment.assembler.PageableDTOAssembler;
 import com.backend.comment.dto.CommonDTO;
 import com.backend.comment.dto.PageableDTO;
 import com.backend.comment.util.UserUtils;
+import com.backend.feature.maintenance.merchant.assembler.MerchantDTOAssembler;
+import com.backend.feature.maintenance.merchant.dto.MerchantDTO;
 import com.backend.feature.maintenance.merchant.entity.Merchant;
 import com.backend.feature.maintenance.merchant.repository.MerchantRepository;
 import com.backend.feature.maintenance.sportGround.assembler.SportGroundDTOAssembler;
@@ -43,6 +45,13 @@ public class SportGroundService {
         Optional<Merchant> merchant = merchantRepository.findById(id);
         merchant.ifPresent(sportGround::setMerchant);
         return SportGroundDTOAssembler.convertToDTO(sportGroundRepository.save(sportGround));
+    }
+
+    public MerchantDTO getMerchantById(String id){
+        SportGround sportGround = sportGroundRepository.findById(id)
+                .orElseThrow(()->new SportGroundException(SportGroundException.SPORT_GROUND_NO_EXIST));
+
+        return MerchantDTOAssembler.convertToDTO(sportGround.getMerchant());
     }
 
     public SportGroundDTO delete(String id) {

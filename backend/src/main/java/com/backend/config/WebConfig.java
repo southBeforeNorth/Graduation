@@ -39,6 +39,8 @@ public class WebConfig implements WebMvcConfigurer {
         excludePath.add("/sportGround/get/{id}");
         excludePath.add("/dictionary/{dictionaryName}");
         excludePath.add("/dictionary/multiple/{dictionaryNames}");
+        excludePath.add("/sportGround/getMerchant/{id}");
+        excludePath.add("/orderInfo/getBySportGroundId/{id}");
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(excludePath);

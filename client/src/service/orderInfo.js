@@ -3,24 +3,20 @@ import {
   post, get, del, put
 } from '@/common/util/http.util';
 
-const contextPath = '/sportGround';
+const contextPath = '/orderInfo';
 
-const createSportGround = async (params) => {
-  const result = await post(`${contextPath}/create`, params);
-  return result.data;
-};
 const getSportGroundsById = async (params) => {
   const result = await get(`${contextPath}/pageById`, params);
   return result.data;
 };
 
-const getSportGroundById = async (id) => {
-  const result = await get(`${contextPath}/get/${id}`);
+const createOrder = async (params) => {
+  const result = await post(`${contextPath}/create`, params);
   return result.data;
 };
 
-const getMerchantById = async (id) => {
-  const result = await get(`${contextPath}/getMerchant/${id}`);
+const getOrderInfoBySportGroundId = async (id, param) => {
+  const result = await get(`${contextPath}/getBySportGroundId/${id}`, param);
   return result.data;
 };
 
@@ -40,11 +36,10 @@ const updateSportGround = async (id, params) => {
 };
 
 export default {
-  createSportGround,
+  createOrder,
   getSportGroundsById,
   deleteSportGround,
   updateSportGround,
   getSportGroundList,
-  getSportGroundById,
-  getMerchantById
+  getOrderInfoBySportGroundId
 };
