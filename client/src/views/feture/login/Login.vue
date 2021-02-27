@@ -172,6 +172,7 @@ export default {
           merchantService.getMerchantById().then((res) => {
             if (res.success) {
               this.$store.commit('SET_IS_NAME', res.data.merchantName);
+              this.$store.commit('SET_TYPE', res.data.type);
             }
           });
           this.$store.commit('SET_TOKEN', n.data);

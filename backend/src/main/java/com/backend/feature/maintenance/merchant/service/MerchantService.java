@@ -87,7 +87,7 @@ public class MerchantService {
     public String login(MerchantDTO merchantDTO) {
         Optional<Merchant> merchant = merchantRepository.getByMerchantNameAndPassword(merchantDTO.getMerchantName(), merchantDTO.getPassword());
         if (merchant.isPresent() && merchant.get().isActive()) {
-            return TokenUtil.sign(merchant.get().getId(), merchant.get().getMerchantName());
+            return TokenUtil.sign(merchant.get().getId(), merchant.get().getMerchantName(), merchant.get().getType());
         } else {
             throw new MerchantException(MerchantException.MERCHANT_NO_EXIST);
         }

@@ -19,4 +19,13 @@ public class UserUtils {
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         return request.getAttribute("id").toString();
     }
+
+    public static String getUserType() {
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (Objects.isNull(requestAttributes)) {
+            return null;
+        }
+        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+        return request.getAttribute("type").toString();
+    }
 }

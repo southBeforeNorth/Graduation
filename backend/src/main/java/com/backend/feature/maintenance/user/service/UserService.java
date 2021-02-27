@@ -46,7 +46,7 @@ public class UserService {
         if (!user.isPresent()) {
             throw new UserException(UserException.USER_NO_EXIST);
         } else {
-            return TokenUtil.sign(user.get().getId(), user.get().getName());
+            return TokenUtil.sign(user.get().getId(), user.get().getName(), user.get().getType());
         }
     }
 

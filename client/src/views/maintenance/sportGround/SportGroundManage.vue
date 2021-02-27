@@ -88,7 +88,9 @@
           <div class="editable-row-operations">
               <span>
                 <a @click="displaySportGround(record)">{{ $t('common.view') }}</a>
-                <a @click="editSportGround(record)">{{ $t('common.button.edit') }}</a>
+                <a @click="editSportGround(record)" v-if="type !=='manage'">
+                  {{ $t('common.button.edit') }}
+                </a>
                 <a-popconfirm
                   :title="$t('common.warningText.delete')"
                   :ok-text="$t('common.button.ok')"
@@ -146,6 +148,11 @@ export default {
       selectedSportGroundInfo: null,
       editable: false
     };
+  },
+  computed: {
+    type() {
+      return this.$store.state.user.type;
+    }
   },
   mounted() {
     this.getSportGroundById(0, this.pagination.pageSize, 0);

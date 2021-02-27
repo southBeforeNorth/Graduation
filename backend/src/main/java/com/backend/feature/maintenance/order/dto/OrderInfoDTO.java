@@ -19,6 +19,7 @@ public class OrderInfoDTO {
     private int totalPrice;
     private String contactName;
     private String contactPhone;
+    private String contactMerchant;
     //验证数字
     private String certificate;
     private String status;

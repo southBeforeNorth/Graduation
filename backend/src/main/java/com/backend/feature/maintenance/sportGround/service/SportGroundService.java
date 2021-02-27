@@ -47,9 +47,9 @@ public class SportGroundService {
         return SportGroundDTOAssembler.convertToDTO(sportGroundRepository.save(sportGround));
     }
 
-    public MerchantDTO getMerchantById(String id){
+    public MerchantDTO getMerchantById(String id) {
         SportGround sportGround = sportGroundRepository.findById(id)
-                .orElseThrow(()->new SportGroundException(SportGroundException.SPORT_GROUND_NO_EXIST));
+                .orElseThrow(() -> new SportGroundException(SportGroundException.SPORT_GROUND_NO_EXIST));
 
         return MerchantDTOAssembler.convertToDTO(sportGround.getMerchant());
     }
@@ -82,7 +82,11 @@ public class SportGroundService {
             PageRequest pageRequest,
             String name,
             String city) {
-        Specification<SportGround> specification = getSportGroundSpecification(name, city, UserUtils.getUserId());
+        String id = UserUtils.getUserId();
+        if (StringUtils.equals(UserUtils.getUserType(), "manage")) {
+            id = null;
+        }
+        Specification<SportGround> specification = getSportGroundSpecification(name, city, id);
         return this.getSportGroundPage(specification, pageRequest);
     }
 
@@ -133,14 +137,11 @@ public class SportGroundService {
                         cb.and(predicateList.toArray(and)))
                         .getRestriction();
 
-            }
-
-            else if(StringUtils.isNotEmpty(name) && StringUtils.isNotEmpty(city)) {
+            } else if (StringUtils.isNotEmpty(name) && StringUtils.isNotEmpty(city)) {
                 conditionPre = query.where(
                         cb.or(predicateOr.toArray(or)))
                         .getRestriction();
-            }
-            else {
+            } else {
                 conditionPre = query.where(
                         cb.and(predicateOr.toArray(or)))
                         .getRestriction();

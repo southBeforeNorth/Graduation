@@ -9,19 +9,19 @@
       @openChange="onOpenChange"
     >
       <a-sub-menu key="sub1">
-        <span slot="title"><a-icon type="mail" /><span>Navigation One</span></span>
-        <a-menu-item key="1">
-          Option 1
-        </a-menu-item>
-        <a-menu-item key="2">
-          Option 2
-        </a-menu-item>
-        <a-menu-item key="3">
-          Option 3
-        </a-menu-item>
-        <a-menu-item key="4">
-          Option 4
-        </a-menu-item>
+        <span slot="title"><a-icon type="mail" />
+          <span>{{this.$t('menu.label.userOrderName')}}</span>
+        </span>
+        <template v-for="item in manageUserOrder">
+          <a-menu-item :key="item.key">
+            <router-link
+              :to="item.value"
+              tag="a"
+            >
+              {{ $t('menu.label.' + item.key) }}
+            </router-link>
+          </a-menu-item>
+        </template>
       </a-sub-menu>
       <a-sub-menu key="sub2">
         <span slot="title"><a-icon type="appstore" />
@@ -33,7 +33,12 @@
               :to="item.value"
               tag="a"
             >
-              {{ $t('menu.label.' + item.key) }}
+              <span v-if="type === 'merchant'">
+                {{ $t('menu.label.' + item.key) }}
+              </span>
+              <span v-else>
+                {{ $t('menu.label.manager.' + item.key) }}
+              </span>
             </router-link>
           </a-menu-item>
         </template>
@@ -86,21 +91,29 @@ export default {
       openKeys: [],
       manageOption: [],
       manageUserOption: [],
-      manageSportGroundOption: []
+      manageSportGroundOption: [],
+      manageUserOrder: []
     };
   },
   mounted() {
     this.getMenuOptions();
   },
+  computed: {
+    type() {
+      return this.$store.state.user.type;
+    }
+  },
   methods: {
     getMenuOptions() {
-      dictionaryService.getMultipleDictionaries(['维护', '用户管理', '场地管理']).then((n) => {
+      dictionaryService.getMultipleDictionaries(['维护', '用户管理', '场地管理', '我的订单']).then((n) => {
         const manage = n.data.find((taget) => taget.name === '维护');
         const manageUser = n.data.find((taget) => taget.name === '用户管理');
         const manageSportGround = n.data.find((target) => target.name === '场地管理');
+        const manageUserOrder = n.data.find((target) => target.name === '我的订单');
         if (!lodash.isEmpty(manageSportGround.dictionaryOptions)) {
           this.manageSportGroundOption = lodash.cloneDeep(manageSportGround.dictionaryOptions);
         }
+        this.manageUserOrder = lodash.cloneDeep(manageUserOrder.dictionaryOptions);
         this.manageUserOption = lodash.cloneDeep(manageUser.dictionaryOptions);
         this.manageOption = lodash.cloneDeep(manage.dictionaryOptions);
       });

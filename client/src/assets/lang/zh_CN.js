@@ -1,4 +1,63 @@
 export default {
+  order: {
+    menu: {
+      new: '等待审核中',
+      review: '到场确认',
+      userReview: '等待进场',
+      all: '全部已处理订单',
+      userAll: '全部结束订单'
+    },
+    status: {
+      new: '等待审核',
+      review: '等待进场确认',
+      recall: '已取消',
+      expire: '已过期',
+      finish: '已完成'
+    },
+    warningText: {
+      tip: '请妥善保管你的验证码，以免泄露',
+      name: '订单管理',
+      userName: '我的订单',
+      expire: '是否确认此订单已过期',
+      orderExpire: '此订单已过期，请联系商家处理',
+      expireSuccess: '处理成功',
+      delete: '是否立即删除此订单',
+      deleteSuccess: '删除成功',
+      deleteError: '删除失败',
+      header: '请输入进场验证码',
+      userHeader: '我的进场验证码',
+      review: '是否确认此订单通过审核',
+      reviewSuccess: '确认通过',
+      recall: '是否确认取消此订单',
+      recallSuccess: '订单取消成功',
+      finish: '确认进入场地',
+      finishSuccess: '确认成功',
+      finishError: '确认失败，请输入正确的验证码'
+    },
+    button: {
+      certificate: '查看进场验证码',
+      delete: '删除',
+      reviewPass: '预订成功',
+      recall: '取消订单',
+      review: '确认到场',
+      expire: '确认已过期',
+      ok: '确认进场',
+      cancel: '取消'
+    },
+    label: {
+      certificate: '进场验证码',
+      rangTime: '时间范围',
+      sportGroundName: '订单场地',
+      merchantName: '商家名称',
+      contactName: '订单客户昵称',
+      contactPhone: '客户联系电话',
+      contactMerchant: '商家联系电话',
+      orderDate: '预订日期',
+      totalPrice: '总价/元',
+      status: '订单状态',
+      areaTime: '场地信息/时间段'
+    }
+  },
   sportGroundDetail: {
     label: {
       phone: '场地电话：',
@@ -13,28 +72,29 @@ export default {
       maxLength: '您选择的场次太多，请分两次下单结算！',
       selectedArea: '场次：',
       selectedTip: '请点击左侧列表选择场次',
-      am1: '07:00-08:00',
-      am2: '08:00-09:00',
-      am3: '09:00-10:00',
-      am4: '10:00-11:00',
-      am5: '11:00-12:00',
-      pm1: '12:00-13:00',
-      pm2: '13:00-14:00',
-      pm3: '14:00-15:00',
-      pm4: '15:00-16:00',
-      pm5: '16:00-17:00',
-      pm6: '17:00-18:00',
-      pm7: '18:00-19:00',
-      pm8: '19:00-20:00',
-      pm9: '20:00-21:00',
-      pm10: '21:00-22:00',
-      pm11: '22:00-23:00',
+      am1: '07:00 - 08:00',
+      am2: '08:00 - 09:00',
+      am3: '09:00 - 10:00',
+      am4: '10:00 - 11:00',
+      am5: '11:00 - 12:00',
+      pm1: '12:00 - 13:00',
+      pm2: '13:00 - 14:00',
+      pm3: '14:00 - 15:00',
+      pm4: '15:00 - 16:00',
+      pm5: '16:00 - 17:00',
+      pm6: '17:00 - 18:00',
+      pm7: '18:00 - 19:00',
+      pm8: '19:00 - 20:00',
+      pm9: '20:00 - 21:00',
+      pm10: '21:00 - 22:00',
+      pm11: '22:00 - 23:00',
       areaNumber: '已选择 ',
       areaNumber1: ' 场地，再次单击取消',
       totalPrice: '共计 ',
       button: '提交订单',
       noLogin: '您还没有登录，请确认是否立即登录?',
       orderSuccess: '下单成功，请等待商家审核，注意查收进度',
+      orderError: '下单失败，如有需要请联系工作人员',
       orderConfirm: '请确认是否立即下单！',
       confirmOk: '立即确认',
       confirmCancel: '我再想想',
@@ -202,12 +262,19 @@ export default {
   },
   menu: {
     label: {
+      manager: {
+        sportGround: '场地管理',
+        order: ' 订单管理'
+      },
       manage: '维护',
       userManage: '用户管理',
       dictionary: '字典',
       merchantMenu: '商家',
       sportGroundManage: '场地管理',
-      sportGround: '场地'
+      sportGround: '我的场地',
+      order: '我的订单',
+      userOrderName: '我的订单',
+      userOrder: '订单'
     }
   },
   login: {
@@ -261,9 +328,11 @@ export default {
       rePasswordContent: '密码输入不一致，请重新确认',
       birthDay: '请选择出生日期',
       sex: '请选择性别',
+      phone: '请输入联系号码'
     },
     label: {
       name: '昵称',
+      phone: '联系号码',
       password: '密码',
       rePassword: '重复密码',
       birthDay: '生日',
@@ -275,7 +344,8 @@ export default {
       name: '请输入昵称',
       password: '密码 （6-16个字符，区分大小写）',
       rePassword: '请重复输入验证密码',
-      birthDay: '请选择出生日期'
+      birthDay: '请选择出生日期',
+      phone: '请输入联系号码'
     }
   },
   common: {

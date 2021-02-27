@@ -43,6 +43,9 @@ public class OrderInfo extends UUIDPersistence {
     @Column(name = "CONTACT_PHONE")
     private String contactPhone;
 
+    @Column(name = "CONTACT_MERCHANT")
+    private String contactMerchant;
+
     //验证数字
     @Column(name = "CERTIFICATE")
     private String certificate;

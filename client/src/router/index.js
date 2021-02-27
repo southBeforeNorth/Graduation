@@ -33,6 +33,13 @@ const routes = [
         meta: {
           requireAuth: true
         }
+      },
+      {
+        path: 'orderManage',
+        component: () => import('@/views/maintenance/orderManage/OrderManage.vue'),
+        meta: {
+          requireAuth: true
+        }
       }
     ]
   },

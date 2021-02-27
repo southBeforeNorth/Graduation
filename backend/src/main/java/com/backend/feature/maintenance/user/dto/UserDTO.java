@@ -13,6 +13,7 @@ public class UserDTO {
     private String type;
     private String sex;
     private String createdBy;
+    private String phone;
     private Date createdTime;
     private String lastModifiedBy;
     private Date lastModifiedTime;

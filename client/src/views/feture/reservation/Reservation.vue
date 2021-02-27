@@ -162,13 +162,13 @@
             </span>
           </a-row>
           <a-row>
-            <a-col push="6">
+            <a-col push="0">
             <a-button
               @click="submit"
               :disabled="isAllowClickButton"
               size="large"
               type="primary"
-              style="margin-top: 20px">
+              style="margin-top: 20px;margin-left: 100px;">
               {{$t('sportGroundDetail.label.button') }}
             </a-button>
             </a-col>
@@ -225,8 +225,10 @@ export default {
     },
     date: {
       get() {
-        const diff = this.tabActiveKey.split('_')[1];
+        const diff = window.Number.parseInt(this.tabActiveKey.split('_')[1]) + 1;
         const target = moment().add(diff, 'd').valueOf();
+        console.log(diff);
+        console.log(target);
         return {
           value: target,
           format: `${moment(target).format('YYYY年MM月DD日')}(${this.setWeek(moment(target).valueOf()) })`
@@ -260,10 +262,10 @@ export default {
         const temp = {
           title: this.$t(`sportGroundDetail.label.${item}`),
           dataIndex: item,
-          width: 107,
+          width: 120,
           scopedSlots: { customRender: item }
         };
-        this.tableLength += 107;
+        this.tableLength += 120;
         col.push(temp);
       });
       return col;
@@ -273,11 +275,13 @@ export default {
     isAllowSelect(col, record) {
       let res = false;
       this.historyOrder.forEach((n) => {
-        n.orderDetails.forEach((target) => {
-          if (target.areaName === record.areaName && target.time === col.dataIndex) {
-            res = true;
-          }
-        });
+        if (n.status !== 'recall') {
+          n.orderDetails.forEach((target) => {
+            if (target.areaName === record.areaName && target.time === col.dataIndex) {
+              res = true;
+            }
+          });
+        }
       });
       return res;
     },
@@ -296,6 +300,7 @@ export default {
         userName: this.$store.state.user.name,
         merchantId: this.merchant.id,
         merchantName: this.merchant.merchantName,
+        contactMerchant: this.merchant.phone,
         sportGroundName: this.name,
         sportGroundId: this.id,
         totalPrice: this.totalPrice,
@@ -317,7 +322,9 @@ export default {
                   that.$router.go(0);
                 }
               });
+              return;
             }
+            that.$message.warning(that.$t('sportGroundDetail.label.orderError'));
           });
         },
         onCancel() {}
@@ -369,7 +376,7 @@ export default {
     },
     setDateList(weeks) {
       this.dateList = [];
-      for (let i = 0; i < 7; i++) {
+      for (let i = 1; i < 8; i++) {
         const target = moment().add(i, 'd');
         const week = this.setWeek(target);
         const isActive = !lodash.isEmpty(weeks.find((n) => n === week));
@@ -395,7 +402,10 @@ export default {
       });
     },
     changeTab(value) {
-      const target = moment().add(value.split('_')[1], 'd').valueOf();
+      const diff = window.Number.parseInt(value.split('_')[1]) + 1;
+      const target = moment().add(diff, 'd').valueOf();
+      console.log(diff);
+      console.log(target);
       this.selectedAreaList = [];
       this.date.value = target;
       this.date.format = `${moment(target).format('YYYY年MM月DD日')}(${this.setWeek(moment(target)) })`;

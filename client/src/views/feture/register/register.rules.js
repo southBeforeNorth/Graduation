@@ -11,6 +11,13 @@ export default {
           { max: 64, message: this.$t('register.validate.nameMax') },
           { validator: this.validateName }
         ],
+        phone: [
+          {
+            required: true,
+            message: this.$t('merchant.register.validate.phone')
+          },
+          { validator: this.validatePhone, trigger: 'blur' }
+        ],
         password: [
           {
             required: true,
@@ -41,6 +48,14 @@ export default {
     }
   },
   methods: {
+    validatePhone(rule, values, callback) {
+      const isPhone = /^([0-9]{3,4}-)?[0-9]{7,8}$/;
+      const isMob = /^0?1[3|4|5|8][0-9]\d{8}$/;
+      if (!isPhone.test(values) && !isMob.test(values)) {
+        callback(this.$t('merchant.register.validate.phoneFormat'));
+      }
+      callback();
+    },
     validateName(rule, values, callback) {
       this.userNameList.forEach((n) => {
         if (n.toLocaleUpperCase() === values.toLocaleUpperCase()) {

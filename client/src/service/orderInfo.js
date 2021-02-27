@@ -5,11 +5,6 @@ import {
 
 const contextPath = '/orderInfo';
 
-const getSportGroundsById = async (params) => {
-  const result = await get(`${contextPath}/pageById`, params);
-  return result.data;
-};
-
 const createOrder = async (params) => {
   const result = await post(`${contextPath}/create`, params);
   return result.data;
@@ -20,12 +15,17 @@ const getOrderInfoBySportGroundId = async (id, param) => {
   return result.data;
 };
 
-const getSportGroundList = async (params) => {
-  const result = await get(`${contextPath}/page`, params);
+const getOrderListByPage = async (params) => {
+  const result = await get(`${contextPath}/getByPage`, params);
   return result.data;
 };
 
-const deleteSportGround = async (Id) => {
+const changeOrderStatus = async (id, params) => {
+  const result = await put(`${contextPath}/changeStatus/${id}`, params);
+  return result.data;
+};
+
+const deleteOrderById = async (Id) => {
   const result = await del(`${contextPath}/delete/${Id}`);
   return result.data;
 };
@@ -37,9 +37,9 @@ const updateSportGround = async (id, params) => {
 
 export default {
   createOrder,
-  getSportGroundsById,
-  deleteSportGround,
+  getOrderListByPage,
+  changeOrderStatus,
+  deleteOrderById,
   updateSportGround,
-  getSportGroundList,
   getOrderInfoBySportGroundId
 };

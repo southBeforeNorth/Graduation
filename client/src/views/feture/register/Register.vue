@@ -26,6 +26,18 @@
           </a-form-model-item>
 
           <a-form-model-item
+            :label="$t('register.label.phone')"
+            prop="phone"
+          >
+            <a-input
+              :placeholder="$t('register.placeHolder.phone')"
+              v-model="form.phone"
+            >
+              <a-icon slot="prefix" type="phone" style="color:rgba(0,0,0,.25)" />
+            </a-input>
+          </a-form-model-item>
+
+          <a-form-model-item
             :label="$t('register.label.password')"
             prop="password"
           >
@@ -129,6 +141,7 @@ export default {
       userNameList: [],
       form: {
         name: null,
+        phone: null,
         password: null,
         rePassword: null,
         birthDay: null,
@@ -162,12 +175,14 @@ export default {
           password: null,
           birthDay: null,
           sex: null,
+          phone: null,
           type: 'user'
         };
         user.name = this.form.name;
         user.password = this.form.password;
         user.birthDay = moment(this.form.birthDay).valueOf();
         user.sex = this.form.sex;
+        user.phone = this.form.phone;
         userService.createUser(user).then((n) => {
           if (n.success) {
             this.$message.success(this.$t('register.warningText.success'));

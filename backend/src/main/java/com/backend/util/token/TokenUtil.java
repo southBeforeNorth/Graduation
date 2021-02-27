@@ -15,7 +15,7 @@ public class TokenUtil {
     private static final long EXPIRETIME = 60*60*1000;
     private static final String TOKENSECRET="JKKLJOoasdlfj";
 
-    public static String sign(String id, String name){
+    public static String sign(String id, String name, String type){
         String token = null;
         try {
             Date expireAt = new Date(System.currentTimeMillis()+EXPIRETIME);
@@ -24,6 +24,7 @@ public class TokenUtil {
                     .withIssuer("auth0")
                     .withClaim("id", id)
                     .withClaim("name", name)
+                    .withClaim("type", type)
                     .withExpiresAt(expireAt)
                     .sign(Algorithm.HMAC256(TOKENSECRET));
         } catch (Exception e){
@@ -42,6 +43,7 @@ public class TokenUtil {
             Map<String, String> result = new HashMap<>();
             result.put("name", decodedJWT.getClaim("name").asString());
             result.put("id", decodedJWT.getClaim("id").asString());
+            result.put("type", decodedJWT.getClaim("type").asString());
             return result;
         }catch (Exception e){
             return null;

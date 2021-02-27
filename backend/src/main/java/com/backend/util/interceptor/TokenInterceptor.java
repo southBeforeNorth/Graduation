@@ -26,6 +26,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         if (Objects.nonNull(result)) {
             request.setAttribute("name", result.get("name"));
             request.setAttribute("id", result.get("id"));
+            request.setAttribute("type", result.get("type"));
             return true;
         }
         response.setCharacterEncoding("UTF-8");
