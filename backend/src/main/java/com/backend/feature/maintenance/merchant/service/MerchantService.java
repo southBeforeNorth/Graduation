@@ -3,6 +3,7 @@ package com.backend.feature.maintenance.merchant.service;
 import com.backend.comment.assembler.PageableDTOAssembler;
 import com.backend.comment.dto.CommonDTO;
 import com.backend.comment.dto.PageableDTO;
+import com.backend.comment.util.UserUtils;
 import com.backend.feature.maintenance.merchant.assembler.MerchantDTOAssembler;
 import com.backend.feature.maintenance.merchant.dto.MerchantDTO;
 import com.backend.feature.maintenance.merchant.entity.Merchant;
@@ -15,12 +16,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.persistence.criteria.Predicate;
-import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -67,6 +64,29 @@ public class MerchantService {
         return MerchantDTOAssembler.convertToDTO(updateMerchant);
     }
 
+    public MerchantDTO updateMerchantByOwner(MerchantDTO merchantDTO) {
+        Merchant merchant = merchantRepository.findById(merchantDTO.getId())
+                .orElseThrow(() -> new MerchantException(MerchantException.MERCHANT_NO_EXIST));
+        merchant.setMerchantName(merchantDTO.getMerchantName());
+        merchant.setContactPerson(merchantDTO.getContactPerson());
+        merchant.setDetailedAddress(merchantDTO.getDetailedAddress());
+        merchant.setPhone(merchantDTO.getPhone());
+        merchant.setArea(merchantDTO.getArea());
+        return MerchantDTOAssembler.convertToDTO(merchantRepository.saveAndFlush(merchant));
+    }
+
+    public MerchantDTO changeMerchantPassword(String oldPassword, String newPassword) {
+
+        String merchantId = UserUtils.getUserId();
+        Merchant merchant = merchantRepository.findById(merchantId)
+                .orElseThrow(() -> new MerchantException(MerchantException.MERCHANT_NO_EXIST));
+        if (StringUtils.equals(merchant.getPassword(), oldPassword)) {
+            merchant.setPassword(newPassword);
+            return MerchantDTOAssembler.convertToDTO(merchantRepository.saveAndFlush(merchant));
+        }
+        return new MerchantDTO();
+    }
+
     public CommonDTO<PageableDTO<MerchantDTO>> getMerchantListByPage(
             PageRequest pageRequest,
             String merchantName,
@@ -94,22 +114,11 @@ public class MerchantService {
     }
 
     public MerchantDTO getMerchantById() {
-        String merchantId = this.getMerchantId();
-        Optional<Merchant> Merchant = merchantRepository.findById(merchantId);
-        if (!Merchant.isPresent()) {
-            throw new MerchantException(MerchantException.MERCHANT_NO_EXIST);
-        } else {
-            return MerchantDTOAssembler.convertToDTO(Merchant.get());
-        }
-    }
+        String merchantId = UserUtils.getUserId();
+        Merchant merchant = merchantRepository.findById(merchantId)
+                .orElseThrow(() -> new MerchantException(MerchantException.MERCHANT_NO_EXIST));
 
-    private String getMerchantId() {
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        if (Objects.isNull(requestAttributes)) {
-            return null;
-        }
-        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-        return request.getAttribute("id").toString();
+        return MerchantDTOAssembler.convertToDTO(merchant);
     }
 
     private Specification<Merchant> getMerchantSpecification(String merchantName, String contactPerson, Boolean active) {

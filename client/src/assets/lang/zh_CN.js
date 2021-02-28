@@ -1,4 +1,38 @@
 export default {
+  merchantPassword: {
+    label: {
+      oldPassword: '原密码',
+      newPassword: '新密码',
+      rePassword: '确认密码'
+    },
+    placeHolder: {
+      oldPassword: '请输入旧密码',
+      newPassword: '请输入新密码',
+      rePassword: '确认密码'
+    },
+    warningText: {
+      updateSuccess: '密码修改成功，请重新确认登录',
+      updateError: '修改失败，请确认原密码是否输入正确'
+    },
+    validate: {
+      oldPassword: '请输入旧密码',
+      newPassword: '请输入新密码',
+      rePassword: '请输入确认密码',
+      rePasswordError: '两次密码不一致，请重新确认'
+    }
+  },
+  merchantInfo: {
+    label: {
+      name: '资料修改'
+    },
+    button: {
+      submit: '立即修改'
+    },
+    warningText: {
+      updateSuccess: '资料修改成功',
+      updateError: '资料修改失败'
+    }
+  },
   order: {
     menu: {
       new: '等待审核中',
@@ -267,6 +301,9 @@ export default {
         order: ' 订单管理'
       },
       manage: '维护',
+      merchantPassword: '密码修改',
+      merchantConfig: '商家中心',
+      merchantInfo: '资料修改',
       userManage: '用户管理',
       dictionary: '字典',
       merchantMenu: '商家',

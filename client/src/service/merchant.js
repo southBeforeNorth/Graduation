@@ -37,6 +37,16 @@ const updateMerchant = async (id, params) => {
   return result.data;
 };
 
+const updateMerchantByOwner = async (params) => {
+  const result = await put(`${contextPath}/updateByOwner`, params);
+  return result.data;
+};
+
+const changeMerchantPasswordByOwner = async (params) => {
+  const result = await get(`${contextPath}/changePassword`, params);
+  return result.data;
+};
+
 const getMerchantById = async () => {
   const result = await get(`${contextPath}/merchantId`);
   return result.data;
@@ -50,5 +60,7 @@ export default {
   createMerchantByManager,
   deleteMerchant,
   updateMerchant,
-  getMerchantById
+  getMerchantById,
+  updateMerchantByOwner,
+  changeMerchantPasswordByOwner
 };

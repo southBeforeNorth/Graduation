@@ -21,6 +21,20 @@ const routes = [
         }
       },
       {
+        path: 'merchantInfo',
+        component: () => import('@/views/maintenance/merchantInfo/MerchantInfo.vue'),
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
+        path: 'merchantPassword',
+        component: () => import('@/views/maintenance/merchantPassword/MerchantPassword.vue'),
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
         path: 'dictionary',
         component: () => import('@/views/maintenance/dictionary/Dictionary.vue'),
         meta: {
@@ -120,9 +134,11 @@ router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token');
   if (lodash.isEmpty(token)) {
     store.commit('SET_IS_LOGIN', false);
-    store.commit('SET_IS_NAME', '');
+    store.commit('SET_IS_NAME', null);
+    store.commit('SET_TYPE', null);
     if (to.meta.requireAuth) {
-      next('feature/login');
+      console.log('test');
+      next({ path: '/feature/login' });
     }
   }
   next();

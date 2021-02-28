@@ -68,7 +68,7 @@
         </router-link>
         <router-link
           v-if="userType === 'user'"
-          :to="{path: '/manage/dictionary'}"
+          :to="{path: '/manage/OrderManage'}"
           tag="a"
         >
           <span
@@ -79,7 +79,7 @@
         </router-link>
         <router-link
           v-if="userType === 'merchant'"
-          :to="{path: '/manage/dictionary'}"
+          :to="{path: '/manage/sportGroundManage'}"
           tag="a"
         >
           <span
@@ -137,8 +137,10 @@ export default {
     },
     signOut() {
       this.$store.commit('SET_IS_LOGIN', false);
-      this.$store.commit('SET_IS_NAME', '');
-      this.$store.commit('SET_TOKEN', '');
+      this.$store.commit('SET_IS_NAME', null);
+      this.$store.commit('SET_TYPE', null);
+      this.$store.commit('SET_TOKEN', null);
+
       this.$router.push({
         path: '/feature/login'
       });

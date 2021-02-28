@@ -67,4 +67,15 @@ public class MerchantController {
     public CommonDTO<MerchantDTO> getMerchantId() {
         return CommonDTOAssembler.convertTODTO(merchantService.getMerchantById());
     }
+
+    @PutMapping("/updateByOwner")
+    public CommonDTO<MerchantDTO> updateMerchantByOwner(@RequestBody MerchantDTO merchantDTO) {
+        return CommonDTOAssembler.convertTODTO(merchantService.updateMerchantByOwner(merchantDTO));
+    }
+
+    @GetMapping("/changePassword")
+    public CommonDTO<MerchantDTO> changeMerchantPasswordByOwner(@RequestParam String newPassword,
+                                                                @RequestParam String oldPassword) {
+        return CommonDTOAssembler.convertTODTO(merchantService.changeMerchantPassword(oldPassword, newPassword));
+    }
 }
