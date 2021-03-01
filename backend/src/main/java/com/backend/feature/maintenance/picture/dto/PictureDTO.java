@@ -1,4 +1,4 @@
-package com.backend.feature.maintenance.sportGround.dto;
+package com.backend.feature.maintenance.picture.dto;
 
 import lombok.Data;
 

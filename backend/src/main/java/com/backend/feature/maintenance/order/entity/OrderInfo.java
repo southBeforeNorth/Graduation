@@ -1,7 +1,6 @@
 package com.backend.feature.maintenance.order.entity;
 
 import com.backend.comment.entity.UUIDPersistence;
-import com.backend.feature.maintenance.sportGround.entity.Picture;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

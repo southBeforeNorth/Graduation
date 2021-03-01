@@ -1,9 +1,9 @@
-package com.backend.feature.maintenance.sportGround.controller;
+package com.backend.feature.maintenance.picture.controller;
 
 import com.backend.comment.assembler.CommonDTOAssembler;
 import com.backend.comment.dto.CommonDTO;
-import com.backend.feature.maintenance.sportGround.dto.PictureDTO;
-import com.backend.feature.maintenance.sportGround.service.PictureService;
+import com.backend.feature.maintenance.picture.dto.PictureDTO;
+import com.backend.feature.maintenance.picture.service.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/sportGround/picture")
+@RequestMapping("/picture")
 public class PictureController {
 
     @Autowired

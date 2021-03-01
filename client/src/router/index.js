@@ -21,6 +21,13 @@ const routes = [
         }
       },
       {
+        path: 'userManage',
+        component: () => import('@/views/maintenance/userManage/UserManage.vue'),
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
         path: 'merchantInfo',
         component: () => import('@/views/maintenance/merchantInfo/MerchantInfo.vue'),
         meta: {
@@ -28,8 +35,29 @@ const routes = [
         }
       },
       {
+        path: 'userInfo',
+        component: () => import('@/views/maintenance/userInfo/UserInfo.vue'),
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
+        path: 'header',
+        component: () => import('@/views/maintenance/header/Header.vue'),
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
         path: 'merchantPassword',
         component: () => import('@/views/maintenance/merchantPassword/MerchantPassword.vue'),
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
+        path: 'userPassword',
+        component: () => import('@/views/maintenance/userPassword/UserPassword.vue'),
         meta: {
           requireAuth: true
         }
@@ -136,8 +164,8 @@ router.beforeEach((to, from, next) => {
     store.commit('SET_IS_LOGIN', false);
     store.commit('SET_IS_NAME', null);
     store.commit('SET_TYPE', null);
+    store.commit('SET_HEADER', null);
     if (to.meta.requireAuth) {
-      console.log('test');
       next({ path: '/feature/login' });
     }
   }

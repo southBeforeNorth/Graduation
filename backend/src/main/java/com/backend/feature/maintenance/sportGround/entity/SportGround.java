@@ -2,6 +2,7 @@ package com.backend.feature.maintenance.sportGround.entity;
 
 import com.backend.comment.entity.UUIDPersistence;
 import com.backend.feature.maintenance.merchant.entity.Merchant;
+import com.backend.feature.maintenance.picture.entity.Picture;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

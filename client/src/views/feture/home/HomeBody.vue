@@ -12,13 +12,20 @@
     <div slot="nextArrow" class="custom-slick-arrow" style="right: 10px">
       <a-icon type="right-circle" />
     </div>
-    <div style="text-align: center">
-      <a >
-        <img src="../../../../static/homeBody3.jpg"  alt="" style="margin: auto"/>
+    <div>
+      <a @click="toDetailPage(pictureList[0])">
+        <img src="../../../../static/home2.jpg"  alt="" style="margin: auto"/>
       </a>
     </div>
-    <div><h3>3</h3></div>
-    <div><h3>4</h3></div>
+    <div>
+      <a @click="toDetailPage(pictureList[1])">
+        <img src="../../../../static/home1.jpg"  alt="" style="margin: auto"/>
+      </a>
+    </div>    <div>
+    <a @click="toDetailPage(pictureList[2])">
+      <img src="../../../../static/home3.jpg"  alt="" style="margin: auto"/>
+    </a>
+  </div>
   </a-carousel>
 </div>
     <div style="text-align: center; margin-top: 30px">
@@ -33,11 +40,34 @@
 
 <script>
 import HomeBodyList from '@/components/layout/HomeBodyList.vue';
+import dictionaryService from '@/service/dictionary';
 
 export default {
   name: 'HomeBody',
   components: {
     HomeBodyList
+  },
+  data() {
+    return {
+      pictureList: []
+    };
+  },
+  mounted() {
+    this.getDictionary();
+  },
+  methods: {
+    toDetailPage(detailId) {
+      this.$store.commit('SET_SPORT_GROUND_ID', detailId.value);
+      const route = this.$router.resolve({ name: 'reservation' });
+      this.$store.commit('SET_TAB_ACTIVE_KEY', 'key_0');
+      window.open(route.href, '_blank');
+    },
+    getDictionary() {
+      dictionaryService.getMultipleDictionaries(['首页图片']).then((n) => {
+        const pictures = n.data.find((target) => target.name === '首页图片');
+        this.pictureList = pictures.dictionaryOptions;
+      });
+    }
   }
 };
 </script>
@@ -53,12 +83,12 @@ export default {
     width: 100%; height: 100%;
   }
   /deep/ .ant-carousel{
-    width: 80%;
+    width: 100%;
     margin: auto;
   }
   .ant-carousel >>> .slick-slide {
     text-align: center;
-    height: 350px;
+    height: 550px;
     line-height: 250px;
     background: #364d79;
     overflow: hidden;

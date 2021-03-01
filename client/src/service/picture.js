@@ -2,7 +2,7 @@ import {
   upload, get
 } from '@/common/util/http.util';
 
-const contextPath = '/sportGround/picture';
+const contextPath = '/picture';
 
 const uploadSportGroundPicture = async (params) => {
   const result = await upload(contextPath, params);

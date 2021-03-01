@@ -93,6 +93,24 @@
           </a-menu-item>
         </template>
       </a-sub-menu>
+      <a-sub-menu key="sub4" v-if="type === 'user'">
+        <span slot="title">
+          <a-icon type="setting" />
+          <span>
+            {{this.$t('menu.label.userConfig')}}
+          </span>
+        </span>
+        <template v-for="item in userInfo">
+          <a-menu-item :key="item.key">
+            <router-link
+              :to="item.value"
+              tag="a"
+            >
+              {{ $t('menu.label.' + item.key) }}
+            </router-link>
+          </a-menu-item>
+        </template>
+      </a-sub-menu>
     </a-menu>
   </div>
 </template>
@@ -111,7 +129,8 @@ export default {
       manageUserOption: [],
       manageSportGroundOption: [],
       manageUserOrder: [],
-      merchantInfo: []
+      merchantInfo: [],
+      userInfo: []
     };
   },
   mounted() {
@@ -124,13 +143,14 @@ export default {
   },
   methods: {
     getMenuOptions() {
-      dictionaryService.getMultipleDictionaries(['维护', '用户管理', '场地管理', '我的订单', '商家中心'])
+      dictionaryService.getMultipleDictionaries(['维护', '用户管理', '场地管理', '我的订单', '商家中心', '个人中心'])
         .then((n) => {
           const manage = n.data.find((taget) => taget.name === '维护');
           const manageUser = n.data.find((taget) => taget.name === '用户管理');
           const manageSportGround = n.data.find((target) => target.name === '场地管理');
           const manageUserOrder = n.data.find((target) => target.name === '我的订单');
           const merchant = n.data.find((target) => target.name === '商家中心');
+          const user = n.data.find((target) => target.name === '个人中心');
           if (!lodash.isEmpty(manageSportGround.dictionaryOptions)) {
             this.manageSportGroundOption = lodash.cloneDeep(manageSportGround.dictionaryOptions);
           }
@@ -138,6 +158,7 @@ export default {
           this.manageUserOption = lodash.cloneDeep(manageUser.dictionaryOptions);
           this.manageOption = lodash.cloneDeep(manage.dictionaryOptions);
           this.merchantInfo = lodash.cloneDeep(merchant.dictionaryOptions);
+          this.userInfo = lodash.cloneDeep(user.dictionaryOptions);
         });
     },
     onOpenChange(openKeys) {

@@ -171,8 +171,10 @@ export default {
           this.$message.success(this.$t('login.warningText.success'));
           merchantService.getMerchantById().then((res) => {
             if (res.success) {
+              const base64 = 'data:image/png;base64,';
               this.$store.commit('SET_IS_NAME', res.data.merchantName);
               this.$store.commit('SET_TYPE', res.data.type);
+              this.$store.commit('SET_HEADER', base64 + res.data.header.fileContent);
             }
           });
           this.$store.commit('SET_TOKEN', n.data);
@@ -199,8 +201,10 @@ export default {
           this.$message.success(this.$t('login.warningText.success'));
           userService.getUserById().then((res) => {
             if (res.success) {
+              const base64 = 'data:image/png;base64,';
               this.$store.commit('SET_IS_NAME', res.data.name);
               this.$store.commit('SET_TYPE', res.data.type);
+              this.$store.commit('SET_HEADER', base64 + res.data.header.fileContent);
             }
           });
           this.$store.commit('SET_TOKEN', n.data);

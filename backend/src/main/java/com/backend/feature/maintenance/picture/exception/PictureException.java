@@ -1,4 +1,4 @@
-package com.backend.feature.maintenance.sportGround.exception;
+package com.backend.feature.maintenance.picture.exception;
 
 import com.backend.comment.exception.ErrorCode4xx;
 import lombok.Getter;

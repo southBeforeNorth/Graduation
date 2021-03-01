@@ -2,7 +2,8 @@ export default {
   state: {
     isLogin: localStorage.getItem('isLogin') ? localStorage.getItem('isLogin') : false,
     name: localStorage.getItem('userName') ? localStorage.getItem('userName') : '',
-    type: localStorage.getItem('type') ? localStorage.getItem('type') : ''
+    type: localStorage.getItem('type') ? localStorage.getItem('type') : '',
+    header: localStorage.getItem('header') ? localStorage.getItem('header') : ''
   },
   mutations: {
     SET_IS_LOGIN(state, isLogin) {
@@ -16,6 +17,10 @@ export default {
     SET_TYPE(state, type) {
       state.type = type;
       localStorage.setItem('type', type);
+    },
+    SET_HEADER(state, header) {
+      state.header = header;
+      localStorage.setItem('header', header);
     }
   },
   actions: {

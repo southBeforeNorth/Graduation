@@ -264,7 +264,7 @@ import lodash from 'lodash';
 import dictionaryService from '@/service/dictionary';
 import moment from 'moment';
 import sportGroundService from '@/service/sportGround';
-import sportGroundPictureService from '@/service/sportGroundPicture';
+import pictureService from '@/service/picture';
 import EditableCell from './EditableCell.vue';
 
 export default {
@@ -464,7 +464,7 @@ export default {
         formData.append('files', files[0]);
       }
       console.log(formData);
-      return sportGroundPictureService.uploadSportGroundPicture(formData);
+      return pictureService.uploadSportGroundPicture(formData);
     },
     resetForm() {
       this.sportGroundForm.name = null;

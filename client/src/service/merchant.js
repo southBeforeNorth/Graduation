@@ -52,6 +52,11 @@ const getMerchantById = async () => {
   return result.data;
 };
 
+const uploadMerchantHeader = async (id) => {
+  const result = await put(`${contextPath}/uploadHeader/${id}`);
+  return result.data;
+};
+
 export default {
   createMerchant,
   login,
@@ -62,5 +67,6 @@ export default {
   updateMerchant,
   getMerchantById,
   updateMerchantByOwner,
-  changeMerchantPasswordByOwner
+  changeMerchantPasswordByOwner,
+  uploadMerchantHeader
 };

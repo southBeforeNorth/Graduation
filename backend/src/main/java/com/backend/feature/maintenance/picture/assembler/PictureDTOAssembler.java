@@ -1,7 +1,7 @@
-package com.backend.feature.maintenance.sportGround.assembler;
+package com.backend.feature.maintenance.picture.assembler;
 
-import com.backend.feature.maintenance.sportGround.dto.PictureDTO;
-import com.backend.feature.maintenance.sportGround.entity.Picture;
+import com.backend.feature.maintenance.picture.dto.PictureDTO;
+import com.backend.feature.maintenance.picture.entity.Picture;
 import org.springframework.beans.BeanUtils;
 
 import java.util.List;

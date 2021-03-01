@@ -9,6 +9,9 @@ import com.backend.feature.maintenance.merchant.dto.MerchantDTO;
 import com.backend.feature.maintenance.merchant.entity.Merchant;
 import com.backend.feature.maintenance.merchant.exception.MerchantException;
 import com.backend.feature.maintenance.merchant.repository.MerchantRepository;
+import com.backend.feature.maintenance.picture.entity.Picture;
+import com.backend.feature.maintenance.picture.exception.PictureException;
+import com.backend.feature.maintenance.picture.repository.PictureRepository;
 import com.backend.util.token.TokenUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,9 @@ public class MerchantService {
 
     @Autowired
     private MerchantRepository merchantRepository;
+
+    @Autowired
+    private PictureRepository pictureRepository;
 
     public MerchantDTO create(MerchantDTO merchantDTO) {
         Merchant merchant = MerchantDTOAssembler.convertToEntity(merchantDTO);
@@ -60,6 +66,8 @@ public class MerchantService {
         }
         Merchant saveMerchant = MerchantDTOAssembler.convertToEntity(merchantDTO);
         saveMerchant.setId(id);
+        saveMerchant.setType(merchant.getType());
+        saveMerchant.setHeader(merchant.getHeader());
         Merchant updateMerchant = merchantRepository.saveAndFlush(saveMerchant);
         return MerchantDTOAssembler.convertToDTO(updateMerchant);
     }
@@ -72,6 +80,18 @@ public class MerchantService {
         merchant.setDetailedAddress(merchantDTO.getDetailedAddress());
         merchant.setPhone(merchantDTO.getPhone());
         merchant.setArea(merchantDTO.getArea());
+        return MerchantDTOAssembler.convertToDTO(merchantRepository.saveAndFlush(merchant));
+    }
+
+    public MerchantDTO uploadMerchantHeaderById(String id) {
+        Picture header = pictureRepository.findById(id)
+                .orElseThrow(() -> new PictureException(PictureException.PICTURE_NOT_EXIST));
+        Merchant merchant = merchantRepository.findById(UserUtils.getUserId())
+                .orElseThrow(() -> new MerchantException(MerchantException.MERCHANT_NO_EXIST));
+        if (Objects.nonNull(merchant.getHeader())) {
+            pictureRepository.deleteById(merchant.getHeader().getId());
+        }
+        merchant.setHeader(header);
         return MerchantDTOAssembler.convertToDTO(merchantRepository.saveAndFlush(merchant));
     }
 

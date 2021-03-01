@@ -1,5 +1,6 @@
 package com.backend.feature.maintenance.sportGround.assembler;
 
+import com.backend.feature.maintenance.picture.assembler.PictureDTOAssembler;
 import com.backend.feature.maintenance.sportGround.dto.AreaDTO;
 import com.backend.feature.maintenance.sportGround.dto.SportGroundDTO;
 import com.backend.feature.maintenance.sportGround.entity.Area;

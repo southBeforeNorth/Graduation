@@ -1,11 +1,13 @@
 package com.backend.feature.maintenance.merchant.entity;
 
 import com.backend.comment.entity.UUIDPersistence;
+import com.backend.feature.maintenance.picture.entity.Picture;
 import com.backend.feature.maintenance.sportGround.entity.SportGround;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -42,4 +44,8 @@ public class Merchant extends UUIDPersistence {
 
     @OneToMany(mappedBy = "merchant", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<SportGround> sportGrounds;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "PICTURE_ID", referencedColumnName = "ID")
+    private Picture header;
 }

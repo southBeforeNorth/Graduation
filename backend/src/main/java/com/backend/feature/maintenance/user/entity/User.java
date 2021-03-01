@@ -1,13 +1,11 @@
 package com.backend.feature.maintenance.user.entity;
 
 import com.backend.comment.entity.UUIDPersistence;
+import com.backend.feature.maintenance.picture.entity.Picture;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
@@ -35,4 +33,8 @@ public class User extends UUIDPersistence {
 
     @Column(name = "TYPE")
     private String type = "user";
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "PICTURE_ID", referencedColumnName = "ID")
+    private Picture header;
 }

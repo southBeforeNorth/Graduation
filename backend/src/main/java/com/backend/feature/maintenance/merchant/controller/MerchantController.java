@@ -78,4 +78,9 @@ public class MerchantController {
                                                                 @RequestParam String oldPassword) {
         return CommonDTOAssembler.convertTODTO(merchantService.changeMerchantPassword(oldPassword, newPassword));
     }
+
+    @PutMapping("/uploadHeader/{id}")
+    public CommonDTO<MerchantDTO> uploadHeader(@PathVariable String id) {
+        return CommonDTOAssembler.convertTODTO(merchantService.uploadMerchantHeaderById(id));
+    }
 }

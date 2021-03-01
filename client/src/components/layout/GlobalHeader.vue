@@ -36,6 +36,7 @@
       </router-link>
       </template>
       <template v-if="isLogin">
+        <a-avatar :size="45" :src="header" icon="user" style="margin-right: 20px" />
         <a-dropdown style="margin-right: 20px">
           <a class="ant-dropdown-link" @click="e => e.preventDefault()">
             <span
@@ -125,6 +126,9 @@ export default {
     userName() {
       return this.$store.state.user.name;
     },
+    header() {
+      return this.$store.state.user.header;
+    },
     userType() {
       return this.$store.state.user.type;
     }
@@ -140,7 +144,7 @@ export default {
       this.$store.commit('SET_IS_NAME', null);
       this.$store.commit('SET_TYPE', null);
       this.$store.commit('SET_TOKEN', null);
-
+      this.$store.commit('SET_HEADER', null);
       this.$router.push({
         path: '/feature/login'
       });

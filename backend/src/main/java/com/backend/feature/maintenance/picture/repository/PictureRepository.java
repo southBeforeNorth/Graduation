@@ -1,6 +1,6 @@
-package com.backend.feature.maintenance.sportGround.repository;
+package com.backend.feature.maintenance.picture.repository;
 
-import com.backend.feature.maintenance.sportGround.entity.Picture;
+import com.backend.feature.maintenance.picture.entity.Picture;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

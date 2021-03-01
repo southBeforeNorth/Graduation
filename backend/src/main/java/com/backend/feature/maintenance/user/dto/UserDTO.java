@@ -1,5 +1,7 @@
 package com.backend.feature.maintenance.user.dto;
 
+import com.backend.feature.maintenance.picture.dto.PictureDTO;
+import com.backend.feature.maintenance.picture.entity.Picture;
 import lombok.Data;
 
 import java.util.Date;
@@ -17,4 +19,5 @@ public class UserDTO {
     private Date createdTime;
     private String lastModifiedBy;
     private Date lastModifiedTime;
+    private PictureDTO header;
 }

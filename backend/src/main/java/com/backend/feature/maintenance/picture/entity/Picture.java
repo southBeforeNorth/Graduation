@@ -1,4 +1,4 @@
-package com.backend.feature.maintenance.sportGround.entity;
+package com.backend.feature.maintenance.picture.entity;
 
 import com.backend.comment.entity.FilePersistence;
 import lombok.Data;

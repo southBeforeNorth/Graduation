@@ -1,4 +1,43 @@
 export default {
+  userManage: {
+    label: {
+      title: '普通用户管理',
+      name: '用户名',
+      phone: '联系电话',
+      birthDay: '出生日期',
+      sex: '性别'
+    },
+    warningText: {
+      submitSuccess: '添加成功',
+      submitError: '添加失败',
+      updateSuccess: '修改成功',
+      updateError: '修改失败'
+    }
+  },
+  userInfo: {
+    label: {
+      name: '资料修改'
+    },
+    button: {
+      reset: '重置',
+      submit: '立即修改'
+    },
+    warningText: {
+      updateSuccess: '资料修改成功',
+      updateError: '资料修改失败'
+    }
+  },
+  uploadHeader: {
+    label: {
+      name: '头像修改',
+      uploadSuccess: '头像修改成功',
+      uploadError: '头像修改失败'
+    },
+    button: {
+      upload: '上传头像',
+      submit: '立即修改'
+    }
+  },
   merchantPassword: {
     label: {
       oldPassword: '原密码',
@@ -301,12 +340,17 @@ export default {
         order: ' 订单管理'
       },
       manage: '维护',
+      merchantHeader: '头像修改',
       merchantPassword: '密码修改',
       merchantConfig: '商家中心',
+      userConfig: '用户中心',
+      userHeader: '头像修改',
+      userInfo: '资料修改',
+      userPassword: '密码修改',
       merchantInfo: '资料修改',
       userManage: '用户管理',
       dictionary: '字典',
-      merchantMenu: '商家',
+      merchantMenu: '商家管理',
       sportGroundManage: '场地管理',
       sportGround: '我的场地',
       order: '我的订单',

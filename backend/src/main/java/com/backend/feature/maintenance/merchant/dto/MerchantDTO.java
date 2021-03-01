@@ -1,5 +1,7 @@
 package com.backend.feature.maintenance.merchant.dto;
 
+import com.backend.feature.maintenance.picture.dto.PictureDTO;
+import com.backend.feature.maintenance.picture.entity.Picture;
 import lombok.Data;
 
 import java.util.Date;
@@ -19,4 +21,5 @@ public class MerchantDTO {
     private Date createdTime;
     private String lastModifiedBy;
     private Date lastModifiedTime;
+    private PictureDTO header;
 }

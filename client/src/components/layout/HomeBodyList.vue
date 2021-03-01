@@ -63,11 +63,11 @@ export default {
         size: 'normal',
         current: 1,
         total: 1,
-        pageSize: 5,
+        pageSize: 7,
         showSizeChanger: true,
         onShowSizeChange: this.onShowSizeChange,
         onChange: this.pageChange,
-        pageSizeOptions: ['5', '10', '20', '40']
+        pageSizeOptions: ['7', '15', '20', '40']
       }
     };
   },
