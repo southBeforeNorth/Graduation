@@ -5,11 +5,15 @@ import com.backend.comment.dto.CommonDTO;
 import com.backend.comment.dto.PageableDTO;
 import com.backend.comment.util.PageableUtils;
 import com.backend.comment.util.UserUtils;
+import com.backend.feature.maintenance.order.assembler.OrderCommentDTOAssembler;
 import com.backend.feature.maintenance.order.assembler.OrderInfoDTOAssembler;
+import com.backend.feature.maintenance.order.dto.OrderCommentDTO;
 import com.backend.feature.maintenance.order.dto.OrderInfoDTO;
 import com.backend.feature.maintenance.order.dto.SearchDTO;
+import com.backend.feature.maintenance.order.entity.OrderComment;
 import com.backend.feature.maintenance.order.entity.OrderInfo;
 import com.backend.feature.maintenance.order.exception.OrderInfoException;
+import com.backend.feature.maintenance.order.repository.OrderCommentRepository;
 import com.backend.feature.maintenance.order.repository.OrderInfoRepository;
 import com.backend.feature.maintenance.user.entity.User;
 import com.backend.feature.maintenance.user.exception.UserException;
@@ -39,6 +43,27 @@ public class OrderInfoService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private OrderCommentRepository orderCommentRepository;
+
+    public OrderInfoDTO deleteComment(String orderId, String commentId) {
+        OrderInfo orderInfo = orderInfoRepository.findById(orderId)
+                .orElseThrow(() -> new OrderInfoException(OrderInfoException.ORDER_INFO_NO_EXIST));
+        OrderComment orderComment = orderCommentRepository.findById(commentId)
+                .orElseThrow(() -> new OrderInfoException("comment is not existed"));
+        orderInfo.setOrderComment(null);
+        orderCommentRepository.deleteById(orderComment.getId());
+        return OrderInfoDTOAssembler.convertToDTO(orderInfoRepository.saveAndFlush(orderInfo));
+    }
+
+    public OrderInfoDTO createComment(String orderInfoId, OrderCommentDTO orderCommentDTO) {
+        OrderInfo orderInfo = orderInfoRepository.findById(orderInfoId)
+                .orElseThrow(() -> new OrderInfoException(OrderInfoException.ORDER_INFO_NO_EXIST));
+        orderInfo.setOrderComment(OrderCommentDTOAssembler.convertToEntity(orderCommentDTO));
+        orderInfo.setIsComment(true);
+        return OrderInfoDTOAssembler.convertToDTO(orderInfoRepository.saveAndFlush(orderInfo));
+    }
 
     public OrderInfoDTO create(OrderInfoDTO orderInfoDTO) {
         OrderInfo orderInfo = OrderInfoDTOAssembler.convertToEntity(orderInfoDTO);
@@ -126,7 +151,7 @@ public class OrderInfoService {
         List<OrderInfoDTO> orderInfoDTOList = orderInfoPage.getContent()
                 .stream()
                 .map(OrderInfoDTOAssembler::convertToDTO)
-                .sorted(Comparator.comparing(OrderInfoDTO::getOrderDate, Comparator.nullsFirst(Comparator.naturalOrder())))
+                .sorted(Comparator.comparing(OrderInfoDTO::getOrderDate, Comparator.nullsFirst(Comparator.naturalOrder())).reversed())
                 .collect(Collectors.toList());
 
         return PageableDTOAssembler.convertToDTO(orderInfoDTOList, (int) orderInfoPage.getTotalElements(), orderInfoPage.getTotalPages());

@@ -18,6 +18,10 @@ public class OrderInfoDTOAssembler {
         if (Objects.nonNull(orderInfoDTO.getOrderDetails())) {
             orderInfo.setOrderDetails(OrderDetailDTOAssembler.convertToEntityList(orderInfoDTO.getOrderDetails()));
         }
+
+        if(Objects.nonNull(orderInfoDTO.getComment())){
+            orderInfo.setOrderComment(OrderCommentDTOAssembler.convertToEntity(orderInfoDTO.getComment()));
+        }
         return orderInfo;
     }
 
@@ -27,6 +31,10 @@ public class OrderInfoDTOAssembler {
 
         if (Objects.nonNull(orderInfo.getOrderDetails())) {
             orderInfoDTO.setOrderDetails(OrderDetailDTOAssembler.convertToDTOList(orderInfo.getOrderDetails()));
+        }
+
+        if(Objects.nonNull(orderInfo.getOrderComment())){
+            orderInfoDTO.setComment(OrderCommentDTOAssembler.convertToDTO(orderInfo.getOrderComment()));
         }
 
         return orderInfoDTO;

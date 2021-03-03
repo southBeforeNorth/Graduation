@@ -463,7 +463,10 @@ export default {
       } else {
         formData.append('files', files[0]);
       }
-      console.log(formData);
+      if (files.length === 0) {
+        this.$message.warning(this.$t('order.validate.picture'));
+        return;
+      }
       return pictureService.uploadSportGroundPicture(formData);
     },
     resetForm() {

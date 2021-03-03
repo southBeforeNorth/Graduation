@@ -25,8 +25,18 @@ const changeOrderStatus = async (id, params) => {
   return result.data;
 };
 
+const createComment = async (id, params) => {
+  const result = await put(`${contextPath}/createComment/${id}`, params);
+  return result.data;
+};
+
 const deleteOrderById = async (Id) => {
   const result = await del(`${contextPath}/delete/${Id}`);
+  return result.data;
+};
+
+const deleteCommentById = async (params) => {
+  const result = await del(`${contextPath}/deleteComment`, params);
   return result.data;
 };
 
@@ -41,5 +51,7 @@ export default {
   changeOrderStatus,
   deleteOrderById,
   updateSportGround,
-  getOrderInfoBySportGroundId
+  getOrderInfoBySportGroundId,
+  createComment,
+  deleteCommentById
 };

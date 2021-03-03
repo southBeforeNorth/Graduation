@@ -29,4 +29,6 @@ public class OrderInfoDTO {
     private Date createdTime;
     private String lastModifiedBy;
     private Date lastModifiedTime;
+    private OrderCommentDTO comment;
+    private Boolean isComment;
 }

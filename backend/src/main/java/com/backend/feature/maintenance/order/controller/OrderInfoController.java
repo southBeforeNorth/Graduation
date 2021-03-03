@@ -3,6 +3,7 @@ package com.backend.feature.maintenance.order.controller;
 import com.backend.comment.assembler.CommonDTOAssembler;
 import com.backend.comment.dto.CommonDTO;
 import com.backend.comment.dto.PageableDTO;
+import com.backend.feature.maintenance.order.dto.OrderCommentDTO;
 import com.backend.feature.maintenance.order.dto.OrderInfoDTO;
 import com.backend.feature.maintenance.order.dto.SearchDTO;
 import com.backend.feature.maintenance.order.service.OrderInfoService;
@@ -24,6 +25,16 @@ public class OrderInfoController {
     @PostMapping("/create")
     public CommonDTO<OrderInfoDTO> createSportGround(@RequestBody OrderInfoDTO orderInfoDTO) {
         return CommonDTOAssembler.convertTODTO(orderInfoService.create(orderInfoDTO));
+    }
+
+    @DeleteMapping("/deleteComment")
+    public CommonDTO<OrderInfoDTO> deleteOrderComment(@RequestParam String orderId, @RequestParam String commentId) {
+        return CommonDTOAssembler.convertTODTO(orderInfoService.deleteComment(orderId, commentId));
+    }
+
+    @PutMapping("/createComment/{id}")
+    public CommonDTO<OrderInfoDTO> createOrderComment(@PathVariable String id, @RequestBody OrderCommentDTO orderCommentDTO) {
+        return CommonDTOAssembler.convertTODTO(orderInfoService.createComment(id, orderCommentDTO));
     }
 
     @GetMapping("/getByPage")

@@ -201,6 +201,24 @@
                     {{ $t('order.button.review') }}
                   </a>
 
+                  <a
+                     v-if="menuKey === 'all'
+                     && type ==='user'
+                     && record.status=== 'finish'
+                     && record.isComment !== true"
+                     @click="createComment(record)">
+                    {{ $t('order.button.comment') }}
+                  </a>
+
+                  <a
+                    v-if="
+                    menuKey === 'all'
+                    && type ==='user'
+                    && record.isComment === true"
+                     @click="displayCommentModel(record)">
+                    {{ $t('order.button.reComment') }}
+                  </a>
+
                   <a-popconfirm
                   v-if="menuKey === 'all' || type ==='manage'"
                   :title="$t('order.warningText.delete')"
@@ -238,6 +256,13 @@
       :visible.sync="modelVisible"
       @onClose="closeModel"
       :selectedOrderInfo.sync="selectedOrderInfo"
+    />
+    <comment-model
+      :visible.sync="commentVisible"
+      @onClose="closeModel"
+      :comment-info.sync="selectedCommentInfo"
+      :order-id="orderId"
+      :editable="commentEditable"
     />
     <div ref="replayModal">
         <a-modal
@@ -288,15 +313,21 @@ import lodash from 'lodash';
 import moment from 'moment';
 import merchantManageConfig from './orderManage.config';
 import MerchantModel from './OrderModel.vue';
+import CommentModel from './CommentModel.vue';
 
 export default {
   name: 'OrderManage',
   components: {
-    MerchantModel
+    MerchantModel,
+    CommentModel
   },
   mixins: [merchantManageConfig],
   data() {
     return {
+      commentEditable: false,
+      orderId: null,
+      selectedCommentInfo: null,
+      commentVisible: false,
       isCertificate: false,
       id: null,
       certificate: null,
@@ -334,9 +365,23 @@ export default {
     this.getOrderListByPage(0, this.pagination.pageSize, 0);
   },
   methods: {
+    displayCommentModel(record) {
+      if (lodash.isEmpty(record.comment)) {
+        this.$message.warning(this.$t('order.warningText.isDeleted'));
+        return;
+      }
+      this.selectedCommentInfo = record.comment;
+      this.orderId = record.id;
+      this.commentEditable = false;
+      this.commentVisible = true;
+    },
+    createComment(record) {
+      this.orderId = record.id;
+      this.selectedCommentInfo = null;
+      this.commentEditable = true;
+      this.commentVisible = true;
+    },
     disPlayCertificate(record) {
-      console.log(this.isExpire(record));
-      console.log(moment(record.orderDate));
       if (this.isExpire(record)) {
         this.$message.warning(this.$t('order.warningText.orderExpire'));
       } else {
@@ -474,6 +519,7 @@ export default {
       console.log(params);
       return orderInfoService.getOrderListByPage(params).then((res) => {
         if (res.success) {
+          console.log(res);
           this.pagination.current = page + 1;
           this.pagination.total = res.data.totalElements;
           const data = res.data.content;

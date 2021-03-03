@@ -52,11 +52,18 @@ public class OrderInfo extends UUIDPersistence {
     @Column(name = "STATUS")
     private String status;
 
+    @Column(name = "IS_COMMENT")
+    private Boolean isComment;
+
     @Column(name = "ORDER_DATE")
     private Date orderDate;
 
     @OneToMany(cascade = { CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.DETACH, CascadeType.PERSIST}, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "ORDER_INFO_ID", referencedColumnName = "ID")
     private List<OrderDetail> orderDetails = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ORDER_COMMENT_ID", referencedColumnName = "ID")
+    private OrderComment orderComment;
 
 }

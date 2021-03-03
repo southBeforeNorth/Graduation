@@ -87,7 +87,19 @@ export default {
       expire: '已过期',
       finish: '已完成'
     },
+    validate: {
+      rate: '请打分',
+      comment: '请输入评语',
+      picture: '请选择至少一张图片'
+    },
     warningText: {
+      isDeleted: '此评价已经删除，无法查看',
+      deleteComment: '删除评价',
+      commentSuccess: '评价成功',
+      commentError: '评价失败',
+      upload: '评价图片',
+      comment: '从多个角度评价，可以帮助更多的人',
+      createComment: '立即评价',
       tip: '请妥善保管你的验证码，以免泄露',
       name: '订单管理',
       userName: '我的订单',
@@ -108,6 +120,8 @@ export default {
       finishError: '确认失败，请输入正确的验证码'
     },
     button: {
+      comment: '立即评价',
+      reComment: '我的评价',
       certificate: '查看进场验证码',
       delete: '删除',
       reviewPass: '预订成功',
@@ -118,6 +132,9 @@ export default {
       cancel: '取消'
     },
     label: {
+      comment: '评语',
+      rate: '评分',
+      picture: '图片',
       certificate: '进场验证码',
       rangTime: '时间范围',
       sportGroundName: '订单场地',
