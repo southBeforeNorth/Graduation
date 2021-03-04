@@ -176,6 +176,37 @@
         </a-col>
       </a-row>
     </div>
+    <div>
+      <a-row>
+        <a-col span="15" push="2">
+          <a-descriptions
+            style="margin: auto"
+            :column="1"
+            :title="$t('sportGroundDetail.label.introduction')">
+            <a-descriptions-item
+              :label="$t('sportGroundDetail.label.description')"
+            >
+              {{description}}
+            </a-descriptions-item>
+          </a-descriptions>
+        </a-col>
+      </a-row>
+      <a-row>
+        <a-col>
+          <a-carousel arrows dots-class="slick-dots slick-thumb">
+            <a slot="customPaging" slot-scope="props">
+              <img :src="pictureList[props.i]" />
+            </a>
+            <div v-for="(item,index) in pictureList" :key="index">
+              <img :src="item" />
+            </div>
+          </a-carousel>
+        </a-col>
+      </a-row>
+    </div>
+    <div style="margin-top: 100px">
+      <CommentList/>
+    </div>
   </div>
 </template>
 
@@ -185,14 +216,19 @@ import dictionaryService from '@/service/dictionary';
 import lodash from 'lodash';
 import moment from 'moment';
 import orderInfoService from '@/service/orderInfo';
+import CommentList from './CommentList.vue';
 
 export default {
   name: 'Reservation',
+  components: {
+    CommentList
+  },
   data() {
     return {
       historyOrder: [],
       selectedAreaList: [],
       tableLength: 0,
+      description: null,
       tableCol: [],
       areaList: [],
       weekList: [],
@@ -205,13 +241,18 @@ export default {
       picture: null,
       type: null,
       merchant: null,
-      id: null
+      id: null,
+      baseUrl: null,
+      pictureList: []
     };
   },
   mounted() {
     this.initData();
   },
   computed: {
+    getImgUrl(i) {
+      return this.pictureList[i];
+    },
     isAllowClickButton() {
       return !this.selectedAreaList.length > 0;
     },
@@ -414,6 +455,12 @@ export default {
     },
     callback() {
     },
+    setPictureList(list) {
+      const base64 = 'data:image/png;base64,';
+      list.forEach((p) => {
+        this.pictureList.push(base64 + p.fileContent);
+      });
+    },
     initData() {
       const base64 = 'data:image/png;base64,';
       const id = this.$store.state.globalArea.sportGroundId;
@@ -424,8 +471,10 @@ export default {
           this.name = res.data.name;
           this.phone = res.data.phone;
           this.price = res.data.price;
+          this.description = res.data.description;
           this.address = res.data.city.split('/').join('') + res.data.detailedAddress;
           this.picture = base64 + res.data.pictures[0].fileContent;
+          this.setPictureList(res.data.pictures);
           const weeks = res.data.weeks.split(';');
           this.areaList = res.data.areas;
           this.tableCol = res.data.timeArea.split(';');
@@ -451,6 +500,7 @@ export default {
 <style scoped>
   /deep/ .ant-descriptions-title{
     font-size: 24px;
+    color: #1890f0;
   }
   /deep/ .ant-descriptions-item-content {
     font-size: 14px;
@@ -467,6 +517,31 @@ export default {
     margin-top: 8px;
     height: 30px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .ant-carousel >>> .slick-dots {
+    height: auto;
+  }
+  .ant-carousel >>> .slick-slide img {
+    border: 5px solid #fff;
+    display: block;
+    margin: auto;
+    max-width: 80%;
+  }
+  .ant-carousel >>> .slick-thumb {
+    bottom: -45px;
+  }
+  .ant-carousel >>> .slick-thumb li {
+    width: 60px;
+    height: 45px;
+  }
+  .ant-carousel >>> .slick-thumb li img {
+    width: 100%;
+    height: 100%;
+    filter: grayscale(100%);
+  }
+  .ant-carousel >>> .slick-thumb li.slick-active img {
+    filter: grayscale(0%);
   }
 
 </style>

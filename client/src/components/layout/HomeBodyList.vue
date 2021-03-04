@@ -2,6 +2,7 @@
   <div>
   <div style="text-align: center">
     <a-input-search
+      allow-clear
       v-model="name"
       :placeholder="$t('home.body.search')"
       :enter-button="$t('home.body.searchButton')"
@@ -23,16 +24,20 @@
       slot-scope="item">
       <template  slot="actions">
         <span >
-          <a-icon type="message" style="margin-right: 8px" />
+          <a-icon @click="toDetailPage(item.href, item.id)"
+                  type="message" style="margin-right: 8px" />
           {{ item.comment }}
         </span>
+        <a-rate :default-value="item.rate" allow-half :disabled="true"/>
       </template>
+      <a slot="extra" @click="toDetailPage(item.href, item.id)">
       <img
-        slot="extra"
         width="272"
+        height="150px"
         alt="logo"
         :src="item.extra"
       />
+      </a>
       <a-list-item-meta
         :description="$t('homeBodyList.label.address')+item.address">
         <a
@@ -52,6 +57,7 @@
 
 <script>
 import sportGroundService from '@/service/sportGround';
+import orderInfoService from '@/service/orderInfo';
 
 export default {
   name: 'HomeBodyList',
@@ -109,19 +115,40 @@ export default {
       });
     },
     setData(data) {
+      const that = this;
       const base64 = 'data:image/png;base64,';
       this.listData = [];
       data.forEach((n) => {
-        this.listData.push({
-          href: 'reservation',
-          id: n.id,
-          title: n.name,
-          extra: base64 + n.pictures[0].fileContent,
-          address: n.city.split('/').join('') + n.detailedAddress,
-          content: n.price,
-          comment: '10'
+        let count = 0;
+        this.getCommentCount(n).then((res) => {
+          count = res.count;
+          that.listData.push({
+            href: 'reservation',
+            id: n.id,
+            title: n.name,
+            extra: base64 + n.pictures[0].fileContent,
+            address: n.city.split('/').join('') + n.detailedAddress,
+            content: n.price,
+            comment: count,
+            rate: res.rate
+          });
         });
       });
+    },
+    getCommentCount(target) {
+      let count = 0;
+      let rate = 0;
+      return orderInfoService.getCommentListById(target.id)
+        .then((res) => {
+          if (res.success) {
+            count = res.data.length;
+            res.data.forEach((n) => {
+              rate += n.comment.rate;
+            });
+            rate /= count;
+          }
+          return { count, rate: Math.round(rate) };
+        });
     }
   }
 };

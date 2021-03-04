@@ -4,10 +4,6 @@ import com.backend.comment.assembler.PageableDTOAssembler;
 import com.backend.comment.dto.CommonDTO;
 import com.backend.comment.dto.PageableDTO;
 import com.backend.comment.util.UserUtils;
-import com.backend.feature.maintenance.merchant.assembler.MerchantDTOAssembler;
-import com.backend.feature.maintenance.merchant.dto.MerchantDTO;
-import com.backend.feature.maintenance.merchant.entity.Merchant;
-import com.backend.feature.maintenance.merchant.exception.MerchantException;
 import com.backend.feature.maintenance.picture.entity.Picture;
 import com.backend.feature.maintenance.picture.exception.PictureException;
 import com.backend.feature.maintenance.picture.repository.PictureRepository;
@@ -122,14 +118,16 @@ public class UserService {
 
     public UserDTO getUserById() {
         String userId = UserUtils.getUserId();
-        Optional<User> user = userRepository.findById(userId);
-        if (!user.isPresent()) {
-            throw new UserException(UserException.USER_NO_EXIST);
-        } else {
-            return UserDTOAssembler.convertToDTO(user.get());
-        }
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserException(UserException.USER_NO_EXIST));
+        return UserDTOAssembler.convertToDTO(user);
     }
 
+    public UserDTO getUserByStringId(String id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserException(UserException.USER_NO_EXIST));
+        return UserDTOAssembler.convertToDTO(user);
+    }
 
     public CommonDTO<PageableDTO<UserDTO>> getUserListByPage(
             PageRequest pageRequest,

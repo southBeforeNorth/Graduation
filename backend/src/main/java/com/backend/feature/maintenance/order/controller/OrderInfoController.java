@@ -3,11 +3,13 @@ package com.backend.feature.maintenance.order.controller;
 import com.backend.comment.assembler.CommonDTOAssembler;
 import com.backend.comment.dto.CommonDTO;
 import com.backend.comment.dto.PageableDTO;
+import com.backend.comment.util.PageableUtils;
 import com.backend.feature.maintenance.order.dto.OrderCommentDTO;
 import com.backend.feature.maintenance.order.dto.OrderInfoDTO;
 import com.backend.feature.maintenance.order.dto.SearchDTO;
 import com.backend.feature.maintenance.order.service.OrderInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -48,6 +50,17 @@ public class OrderInfoController {
         return CommonDTOAssembler.convertTODTO(orderInfoService.changeOrderStatusById(id, orderInfoDTO));
     }
 
+    @GetMapping("/getCommentByPage/{id}")
+    public CommonDTO<PageableDTO<OrderInfoDTO>> getCommentPageBySportGroundId(
+            @PathVariable String id,
+            @RequestParam int page,
+            @RequestParam int pageSize,
+            @RequestParam int start
+    ) {
+        PageRequest pageRequest = PageableUtils.getPageable(page, pageSize, start);
+        return orderInfoService.getCommentPageBySportGroundId(pageRequest, id);
+    }
+
     @DeleteMapping("/delete/{id}")
     public CommonDTO<OrderInfoDTO> delete(@PathVariable String id) {
         return CommonDTOAssembler.convertTODTO(orderInfoService.deleteOrderById(id));
@@ -60,6 +73,11 @@ public class OrderInfoController {
     ) {
         LocalDateTime localDate = Instant.ofEpochMilli(date).atZone(ZoneOffset.ofHours(8)).toLocalDateTime();
         return CommonDTOAssembler.convertTODTO(orderInfoService.getOrderInfosBySportGroundId(id, localDate));
+    }
+
+    @GetMapping("/getCommentList/{id}")
+    public CommonDTO<List<OrderInfoDTO>> getOrderInfoListBySportGroundId(@PathVariable String id) {
+        return CommonDTOAssembler.convertTODTO(orderInfoService.getCommentListBySportGroundById(id));
     }
 
 }

@@ -11,6 +11,10 @@ const getUserById = async () => {
   const result = await get(`${contextPath}/userId`);
   return result.data;
 };
+const getUserByStringId = async (id) => {
+  const result = await get(`${contextPath}/StringId/${id}`);
+  return result.data;
+};
 const createUser = async (params) => {
   const result = await post(`${contextPath}/create`, params);
   return result.data;
@@ -65,5 +69,6 @@ export default {
   changeUserPasswordByOwner,
   getUserByPage,
   deleteUser,
-  updateUserByManager
+  updateUserByManager,
+  getUserByStringId
 };

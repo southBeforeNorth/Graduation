@@ -150,6 +150,9 @@ export default {
   },
   sportGroundDetail: {
     label: {
+      comment: '场馆评价',
+      introduction: '场馆简介',
+      description: '描述',
       phone: '场地电话：',
       address: '场地地址：',
       price: '运动价格：',

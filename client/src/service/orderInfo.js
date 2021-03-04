@@ -45,6 +45,15 @@ const updateSportGround = async (id, params) => {
   return result.data;
 };
 
+const getCommentListById = async (id) => {
+  const result = await get(`${contextPath}/getCommentList/${id}`);
+  return result.data;
+};
+
+const getCommentByPageById = async (id, params) => {
+  const result = await get(`${contextPath}/getCommentByPage/${id}`, params);
+  return result.data;
+};
 export default {
   createOrder,
   getOrderListByPage,
@@ -53,5 +62,7 @@ export default {
   updateSportGround,
   getOrderInfoBySportGroundId,
   createComment,
-  deleteCommentById
+  deleteCommentById,
+  getCommentListById,
+  getCommentByPageById
 };

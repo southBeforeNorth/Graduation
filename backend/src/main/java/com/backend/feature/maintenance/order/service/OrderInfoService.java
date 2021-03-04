@@ -47,6 +47,36 @@ public class OrderInfoService {
     @Autowired
     private OrderCommentRepository orderCommentRepository;
 
+    public List<OrderInfoDTO> getCommentListBySportGroundById(String id) {
+        return orderInfoRepository.findAllBySportGroundId(id)
+                .stream()
+                .filter((res) -> Objects.nonNull(res.getOrderComment()))
+                .map(OrderInfoDTOAssembler::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public CommonDTO<PageableDTO<OrderInfoDTO>> getCommentPageBySportGroundId(
+            PageRequest pageRequest,
+            String id) {
+        Specification<OrderInfo> orderInfoSpecification = getOrderInfoSpecification(
+                id, null,
+                null,
+                null, null,
+                null,
+                null, null, null);
+
+        Page<OrderInfo> orderInfos = orderInfoRepository.findAll(orderInfoSpecification, pageRequest);
+        List<OrderInfoDTO> orderInfoDTOList = orderInfos.getContent()
+                .stream()
+                .filter((res) -> Objects.nonNull(res.getOrderComment()))
+                .map(OrderInfoDTOAssembler::convertToDTO)
+                .sorted(Comparator.comparing(OrderInfoDTO::getOrderDate, Comparator.nullsFirst(Comparator.naturalOrder())).reversed())
+                .collect(Collectors.toList());
+
+        return PageableDTOAssembler.convertToDTO(orderInfoDTOList, (int) orderInfos.getTotalElements(), orderInfos.getTotalPages());
+
+    }
+
     public OrderInfoDTO deleteComment(String orderId, String commentId) {
         OrderInfo orderInfo = orderInfoRepository.findById(orderId)
                 .orElseThrow(() -> new OrderInfoException(OrderInfoException.ORDER_INFO_NO_EXIST));

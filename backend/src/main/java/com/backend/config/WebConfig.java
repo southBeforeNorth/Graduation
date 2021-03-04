@@ -27,11 +27,12 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry){
+    public void addInterceptors(InterceptorRegistry registry) {
         List<String> excludePath = new ArrayList<>();
         excludePath.add("/user/login");
         excludePath.add("/user/create");
         excludePath.add("/user/nameList");
+        excludePath.add("/user/StringId/{id}");
         excludePath.add("/merchant/login");
         excludePath.add("/merchant/create");
         excludePath.add("/merchant/nameList");
@@ -41,6 +42,8 @@ public class WebConfig implements WebMvcConfigurer {
         excludePath.add("/dictionary/multiple/{dictionaryNames}");
         excludePath.add("/sportGround/getMerchant/{id}");
         excludePath.add("/orderInfo/getBySportGroundId/{id}");
+        excludePath.add("/orderInfo/getCommentList/{id}");
+        excludePath.add("/orderInfo//getCommentByPage/{id}");
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(excludePath);

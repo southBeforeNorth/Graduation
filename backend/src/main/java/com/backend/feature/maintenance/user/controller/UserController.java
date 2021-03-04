@@ -4,7 +4,6 @@ import com.backend.comment.assembler.CommonDTOAssembler;
 import com.backend.comment.dto.CommonDTO;
 import com.backend.comment.dto.PageableDTO;
 import com.backend.comment.util.PageableUtils;
-import com.backend.feature.maintenance.merchant.dto.MerchantDTO;
 import com.backend.feature.maintenance.user.dto.UserDTO;
 import com.backend.feature.maintenance.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +75,10 @@ public class UserController {
     @GetMapping("/userId")
     public CommonDTO<UserDTO> getUserById() {
         return CommonDTOAssembler.convertTODTO(userService.getUserById());
+    }
+
+    @GetMapping("/StringId/{id}")
+    public CommonDTO<UserDTO> getUserByStringId(@PathVariable String id) {
+        return CommonDTOAssembler.convertTODTO(userService.getUserByStringId(id));
     }
 }
