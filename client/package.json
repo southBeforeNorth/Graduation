@@ -17,6 +17,7 @@
     "vue": "^2.6.11",
     "vue-i18n": "^8.22.4",
     "vue-puzzle-vcode": "^1.1.4",
+    "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.2.0",
     "vue2-verify": "^1.1.5",
     "vuex": "^3.4.0"

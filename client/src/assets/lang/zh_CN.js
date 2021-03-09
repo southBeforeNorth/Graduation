@@ -1,4 +1,18 @@
 export default {
+  notice: {
+    title: '公告',
+    label: {
+      title: '公告管理'
+    },
+    warningText: {
+      success: '公告修改成功',
+      error: '公告修改失败',
+      warning: '公告不能为空'
+    },
+    button: {
+      submit: '提交公告'
+    }
+  },
   userManage: {
     label: {
       title: '普通用户管理',
@@ -335,6 +349,7 @@ export default {
     navigation: {
       home: '首页',
       space: '场地预约',
+      notice: '公告',
       merchant: '商家入驻',
       loge: '场地预约'
     },
@@ -359,6 +374,7 @@ export default {
         sportGround: '场地管理',
         order: ' 订单管理'
       },
+      noticeManage: '公告管理',
       manage: '维护',
       merchantHeader: '头像修改',
       merchantPassword: '密码修改',

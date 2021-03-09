@@ -77,6 +77,13 @@ const routes = [
         }
       },
       {
+        path: 'noticeManage',
+        component: () => import('@/views/maintenance/noticeManage/NoticeManage.vue'),
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
         path: 'orderManage',
         component: () => import('@/views/maintenance/orderManage/OrderManage.vue'),
         meta: {
@@ -117,6 +124,13 @@ const routes = [
           {
             path: 'merchantRegister',
             component: () => import('@/views/feture/merchant/Register.vue'),
+            meta: {
+              requireAuth: false
+            }
+          },
+          {
+            path: 'notice',
+            component: () => import('@/views/feture/notice/Notice.vue'),
             meta: {
               requireAuth: false
             }
@@ -161,7 +175,7 @@ router.beforeEach((to, from, next) => {
   }
   const token = localStorage.getItem('token');
   if (lodash.isEmpty(token)) {
-    store.commit('SET_IS_LOGIN', false);
+    store.commit('SET_IS_LOGIN', 'false');
     store.commit('SET_IS_NAME', null);
     store.commit('SET_TYPE', null);
     store.commit('SET_HEADER', null);

@@ -121,7 +121,7 @@ export default {
       return this.$i18n.locale === 'en_US' ? 'English' : '简体中文';
     },
     isLogin() {
-      return this.$store.state.user.isLogin;
+      return this.$store.state.user.isLogin !== 'false';
     },
     userName() {
       return this.$store.state.user.name;
@@ -140,7 +140,7 @@ export default {
       this.$i18n.locale = lang;
     },
     signOut() {
-      this.$store.commit('SET_IS_LOGIN', false);
+      this.$store.commit('SET_IS_LOGIN', 'false');
       this.$store.commit('SET_IS_NAME', null);
       this.$store.commit('SET_TYPE', null);
       this.$store.commit('SET_TOKEN', null);
