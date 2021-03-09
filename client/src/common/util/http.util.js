@@ -21,7 +21,7 @@ http.interceptors.request.use(
 
 http.interceptors.response.use((res) => {
   if (res.data.errorCode === '410') {
-    store.commit('SET_IS_LOGIN', false);
+    store.commit('SET_IS_LOGIN', 'false');
     store.commit('SET_IS_NAME', null);
     store.commit('SET_TYPE', null);
     store.commit('SET_HEADER', null);
