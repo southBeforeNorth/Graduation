@@ -118,7 +118,7 @@ export default {
       name: '订单管理',
       userName: '我的订单',
       expire: '是否确认此订单已过期',
-      orderExpire: '此订单已过期，请联系商家处理',
+      orderExpire: '此订单已过期，请联系高校处理',
       expireSuccess: '处理成功',
       delete: '是否立即删除此订单',
       deleteSuccess: '删除成功',
@@ -152,10 +152,10 @@ export default {
       certificate: '进场验证码',
       rangTime: '时间范围',
       sportGroundName: '订单场地',
-      merchantName: '商家名称',
+      merchantName: '高校名称',
       contactName: '订单客户昵称',
       contactPhone: '客户联系电话',
-      contactMerchant: '商家联系电话',
+      contactMerchant: '高校联系电话',
       orderDate: '预订日期',
       totalPrice: '总价/元',
       status: '订单状态',
@@ -200,7 +200,7 @@ export default {
       totalPrice: '共计 ',
       button: '提交订单',
       noLogin: '您还没有登录，请确认是否立即登录?',
-      orderSuccess: '下单成功，请等待商家审核，注意查收进度',
+      orderSuccess: '下单成功，请等待高校审核，注意查收进度',
       orderError: '下单失败，如有需要请联系工作人员',
       orderConfirm: '请确认是否立即下单！',
       confirmOk: '立即确认',
@@ -283,21 +283,21 @@ export default {
   },
   merchant: {
     manage: {
-      name: '商家用户管理',
+      name: '高校管理',
       addButton: '新建用户',
-      merchantName: '用户名',
+      merchantName: '高校名称',
       contactPerson: '联系人',
       phone: '联系号码',
       active: '状态',
       lastModifiedBy: '修改人',
       lastModifiedTime: '修改时间',
-      allMerchant: '全部用户',
-      apply: '正在申请用户'
+      allMerchant: '全部高校',
+      apply: '正在申请加入高校'
     },
     register: {
       label: {
-        topText: '申请加入场馆',
-        merchantName: '场馆名称',
+        topText: '申请加入高校场馆',
+        merchantName: '高校名称',
         contactPerson: '联系人',
         phone: '手机号码',
         city: '城市地区',
@@ -331,7 +331,7 @@ export default {
         merchantName: '您场馆的名字不能为空',
         merchantNameMin: '场馆名字过短',
         merchantNameMax: '场馆名字过长',
-        reName: '此场馆名称已存在，请重新输入',
+        reName: '此高校名称已存在，请重新输入',
         contactPerson: '负责联系人不能为空',
         phone: '联系号码不能为空',
         phoneFormat: '联系号码格式不正确，请注意修改',
@@ -350,8 +350,8 @@ export default {
       home: '首页',
       space: '场地预约',
       notice: '公告',
-      merchant: '商家入驻',
-      loge: '场地预约'
+      merchant: '高校入驻',
+      loge: '高校场馆预约'
     },
     body: {
       search: '请输入场馆关键词',
@@ -366,7 +366,7 @@ export default {
     welcome: '欢迎，',
     manageCenter: '管理中心',
     userCenter: '用户中心',
-    merchantCenter: '商家中心'
+    merchantCenter: '高校中心'
   },
   menu: {
     label: {
@@ -378,7 +378,7 @@ export default {
       manage: '维护',
       merchantHeader: '头像修改',
       merchantPassword: '密码修改',
-      merchantConfig: '商家中心',
+      merchantConfig: '高校中心',
       userConfig: '用户中心',
       userHeader: '头像修改',
       userInfo: '资料修改',
@@ -386,7 +386,7 @@ export default {
       merchantInfo: '资料修改',
       userManage: '用户管理',
       dictionary: '字典',
-      merchantMenu: '商家管理',
+      merchantMenu: '高校管理',
       sportGroundManage: '场地管理',
       sportGround: '我的场地',
       order: '我的订单',
@@ -402,20 +402,20 @@ export default {
     },
     label: {
       user: '我是普通用户',
-      merchant: '我是商家',
+      merchant: '我是高校管理员',
       userName: '用户昵称',
-      merchantName: '商家用户名',
+      merchantName: '高校名称',
       manageName: '管理员用户名',
       password: '密码'
     },
     validate: {
       userName: '请输入用户昵称',
-      merchantName: '请输入商家用户名',
+      merchantName: '请输入高校名称',
       manageName: '请输入管理员用户名',
     },
     placeHolder: {
       userName: '请输入用户昵称',
-      merchantName: '请输入商家用户名',
+      merchantName: '请输入高校名称',
       manageName: '请输入管理员用户名',
       password: '密码'
     },
@@ -473,14 +473,12 @@ export default {
     action: '操作',
     view: '查看',
     confirmTitle: '提示',
-    preview: '预览',
     successText: {
       successFully: '成功!',
       save: '保存成功！',
       create: '添加成功！',
       delete: '删除成功!',
       update: '更新成功!',
-      assign: '分配成功！',
       operate: '操作成功！'
     },
     button: {
@@ -491,10 +489,6 @@ export default {
       edit: '编辑',
       add: '添加',
       submit: '提交',
-      update: '更新',
-      withdraw: '撤销',
-      approve: '批准',
-      return: '驳回',
       close: '关闭页面',
       ignore: '忽略',
       copyAsNew: '复制',

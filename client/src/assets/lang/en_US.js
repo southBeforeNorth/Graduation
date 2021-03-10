@@ -1,24 +1,475 @@
 export default {
-  header: {
-    welcome: 'Welcome'
-  },
-  requestForm: {
-    header: {
-      title: 'Product Change Request System',
-      search: 'Search'
-    },
-    form: {
-      header: {
-        createTitle: 'Create Request Form',
-        changeTitle: 'Change Request Form',
-        viewTitle: 'View Request Form',
-        status: 'Status',
-        lastModifiedDate: 'Last Modification Time',
-        formNumber: 'PCRS No.'
+    notice: {
+      title: 'The announcement',
+      label: {
+        title: 'Announcement of the management'
+      },
+      warningText: {
+        success: 'Announcement modification successful',
+        error: 'Announcement modification failed',
+        warning: 'Announcements cannot be empty'
+      },
+      button: {
+        submit: 'Submit the announcement'
       }
-    }
-  },
+    },
+    userManage: {
+      label: {
+        title: 'General User Management',
+        name: 'The user name',
+        phone: 'Contact phone number',
+        birthDay: 'Date of birth',
+        sex: 'gender'
+      },
+      warningText: {
+        submitSuccess: 'Add a success',
+        submitError: 'Add failure',
+        updateSuccess: 'Modify the success',
+        updateError: 'Modify the failure'
+      }
+    },
+    userInfo: {
+      label: {
+        name: 'Data modification'
+      },
+      button: {
+        reset: 'reset',
+        submit: 'Immediately change'
+      },
+      warningText: {
+        updateSuccess: 'The data was modified successfully.',
+        updateError: 'Data modification failed'
+      }
+    },
+    uploadHeader: {
+      label: {
+        name: 'Head to modify',
+        uploadSuccess: 'The profile image has been modified successfully.',
+        uploadError: 'Failed to modify avatar'
+      },
+      button: {
+        upload: 'Upload the picture',
+        submit: 'Immediately change'
+      }
+    },
+    merchantPassword: {
+      label: {
+        oldPassword: 'The original password',
+        newPassword: 'The new password',
+        rePassword: 'Confirm password'
+      },
+      placeHolder: {
+        oldPassword: 'Please enter your old password',
+        newPassword: 'Please enter a new password',
+        rePassword: 'Confirm password'
+      },
+      warningText: {
+        updateSuccess: 'Password changed successfully, please reconfirm login',
+        updateError: 'The modification failed. Please confirm whether the original password was entered correctly'
+      },
+      validate: {
+        oldPassword: 'Please enter your old password',
+        newPassword: 'Please enter a new password',
+        rePassword: 'Please enter your confirmation password',
+        rePasswordError: 'The two passwords do not match, please reconfirm'
+      }
+    },
+    merchantInfo: {
+      label: {
+        name: 'Data modification'
+      },
+      button: {
+        submit: 'Immediately change'
+      },
+      warningText: {
+        updateSuccess: 'The data was modified successfully.',
+        updateError: 'Data modification failed'
+      }
+    },
+    order: {
+      menu: {
+        new: 'Pending review',
+        review: 'To confirm',
+        userReview: 'Waiting for the approach',
+        all: 'All orders processed',
+        userAll: 'Complete order'
+      },
+      status: {
+        new: 'Waiting for audit',
+        review: 'Wait for confirmation of approach',
+        recall: 'Has been cancelled',
+        expire: 'expired',
+        finish: 'Has been completed'
+      },
+      validate: {
+        rate: 'Please indicate',
+        comment: 'Please enter comments',
+        picture: 'Please select at least one image'
+      },
+      warningText: {
+        isDeleted: 'This review has been deleted and cannot be viewed',
+        deleteComment: 'Delete evaluation',
+        commentSuccess: 'Evaluation of success',
+        commentError: 'Evaluation of failure',
+        upload: 'Evaluation of image',
+        comment: 'Evaluating from multiple perspectives can help more people',
+        createComment: 'Immediate evaluation',
+        tip: 'Please keep your verification code safe to avoid disclosure',
+        name: 'The order management',
+        userName: 'My order',
+        expire: 'Confirm that this order has expired',
+        orderExpire: 'This order has expired, please contact the university for processing',
+        expireSuccess: 'Handle a successful',
+        delete: 'Delete this order now',
+        deleteSuccess: 'Delete the success',
+        deleteError: 'Delete failed',
+        header: 'Please enter the entry verification code',
+        userHeader: 'My entry verification code',
+        review: 'Confirm that this order has been approved',
+        reviewSuccess: 'Confirmed by',
+        recall: 'Confirm to cancel this order',
+        recallSuccess: 'The order was cancelled successfully.',
+        finish: 'Confirm access to site',
+        finishSuccess: 'Identify successful',
+        finishError: 'Confirmation failed, please enter the correct verification code'
+      },
+      button: {
+        comment: 'Immediate evaluation',
+        reComment: 'My evaluation',
+        certificate: 'View the approach verification code',
+        delete: 'delete',
+        reviewPass: 'Reservation success',
+        recall: 'Cancel the order',
+        review: 'Confirm to attend',
+        expire: 'Confirm expired',
+        ok: 'Confirm the approach',
+        cancel: 'cancel'
+      },
+      label: {
+        comment: 'comments',
+        rate: 'score',
+        picture: 'The picture',
+        certificate: 'Access verification code',
+        rangTime: 'Time range',
+        sportGroundName: 'The order site',
+        merchantName: 'University name',
+        contactName: 'Order customer nickname',
+        contactPhone: 'Customer contact number',
+        contactMerchant: 'Contact number of university',
+        orderDate: 'Booking date',
+        totalPrice: 'The total price/yuan',
+        status: 'The order status',
+        areaTime: 'Location information/time period'
+      }
+    },
+    sportGroundDetail: {
+      label: {
+        comment: 'Venue evaluation',
+        introduction: 'Venue introduction',
+        description: 'describe',
+        phone: 'Field phone：',
+        address: 'Site address：',
+        price: 'Sports price：',
+        priceTime: 'Yuan/Hour',
+        isActive: 'Bookable:',
+        noSelected: 'No reservation:',
+        selected: 'Currently selected:',
+        type: 'project：',
+        date: 'date：',
+        maxLength: 'You have selected too many sessions, please order twice!',
+        selectedArea: 'Sessions：',
+        selectedTip: 'Please click the list on the left to select the number of sessions',
+        am1: '07:00 - 08:00',
+        am2: '08:00 - 09:00',
+        am3: '09:00 - 10:00',
+        am4: '10:00 - 11:00',
+        am5: '11:00 - 12:00',
+        pm1: '12:00 - 13:00',
+        pm2: '13:00 - 14:00',
+        pm3: '14:00 - 15:00',
+        pm4: '15:00 - 16:00',
+        pm5: '16:00 - 17:00',
+        pm6: '17:00 - 18:00',
+        pm7: '18:00 - 19:00',
+        pm8: '19:00 - 20:00',
+        pm9: '20:00 - 21:00',
+        pm10: '21:00 - 22:00',
+        pm11: '22:00 - 23:00',
+        areaNumber: 'Selected ',
+        areaNumber1: ' Site, click Cancel again',
+        totalPrice: 'total ',
+        button: 'place order',
+        noLogin: 'You haven\'t logged in yet. Are you sure you want to log in now?',
+        orderSuccess: 'Please wait for the university to review and pay attention to the progress',
+        orderError: 'Order failed, please contact the staff if necessary',
+        orderConfirm: 'Please confirm whether to place an order immediately!',
+        confirmOk: 'Confirm immediately',
+        confirmCancel: 'I\'ll think about it again',
+        orderOk: 'I got it!'
+      }
+
+    },
+    homeBodyList: {
+      label: {
+        address: 'Address: ',
+        price: 'Sports price: ',
+        priceTime: 'Yuan/Hour'
+      }
+    },
+    sportGround: {
+      manage: {
+        name: 'Site management',
+        addButton: 'Add site'
+      },
+      model: {
+        placeholder: {
+          phone: 'Please enter the contact number',
+          name: 'Please enter the name of the venue',
+          type: 'Please select site type',
+          weeks: 'Please select the opening date of the venue',
+          time: 'Please choose the opening time of the venue',
+          city: 'Please select the city where the venue is located',
+          detailedAddress: 'Please enter the detailed address of the venue',
+          description: 'Please enter the venue profile information'
+        },
+        label: {
+          operation: 'operation',
+          phone: 'Contact number',
+          name: 'Site name',
+          type: 'Site type',
+          weeks: 'Optional date',
+          time: 'Bookable time',
+          area: 'Site Division',
+          areaName: 'Time / site number',
+          price: 'Venue cost',
+          priceValue: 'Yuan / hour',
+          add: 'Add site number',
+          picture: 'Picture description',
+          description: 'Pacific Coliseum'
+        },
+        table: {
+          am1: '07:00',
+          am2: '08:00',
+          am3: '09:00',
+          am4: '10:00',
+          am5: '11:00',
+          pm1: '12:00',
+          pm2: '13:00',
+          pm3: '14:00',
+          pm4: '15:00',
+          pm5: '16:00',
+          pm6: '17:00',
+          pm7: '18:00',
+          pm8: '19:00',
+          pm9: '20:00',
+          pm10: '21:00',
+          pm11: '22:00'
+        },
+        validate: {
+          name: 'The name of your venue cannot be empty',
+          maxName: 'The name of your venue is too long',
+          minName: 'The name of your venue is too short',
+          type: 'Please select the type of your venue',
+          phone: 'Please enter the venue contact number',
+          city: 'Please select the city where the venue is located',
+          detailedAddress: 'Please enter the detailed address of the venue',
+          price: 'Please enter the venue fee',
+          submitSuccess: 'Submitted successfully',
+          submitError: 'Failed to submit',
+          updateSuccess: 'Modified successfully',
+          updateError: 'Modification failed'
+        }
+      }
+    },
+    merchant: {
+      manage: {
+        name: 'University Management',
+        addButton: 'New user',
+        merchantName: 'University name',
+        contactPerson: 'contacts',
+        phone: 'Contact number',
+        active: 'state',
+        lastModifiedBy: 'Reviser',
+        lastModifiedTime: 'Revision time',
+        allMerchant: 'All colleges and Universities',
+        apply: 'Applying to join a university'
+      },
+      register: {
+        label: {
+          topText: 'Apply for admission to university venues',
+          merchantName: 'Name of University',
+          contactPerson: 'contacts',
+          phone: 'phone number',
+          city: 'Urban areas',
+          detailedAddress: 'Detailed address',
+          active: 'activation',
+          password: 'password',
+          rePassword: 'Repeat the password',
+          submit: 'Submit immediately',
+          update: 'Modify now',
+          success: 'Submitted successfully',
+          successContent: 'The staff will contact and confirm with you within three working days',
+          error: 'Failed to submit',
+          validateSuccess: '验证码正确',
+          addSuccess: 'Add a success',
+          updateSuccess: 'Modify the success',
+          updateError: 'Modify the failure',
+          add: 'add',
+          view: 'To view',
+          edit: 'The editor'
+        },
+        placeHolder: {
+          merchantName: 'Please enter the name of your venue',
+          contactPerson: 'Please enter the name of the contact person',
+          phone: 'Please enter the contact number of the person in charge',
+          city: 'Please select the city area where your venue is located',
+          detailedAddress: 'Please enter the detailed address of your venue',
+          password: 'Please enter a new login password',
+          rePassword: 'Please repeat your password for confirmation'
+        },
+        validate: {
+          merchantName: 'The name of your venue must not be blank',
+          merchantNameMin: 'The venue\'s name is too short',
+          merchantNameMax: 'The name of the venue is too long',
+          reName: 'This university name already exists, please enter it again',
+          contactPerson: 'The responsible contact cannot be empty',
+          phone: 'The contact number cannot be blank',
+          phoneFormat: 'Contact number format is not correct, please pay attention to change，请注意修改',
+          city: 'Please select the city area where your venue is located',
+          detailedAddress: 'Please enter the detailed address of your venue'
+        }
+      }
+    },
+    foot: {
+      messageOne: 'Contact us at 13421704215',
+      messageTwo: 'Address: Zhuhai College, Beijing Institute of Technology, Tangjiawan Town, Zhuhai City, Guangdong Province',
+      messageTree: 'Working hours: 10:00-20:00 from Monday to Saturday'
+    },
+    home: {
+      navigation: {
+        home: 'Home page',
+        space: 'Venue booking',
+        notice: 'The announcement',
+        merchant: 'Colleges and universities in',
+        loge: 'College Venues Reservations'
+      },
+      body: {
+        search: '请输入场馆关键词',
+        searchButton: '立即搜索',
+        searchText: '立即运动，秀出你的活力'
+      }
+    },
+    globalHeader: {
+      login: 'The login',
+      signOut: 'Log out',
+      register: 'registered',
+      welcome: 'welcome，',
+      manageCenter: 'Management center',
+      userCenter: 'The user center',
+      merchantCenter: 'Center of colleges and universities'
+    },
+    menu: {
+      label: {
+        manager: {
+          sportGround: 'Site management',
+          order: ' The order management'
+        },
+        noticeManage: 'Announcement of the management',
+        manage: 'maintenance',
+        merchantHeader: 'Head to modify',
+        merchantPassword: 'Password change',
+        merchantConfig: 'Center of colleges and universities',
+        userConfig: 'The user center',
+        userHeader: 'Head to modify',
+        userInfo: 'Data modification',
+        userPassword: 'Password change',
+        merchantInfo: 'Data modification',
+        userManage: 'User management',
+        dictionary: 'The dictionary',
+        merchantMenu: 'Management of colleges and universities',
+        sportGroundManage: 'Site management',
+        sportGround: 'My site',
+        order: 'My order',
+        userOrderName: 'My order',
+        userOrder: 'The order'
+      }
+    },
+    login: {
+      warningText: {
+        top: 'The login',
+        success: 'Login successful',
+        error: 'Incorrect user name or password, please reenter'
+      },
+      label: {
+        user: 'I\'m an ordinary user',
+        merchant: 'I\'m a college administrator',
+        userName: 'The user nickname',
+        merchantName: 'University name',
+        manageName: 'Administrator user name',
+        password: 'password'
+      },
+      validate: {
+        userName: 'Please enter the user nickname',
+        merchantName: 'Please enter the name of the university',
+        manageName: 'Please enter an administrator user name',
+      },
+      placeHolder: {
+        userName: 'Please enter the user nickname',
+        merchantName: 'Please enter the name of the university',
+        manageName: 'Please enter an administrator user name',
+        password: 'password'
+      },
+      button: {
+        login: 'Click login',
+        register: 'Free registration'
+      }
+    },
+    register: {
+      warningText: {
+        top: 'registered',
+        success: 'Register successfully, please log in',
+        error: 'Registration failed',
+        submit: 'Click on the register',
+        reset: 'reset',
+        validate: 'Please enter the verification code',
+        validateError: 'Incorrect verification code, please reenter'
+      },
+      validate: {
+        name: 'Please enter nickname',
+        reName: 'This nickname is already in use',
+        nameMin: 'Nickname is too short',
+        nameMax: 'A nickname is too long',
+        password: 'Please enter your password.',
+        passwordLength: 'Password length should be between 6 and 16',
+        rePassword: 'Please re-verify the password',
+        rePasswordContent: 'Inconsistent password input, please reconfirm',
+        birthDay: 'Please select your date of birth',
+        sex: 'Please select gender',
+        phone: 'Please enter your contact number'
+      },
+      label: {
+        name: 'nickname',
+        phone: 'Contact number',
+        password: 'password',
+        rePassword: 'Repeat the password',
+        birthDay: 'birthday',
+        sex: 'gender',
+        boy: 'male',
+        girl: 'female'
+      },
+      placeHolder: {
+        name: 'Please enter nickname',
+        password: 'Password (6-16 characters, case sensitive)',
+        rePassword: 'Please repeat the authentication password',
+        birthDay: 'Please select your date of birth',
+        phone: 'Please enter your contact number'
+      }
+    },
   common: {
+    label: {
+      lastModifiedBy: 'Reviser',
+      lastModifiedTime: 'Revision time'
+    },
     action: 'Action',
     view: 'View',
     confirmTitle: 'Confirm',
@@ -29,17 +480,7 @@ export default {
       create: 'Create Successfully!',
       delete: 'Delete Successfully!',
       update: 'Update Successfully!',
-      assign: 'Assign Successfully!',
       operate: 'Operate Successfully!'
-    },
-    status: {
-      all: 'All',
-      pending: 'Pending',
-      scheduled: 'Scheduled',
-      active: 'Active',
-      completed: 'Completed',
-      returned: 'Returned',
-      mySubmitted: 'My Submitted'
     },
     button: {
       ok: 'OK',
@@ -49,15 +490,7 @@ export default {
       cancel: 'Cancel',
       submit: 'Submit',
       update: 'Update',
-      withdraw: 'Withdraw',
-      approve: 'Approve',
       delete: 'Delete',
-      return: 'Return',
-      close: 'Close Page',
-      ignore: 'Ignore',
-      copyAsNew: 'Copy as New',
-      copyFromExisting: 'Copy from Existing',
-      view: 'View',
       search: 'Search',
       reset: 'Reset',
       preview: 'Preview'
@@ -108,711 +541,5 @@ export default {
     validateOverLength: 'You must specify a value length less than or equal to 5!',
     deleteModal: 'You sure about deleting this dictionary option?',
     addMultipleOptionModel: 'Please save or cancel the dictionary option added first!'
-  },
-  team: {
-    title: 'Team',
-    columns: {
-      name: 'Team Name',
-      description: 'Team Description',
-      carrier: 'Carrier',
-      lastModifiedBy: 'Last Modified By',
-      lastModifiedTime: 'Last Modified At'
-    },
-    newTeam: 'New Team'
-  },
-  category: {
-    title: 'Category Distribution Maintenance',
-    placeholder: {
-      select: 'Select One',
-      input: 'Please Input'
-    },
-    columns: {
-      name: 'Category Name',
-      sortSeq: 'Sequence',
-      carrier: 'Carrier',
-      parent: 'Parent',
-      isActive: 'Is Active',
-      categoryDistribution: {
-        distribution: 'Special Distribution',
-        isAllowAdminTask: 'Allow Admin Task',
-        isAllowAutoApproval: 'Allow Auto Approval',
-        isAllowRiskLevel: 'Allow Risk Level',
-        isAllowZones: 'Allow Zones',
-        isAllowLocations: 'Allow Locations',
-        isAllowService: 'Allow Service',
-        isNeedMultipleEndorsers: 'Need Multiple Endorsers',
-        isAllowNoTT: 'Allow No TT',
-        notifications: 'Notify Others For'
-      },
-      lastModifiedBy: 'Last Modified By',
-      lastModifiedTime: 'Last Modified At'
-    },
-    newCategory: 'New Category'
-  },
-  categoryModel: {
-    title: {
-      createCategory: 'Add Category',
-      editCategory: 'Edit Category',
-      viewCategory: 'View Category'
-    },
-    placeholder: {
-      categoryName: 'Please input category name',
-      parent: 'Please select parent',
-      carrier: 'Please select carrier',
-      distribution: 'Please input special distribution',
-      notifications: 'Please input notify'
-    },
-    validateMessage: {
-      validationLength200Message: 'Input length should less than 200',
-      validationLength11Message: 'Input length should less than 11'
-    }
-  },
-  endorser: {
-    title: 'Endorsers List',
-    columns: {
-      name: 'Display Name',
-      userId: 'User ID',
-      domain: 'Domain',
-      lastModifiedBy: 'Last Modified By',
-      lastModifiedTime: 'Last Modified At'
-    },
-    uniqueWarningText: 'Endorser should be unique!'
-  },
-  requestStatus: {
-    title: 'Request Status',
-    columns: {
-      statusCode: 'Status Code',
-      statusDesc: 'Status Description',
-      preStatus: 'Previous Status',
-      isActive: 'Active',
-      sortSeq: 'Sort Seq',
-      lastModifiedBy: 'Last Modified By',
-      lastModifiedTime: 'Last Modified At'
-    },
-    newStatus: 'New Status'
-  },
-  emailTemplate: {
-    title: 'Email Template',
-    templateName: 'Template Name',
-    templateDesc: 'Template Description',
-    emailGroup: 'Email Template Group',
-    emailFrom: 'Email From',
-    emailTO: 'Email To',
-    emailCC: 'Email CC',
-    emailBCC: 'Email BCC',
-    subject: 'Subject',
-    emailContent: 'Content',
-    addButton: 'New Email Template',
-    createTitle: 'Create Email Template',
-    editTitle: 'Edit Email Template',
-    viewTitle: 'View Email Template',
-    previewTitle: 'Preview Email Template',
-    validateMessage: {
-      templateNameValidationMessage: 'You must specify a value length less than 50!'
-    },
-    confirmMessage: {
-      delete: 'You sure about deleting this email template?'
-    }
-  },
-  validateMessage: {
-    selectMessage: 'Please select',
-    nonBlank: 'You must input a non-blank value.',
-    validationLength50Message: 'You must specify a value length less than 50!',
-    validationLengthMessage: 'You must specify a value length less than 256!',
-    validationLength512Message: 'You must specify a value length less than 512!'
-  },
-  request: {
-    submission: {
-      label: {
-        requester: 'Requester',
-        submittedDate: 'Submitted Date',
-        email: 'E-mail',
-        phone: 'Phone'
-      },
-      validateMessage: {
-        phoneLength: 'You must specify a value length less than 20!',
-        requester: 'Please input Requester!',
-        submittedDate: 'Please input Submitted Date!',
-        email: 'Please input Email!'
-      }
-    },
-    changeRequest: {
-      title: 'Change Requirement Details',
-      anchorTitle: 'Change Request Details',
-      impactInfo: {
-        title: 'Impact Information',
-        note: 'Note: All below three items, if "Yes", please specify unavailable period and Global/Regional user impact',
-        label: {
-          onlineServiceImpact: 'Online Service Impact',
-          applicationImpact: 'Backend Application/Function Impact',
-          systemImpact: 'System/Platform Impact'
-        },
-        button: {
-          Accept: 'Accept',
-          Accepted: 'Accepted'
-        },
-        placeholder: {
-          onlineServiceImpact: 'Please specify the impact',
-          applicationImpact: 'Please specify the impact',
-          systemImpact: 'Please specify the impact'
-        },
-        validateMessage: {
-          onlineServiceImpactSelect: 'Please select Online Service Impact',
-          applicationImpactSelect: 'Please select Backend Application/Function Impact',
-          systemImpactSelect: 'Please select System/Platform Impact',
-          impactRangeDate: {
-            blank: 'Please select time',
-            invalid: 'Online service impact time should later than expected change time'
-          },
-          onlineServiceImpact: 'Please input online service impact',
-          applicationImpact: 'Please input application impact',
-          systemImpact: 'Please input system impact'
-        }
-      },
-      riskAssessmentAndSecurityInfo: {
-        title: 'Risk Assessment And Security Information',
-        label: {
-          secAdminRef: 'For SecAdmin Reference',
-          pidcSubmissionLink: 'PIDC Submission Link for Reference',
-          riskLevel: 'Risk Level (For Low, no Risk Assessment is needed and Online Service Impact can not be "Yes")',
-          riskLevelCalculation: 'Risk Level calculation method',
-          riskAssessment: 'Please supplement risk calculation [(IM)X(LK)X(CM)] rating to team leader to review your change if ' +
-            'it is for a "High" or "Medium" risk change',
-          raReviewResult: 'RA Review Result',
-          raProgress: 'RA Progress',
-          raRemark: 'RA Comment'
-        },
-        validateMessage: {
-          riskLevel: 'Please select Risk Level!'
-        }
-      },
-      basicInfo: {
-        title: 'Basic Information',
-        label: {
-          carrier: 'Carrier',
-          category: 'Change Category',
-          recipients: 'Recipients',
-          service: 'Service',
-          locations: 'Location',
-          zones: 'Zone',
-          changeType: 'Type of Change',
-          changeClassification: 'Classification of Change',
-          subjectOfChange: 'Subject Of Change',
-          involvedPlatform: 'Production Platform Involve',
-          expectedTime: 'Expected Change Time(HKT)',
-          ttNumber: 'To Fix for TT/ESR No',
-          ttLevel: 'TT/PR level'
-        },
-        placeholder: {
-          category: 'Please select Carrier first then choose category',
-          recipients: 'Multiple email addresses separated by ";" or ","',
-          service: 'Select service',
-          locations: 'Select location',
-          zones: 'Select zone',
-          changeType: 'Select type of change',
-          changeClassification: 'Select classification of change',
-          subjectOfChange: 'Please input the subject of this change request',
-          involvedPlatform: 'Please input the involved production platform of this change request',
-          expectedTime: 'Select expected change time',
-          ttNumber: 'Separate multiple values with semicolon,Such as TT-00000000;PR-00000000;ESR-00000000...',
-          ttLevel: 'Select TT level'
-        },
-        validateMessage: {
-          carrier: 'Please select at least one carrier',
-          category: 'Please select category',
-          service: 'Please select service',
-          locations: 'Please select at least one location',
-          zones: 'Please select at least one zone',
-          changeType: {
-            blank: 'Please select type of change',
-            invalid: 'Not allow to select admin task for this change category'
-          },
-          changeClassification: 'Please select at least one Classification of Change',
-          subjectOfChange: {
-            blank: 'Please input Subject Of Change',
-            whitespace: 'You must input a non-blank value',
-            length510Message: 'You must specify a value length less than 510'
-          },
-          involvedPlatform: {
-            blank: 'Please input Production Platform Involve',
-            whitespace: 'You must input a non-blank value',
-            length125Message: 'You must specify a value length less than 125'
-          },
-          expectedTime: {
-            blank: 'Please input Expected Change Time',
-            invalid: 'Schedule for planned change request should be submitted at lease 2 days before the schedule'
-          },
-          ttNumber: {
-            invalid: 'TT/ESR number is invalid. such as TT-00000000;PR-00000000;ESR-00000000;...',
-            inactive: '{ttNumber} do not exist in HKCTR Portal',
-            blank: 'TT/ESR number should not be blank'
-          },
-          ttLevel: 'The level of TT/ESR number should not be blank'
-        },
-        confirmContent: {
-          expectedTime: 'Are you sure to select expected change time before current time? If you choose \'OK\', that means this change request has already been done.'
-        },
-        endorser: {
-          label: {
-            endorser: 'Endorser',
-            team: 'Team'
-          },
-          placeholder: {
-            team: 'Select Team',
-            endorser: 'Select Endorser'
-          },
-          validateMessage: {
-            select: 'You must select a non-blank value!',
-            teams: 'Please select Teams',
-            endorsers: 'Please select at least one Endorsers!',
-            needOtherEndorser: 'Need the endorser of other carrier to endorsed.',
-            needOwnCarrier: 'At least one endorser with own carrier is required.',
-            category: 'Please select category first.',
-            add: 'Add team and endorser'
-          }
-        }
-      },
-      nonProdTestingInfo: {
-        title: 'Testing and Pre-Prod Information',
-        label: {
-          testingResult: 'QA/UAT Testing Result',
-          ppTrialRunResult: 'Pre-Prod Trial Run Result',
-          testEnv: 'Testing Environment'
-        },
-        validateMessage: {
-          testEnv: 'Please input Test Environment',
-          result: 'Please select Testing Result'
-        },
-        button: {
-          Accept: 'Accept',
-          Accepted: 'Accepted'
-        }
-      },
-      referenceInfo: {
-        title: 'Reference Information',
-        label: {
-          impactTTNumber: 'TT/PR(s) that is caused by this change',
-          itsmProblem: 'To Fix for ITSM Problem',
-          itsmIncident: 'To Fix for ITSM Incident',
-          referenceNumber: 'Reference Number',
-          relatedPCRS: 'Related PCRS(s)',
-          relatedITSM: 'Related ITSM Change',
-          changeTeamReference: 'Change Control Team\'s Reference'
-        },
-        validateMessage: {
-          itsmProblem: 'Please input a valid Related ITSM Problem. such as PByyyyddmm0000;PByyyyddmm0001;...',
-          itsmIncident: 'Please input a valid Related ITSM Incident. such as INCyyyyddmm0000;INCyyyyddmm0001;...',
-          relatedITSM: 'Please input a valid Related ITSM Change. such as Cyyyyddmm0000;Cyyyyddmm0001;...',
-          relatedPCRS: 'Please input a valid Related PCRS. such as PCRS-0000001;PCRS-0000002;...'
-        },
-        placeholder: {
-          impactTTNumber: 'Separate multiple values with semicolon, Such as TT-00000000;PR-00000000;ESR-00000000...',
-          itsmProblem: 'Seperate multiple values with semicolon,Such as PByyyyddmm0000;PByyyyddmm0001...',
-          itsmIncident: 'Seperate multiple values with semicolon,Such as INCyyyyddmm0000;INCyyyyddmm0001...',
-          relatedPCRS: 'Seperate multiple values with semicolon,Such as PCRS-0000001;PCRS-0000002;...',
-          relatedITSM: 'Seperate multiple values with semicolon,Such as Cyyyyddmm0000;Cyyyyddmm0001...'
-        },
-        button: {
-          save: 'Save'
-        }
-      }
-    },
-    attachment: {
-      title: 'Attachment',
-      label: {
-        addAttachment: 'Add Attachment'
-      }
-    },
-    conversation: {
-      title: 'Conversation History',
-      columns: {
-        postFrom: 'From',
-        postTo: 'To',
-        description: 'Message',
-        createdTime: 'Created Time',
-        attachment: 'Attachment'
-      }
-    },
-    task: {
-      title: 'Task',
-      procedure: {
-        columns: {
-          procedureDesc: 'Procedure',
-          working: 'Handle By',
-          verify: 'Handle By',
-          recovery: 'Handle By',
-          taskStatus: 'Task Status',
-          taskRemark: 'Task Remark'
-        },
-        button: {
-          setTaskStatus: 'Set All Task Completed',
-          working: 'Add Working Procedure',
-          recovery: 'Add Recovery Procedure',
-          verify: 'Add verification Procedure'
-        },
-        validateMessage: {
-          procedureDesc: 'Please input Procedure',
-          blankHandledBy: 'Please input Handle By',
-          taskStatus: 'Please select Task Status'
-        }
-      },
-      workingProcedure: {
-        title: 'Working Procedure',
-        label: {
-          workingDuration: 'Duration',
-          changeCoordinator: 'Change Co-ordinator',
-          contactNumber: 'Contact Number'
-        },
-        placeholder: {
-          workingDuration: 'Please select duration',
-          changeCoordinator: 'Please input change coordinator',
-          contactNumber: 'Please input contact number'
-        },
-        validateMessage: {
-          workingDuration: 'Please input Working Procedure duration',
-          changeCoordinator: 'Please input Change Co-ordinator'
-        }
-      },
-      verificationProcedure: {
-        title: 'Verification Procedure',
-        verification: {
-          title: {
-            popConfirmRecutoverModel: 'Please advise if need to submit a new PCRS to re-cutover?',
-            popConfirmFallbackModel: 'Please confirm if need to rollback?'
-          },
-          label: {
-            verificationDuration: 'Duration',
-            firstVerifier: 'First Verifier',
-            secondVerifier: 'Second Verifier',
-            recoveryVerifier: 'Recovery Verifier',
-            ContactNo: 'Contact Number',
-            verificationDeadline: 'Verification Deadline(HKT)',
-            firstVerificationResult: 'First Verification Result',
-            secondVerificationResult: 'Second Verification Result',
-            recoveryVerificationResult: 'Recovery Verification Result',
-            verificationReason: 'Issue Found',
-            verificationImpact: 'Any Production Service/Function Being Impacted',
-            reCutoverNumber: 'Re-cutover PCRS'
-          },
-          validateMessage: {
-            verifier: 'Please input Verifier',
-            duplicateVerifier: "Please don't input duplicate Verifiers",
-            ContactNo: 'Please input Contact Number',
-            verificationDeadline: {
-              blank: 'Please Select a verification Deadline(HKT)',
-              invalid: 'Verification Deadline(HKT) should later than expected time'
-            },
-            verificationDuration: 'Please select Verification Procedure duration ',
-            reCutoverNumber: {
-              blank: 'Please input Re-cutover PCRS',
-              invalid: 'Please input valid PCRS number, like PCRS-0000001...'
-            },
-            VerificationResult: 'Please select Verification Result.'
-          },
-          placeholder: {
-            verificationDuration: 'Please select Duration',
-            verifier: 'Personal domain ID',
-            ContactNo: 'Please input Contact Number'
-          }
-        }
-      },
-      recoveryProcedure: {
-        title: 'Recovery Procedure',
-        label: {
-          recoveryDuration: 'Duration',
-          isRequireFallback: 'Require Fallback?',
-          yes: 'Yes',
-          no: 'No',
-          reasonForFallbackAction: 'Reason For No Fallback Action'
-        },
-        validateMessage: {
-          isRequireFallback: 'Please select is require fallback',
-          recoveryDuration: 'Please select Recovery Procedure duration',
-          reasonForFallbackAction: 'Please input Reason For No Fallback Action'
-        },
-        placeholder: {
-          recoveryDuration: 'Please select duration'
-        }
-      }
-    },
-    message:{
-      create: 'Create Successfully!',
-      update: 'Update Successfully!'
-    },
-    button:{
-      update: 'Update',
-      cancel: 'Cancel',
-      endorse: 'Endorse',
-      review: 'Review',
-      waitingForOtherAction: 'Waiting For Other Action',
-      approve: 'Approve',
-      reject: 'Reject',
-      withdraw: 'Withdraw',
-      postmortem: 'Postmortem',
-      pending: 'Pending',
-      reply: 'Reply',
-      submit: 'Submit',
-      draft: 'Save to Draft'
-    }
-  },
-  reply: {
-    title: 'Reply Information',
-    content: {
-      postTo: 'To',
-      postCC: 'CC',
-      description: 'Response Message',
-      selectAll: 'Select All'
-    },
-    validateMessage: {
-      postTo: 'Please select at least one',
-      description: 'You must input a non-blank value'
-    },
-    button: {
-      cancel: 'Cancel',
-      save: 'Save'
-    },
-    actionMessage: {
-      success: 'Reply information successful!',
-      fail: 'Reply information failed!'
-    }
-  },
-  postmortem: {
-    title: 'Postmortem Information',
-    content: {
-      formNumber: 'PCRS No.',
-      expectedTime: 'expectedTime',
-      categoryName: 'Application'
-    },
-    label: {
-      attendee: 'Invitee/Attendee List',
-      problem: 'Description of Problem/Issue',
-      rootCause: 'Cause of Problem/Issue',
-      businessImpact: 'Production Function/Business is Being Impacted',
-      correctAction: 'Corrective Action',
-      preventiveAction: 'Preventive Action',
-      conclusion: 'Conclusion of the Failed/Partial Success'
-    },
-    button: {
-      cancel: 'Cancel',
-      save: 'Save'
-    },
-    actionMessage: {
-      success: 'Postmortem information successful!',
-      fail: 'Postmortem information failed!'
-    }
-  },
-  home: {
-    button: {
-      newSubmission: 'New Submission'
-    },
-    copyAsNew: {
-      popUpTitle: 'Copy As New',
-      label: 'Existing PCRS No.',
-      okText: 'OK',
-      cancelText: 'Cancel',
-      validateMessage: {
-        pcrsNumberIsValid: 'Please input a valid PCRS number, such as PCRS-0000001'
-      }
-    },
-    tab: {
-      toDoList: 'To-Do List',
-      mySubmission: 'My Submission',
-      doneList: 'Done List'
-    },
-    gridColumns: {
-      pcrsNo: 'PCRS No.',
-      carrier: 'Carrier',
-      category: 'Category',
-      typeOfChange: 'Change Type',
-      subject: 'Subject',
-      expectedChangeTime: 'Schedule Time',
-      requester: 'Requester',
-      endorsers: 'Endorsers',
-      qaUatTesting: 'QA/UAT Testing',
-      ppTrialRun: 'PP Trial Run',
-      status: 'Status',
-      progress: 'Progress',
-      workingExecutors: 'Executors',
-      verifiers: '1st & 2nd verifiers',
-      verifyExecutors: 'Verify Executors',
-      verificationDeadline: 'Ver Deadline'
-    },
-    todo: {
-      pendingForEndorsement: 'Pending for My Endorsement',
-      pendingForVerification: 'Pending for My Verification',
-      pendingForExecution: 'Pending for My Execution'
-    },
-    mySubmission: {
-      inDraft: 'In Draft',
-      inProgress: 'In Progress',
-      inCompleted: 'Completed'
-    },
-    doneList: {
-      myEndorsement: 'My Endorsement',
-      myVerification: 'My Verification',
-      myExecution: 'My Execution'
-    },
-    menu: {
-      category: 'Category List',
-      home: 'Home',
-      team: 'Team/Endorser List',
-      dictionary: 'Dictionary',
-      maintenance: 'Maintenance',
-      search: 'Search',
-      'email-template': 'Email Template',
-      HKCTRView: 'HKCTR View',
-      changeControlView: 'Change Control View',
-      'request-status': 'Request Status'
-    }
-  },
-  hkctrView: {
-    todo: {
-      pendingForReview: 'Pending for Review',
-      pendingForVerification: 'Pending for Verification',
-      pendingForExecution: 'Pending for Execution'
-    },
-    gridColumns: {
-      pcrsNo: 'PCRS No.',
-      carrier: 'Carrier',
-      category: 'Category',
-      subject: 'Subject',
-      requester: 'Requester',
-      typeOfChange: 'Change Type',
-      expectedChangeTime: 'Schedule Time',
-      endorsedBy: 'Endorsed By',
-      raProgress: 'RA Progress',
-      status: 'Status',
-      qaUatTesting: 'QA/UAT Testing',
-      ppTrialRun: 'PP Trial Run',
-      verificationDeadline: 'Ver Deadline'
-    },
-    buttons: {
-      hkctrToDo: {
-        title: 'HKCTR To-do',
-        buttonDesc: {
-          executionAdnVerificationAndReview: 'HKCTR To-do'
-        }
-      },
-      pcrsSchedule: {
-        title: 'PCRS Schedule',
-        buttonDesc: {
-          theNextTwoHours: 'The Next 2 Hours',
-          iris4WeekendChange: 'IRIS-4 Weekend Change'
-        }
-      },
-      pcrsTaskStatus: {
-        title: 'PCRS Task Status',
-        buttonDesc: {
-          executionDelay: 'Execution Delay',
-          workingInProgress: 'Working in Progress',
-          runOutOfDuration: 'Run Out of Duration',
-          verificationDelay: 'Verification Delay'
-        }
-      }
-    }
-  },
-  timeViewer: {
-    button: {
-      moreCites: 'More Cities',
-      close: 'Close'
-    }
-  },
-  search: {
-    label: {
-      carrier: 'Carrier',
-      changeType: 'Change Type',
-      requester: 'Requester',
-      subject: 'Subject',
-      changeMainCategory: 'Change Main Category',
-      changeSubCategory: 'Change Sub Category',
-      expectedDateChange: 'Schedule Time',
-      riskLevel: 'Risk Level',
-      raReviewResult: 'RA Review Result',
-      status: 'Status',
-      team: 'Team',
-      isRecutover: 'Is Re-cutover'
-    },
-    placeholder: {
-      carrier: 'Please select',
-      changeType: 'Please select',
-      requester: 'Please input',
-      subject: 'Please input',
-      changeMainCategory: 'Please select',
-      changeSubCategory: 'Please select',
-      expectedDateChangeStart: 'Start Date',
-      expectedDateChangeEnd: 'End Date',
-      riskLevel: 'Please select',
-      raReviewResult: 'Please select',
-      status: 'Please select',
-      team: 'Please select'
-    },
-    value: {
-      selectOne: 'Please Select'
-    },
-    button: {
-      search: 'Search',
-      reset: 'Reset',
-      export: 'Export as Excel',
-      foldSearch: 'Fold Search',
-      moreSearch: 'More Search'
-    },
-    table: {
-      label: {
-        searchResult: 'Search Result',
-        total: 'Total',
-        records: 'Records'
-      },
-      gridColumns: {
-        pcrsNo: 'PCRS No.',
-        carrier: 'Carrier',
-        category: 'Category',
-        typeOfChange: 'Change Type',
-        subject: 'Subject',
-        expectedChangeTime: 'Schedule Time',
-        requester: 'Requester',
-        involvedPlatform: 'Platform Involve',
-        team: 'Team',
-        endorsedBy: 'Endorsed By',
-        status: 'Status',
-        verifiers: '1st & 2nd verifiers',
-        verificationDeadline: 'Ver Deadline'
-      }
-    },
-  },
-  refreshModel: {
-    title: 'Confirm',
-    submit: 'You have submitted this PCRS successfully',
-    endorse: 'You have endorsed this PCRS successfully',
-    review: 'You have reviewed this PCRS successfully',
-    approve: 'You have approved this PCRS successfully',
-    waitForOtherAction: 'You have updated successfully',
-    reject: 'You have rejected this PCRS successfully',
-    withDraw: 'You have withdrawn this PCRS successfully',
-    draft: 'You have drafted this PCRS successfully',
-    pending: 'You have updated this PCRS successfully',
-    verify: 'You have updated this PCRS successfully',
-    execute: 'You have updated this PCRS successfully',
-    update: 'You have updated this PCRS successfully',
-    verifyExecute: 'You have updated this PCRS successfully',
-    recoveryVerify: 'You have updated this PCRS successfully',
-    recoveryExecute: 'You have updated this PCRS successfully',
-    recutover: 'You have updated this PCRS successfully',
-    ok: 'OK'
-  },
-  tipsAlertModel: {
-    title: 'Confirm',
-    reject: 'Are you sure to reject this PCRS ?',
-    withdraw: 'Are you sure to withdraw this PCRS ?',
-    cancel: 'Are you sure to cancel the update?',
-    ok: 'Yes',
-    no: 'No'
-  },
-  validateAlertModel: {
-    title: 'Tips',
-    content: "Note that below error validation message(s):",
-    ok: 'I Know'
-  },
-  errorMessage: {
-    ERR_CODE_OPTIMISTIC_LOCKING_FAILURE: 'Others have updated the form, please re-load page.'
   }
-};
+}

@@ -70,7 +70,7 @@
         <template
           v-for="col in sportGroundColumns"
           :slot="col"
-          slot-scope="text, record"
+          slot-scope="text"
         >
         <template
           v-if="col === 'lastModifiedTime'"
