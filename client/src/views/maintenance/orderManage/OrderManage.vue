@@ -400,18 +400,18 @@ export default {
     isExpire(record) {
       let target = false;
       const dateStr = moment(record.orderDate).format('YYYY-MM-DD,HH:mm:ss');
-      const hours = this.$t(`sportGround.model.table.${record.orderDetails[0].time}`);
+      const hours = this.$t(`sportGround.model.table.${record.orderDetails[record.orderDetails.length - 1].time}`);
       const dateTime = `${dateStr.split(',')[0] } ${ hours }:00`;
       const expired = moment(dateTime, 'YYYY-MM-DD HH:mm:ss').fromNow().split(' ');
-      console.log(dateTime);
       const day = expired[expired.length - 1] === 'ago'
           && (expired[expired.length - 2] === 'days' || expired[expired.length - 2] === 'day');
       const hour = expired[expired.length - 1] === 'ago' && (expired[expired.length - 2] === 'hours'
           || expired[expired.length - 2] === 'hour');
+      const month = expired[expired.length - 1] === 'ago' && (expired[expired.length - 2] === 'months'
+            || expired[expired.length - 2] === 'month');
       const year = expired[expired.length - 1] === 'ago' && (expired[expired.length - 2] === 'years'
           || expired[expired.length - 2] === 'year');
-
-      if (day || hour || year) {
+      if (day || hour || month || year) {
         target = true;
       }
       return target;
@@ -516,10 +516,8 @@ export default {
         startDate: lodash.isEmpty(startTime) ? null : startTime.valueOf(),
         endDate: lodash.isEmpty(endTime) ? null : endTime.valueOf()
       };
-      console.log(params);
       return orderInfoService.getOrderListByPage(params).then((res) => {
         if (res.success) {
-          console.log(res);
           this.pagination.current = page + 1;
           this.pagination.total = res.data.totalElements;
           const data = res.data.content;

@@ -174,7 +174,6 @@
                 {{text}}
               </template>
             </template>
-
             <template slot="operation" slot-scope="text, record">
               <a-popconfirm
                 :disabled="!editable"

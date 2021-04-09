@@ -285,7 +285,7 @@ export default {
     manage: {
       name: '高校管理',
       addButton: '新建用户',
-      merchantName: '高校名称',
+      merchantName: '名称',
       contactPerson: '联系人',
       phone: '联系号码',
       active: '状态',
